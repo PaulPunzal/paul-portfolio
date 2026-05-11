@@ -2,11 +2,21 @@
 
 import { useState } from "react";
 import { projects } from "@/lib/data";
+import { Cpu, BookOpen, GraduationCap, ScanEye } from "lucide-react";
+import Link from "next/link";
 
 // ── Number formatter for project index ──────────────────────────────────────
 function padIndex(i: number) {
   return String(i + 1).padStart(2, "0");
 }
+
+// ── Icon Mapping for Lucide Icons ───────────────────────────────────────────
+const iconMap: Record<string, React.ReactNode> = {
+  Cpu: <Cpu className="w-7 h-7 text-emerald-300" strokeWidth={1.5} />,
+  BookOpen: <BookOpen className="w-7 h-7 text-blue-300" strokeWidth={1.5} />,
+  GraduationCap: <GraduationCap className="w-7 h-7 text-purple-300" strokeWidth={1.5} />,
+  ScanEye: <ScanEye className="w-7 h-7 text-orange-300" strokeWidth={1.5} />,
+};
 
 // ── Tag/pill component ───────────────────────────────────────────────────────
 function Tag({ label, highlight = false }: { label: string; highlight?: boolean }) {
@@ -128,12 +138,12 @@ export default function ProjectsPage() {
           {/* ── Detail Header ───────────────────────────────────────────── */}
           <div className="border-b border-white/[0.07] p-6 lg:p-8">
             <div className="flex items-start justify-between gap-4 mb-5">
-              {/* Emoji icon */}
+              {/* Lucide icon mapping */}
               <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-white/[0.07]"
+                className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 border border-white/[0.07]"
                 style={{ background: active.iconBgStyle }}
               >
-                {active.emoji}
+                {iconMap[active.iconName] || <Cpu className="w-7 h-7 text-white/50" strokeWidth={1.5} />}
               </div>
 
               {/* Index badge */}
@@ -148,9 +158,33 @@ export default function ProjectsPage() {
             <h2 className="font-syne font-bold text-2xl md:text-3xl text-white leading-tight mb-3">
               {active.fullTitle}
             </h2>
-            <p className="font-inter text-sm text-white/55 leading-relaxed font-light">
+            <p className="font-inter text-sm text-white/55 leading-relaxed font-light mb-6">
               {active.fullDesc}
             </p>
+
+            {/* ── GitHub Repositories Section ───────────────────────────── */}
+            {active.githubUrls && active.githubUrls.length > 0 && (
+              <div className="flex flex-wrap gap-3">
+                {active.githubUrls.map((repo, idx) => (
+                  <Link 
+                    key={idx}
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 px-4 py-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.2] transition-all group"
+                  >
+                    {/* Raw SVG to prevent lucide-react compile errors */}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white/20 self-end group-hover:text-white transition-colors">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
+                    </svg>
+                    <span className="font-mono text-[10px] uppercase tracking-[1px] text-white/60 group-hover:text-white pt-0.5">
+                      {repo.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* ── Bullets ─────────────────────────────────────────────────── */}

@@ -5,7 +5,11 @@ import { Project, SkillGroup, MarqueeItem, DirectLink } from "./types";
 export const projects: Project[] = [
   {
     id: "motorpass",
-    emoji: "🏍️",
+    iconName: "Cpu",
+    githubUrls: [
+        { label: "IoT System", url: "https://github.com/PaulPunzal/capstone-motorpass" },
+        { label: "Web Portal", url: "https://github.com/PaulPunzal/motorpass-web" }
+    ],
     iconBgStyle: "rgba(125,249,166,0.1)",
     label: "Capstone · IoT + AI",
     title: "MotorPass",
@@ -34,7 +38,7 @@ export const projects: Project[] = [
   },
   {
     id: "little-lion",
-    emoji: "🦁",
+    iconName: "BookOpen",
     iconBgStyle: "rgba(255,200,100,0.1)",
     label: "OJT · Lead Dev",
     title: "Little Lion SPED",
@@ -62,7 +66,7 @@ export const projects: Project[] = [
   },
   {
     id: "elearning",
-    emoji: "📚",
+    iconName: "GraduationCap",
     iconBgStyle: "rgba(100,150,255,0.1)",
     label: "Full-Stack · Mobile",
     title: "E-Learning Platform",
@@ -90,7 +94,10 @@ export const projects: Project[] = [
   },
   {
     id: "grocery",
-    emoji: "🛒",
+    iconName: "ScanEye",
+    githubUrls: [
+      { label: "Mobile App", url: "https://github.com/PaulPunzal/Offline-GroceryList" }
+    ],
     iconBgStyle: "rgba(255,100,150,0.1)",
     label: "Mobile · Offline-First",
     title: "Grocery OCR",

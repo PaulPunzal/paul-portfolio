@@ -3,9 +3,9 @@ import { CSSProperties, ReactNode } from "react";
 
 interface BentoCardProps {
   children: ReactNode;
-  /** CSS grid column span class e.g. "c4" (Made optional) */
+  /** CSS grid column span class e.g. "md:col-span-2" */
   col?: string;
-  /** CSS grid row span class e.g. "r3" (Made optional) */
+  /** CSS grid row span class e.g. "md:row-span-4" */
   row?: string;
   /** If provided, wraps the card in a Next.js Link */
   href?: string;
@@ -34,7 +34,7 @@ export default function BentoCard({
     col,
     row,
     href ? "clickable" : "",
-    href && accentHover ? "accent-border" : "",
+    accentHover ? "accent-border" : "",
     className,
   ]
     .filter(Boolean)

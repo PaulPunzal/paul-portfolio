@@ -41,6 +41,12 @@ body {
   overflow-x: hidden;
 }
 
+@media (max-width: 639px) {
+  body {
+    padding-bottom: 90px; /* Ensures space so you can scroll past the bottom mobile nav */
+  }
+}
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar {
   width: 5px;
@@ -191,8 +197,9 @@ body {
   flex-shrink: 0;
 }
 
-/* ── TECH PILL ── */
+/* ── Tech Pill Hover Upgrades ── */
 .tech-pill {
+  transition: all 0.2s;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 6px;
@@ -201,6 +208,12 @@ body {
   color: var(--text-secondary);
   letter-spacing: 0.3px;
   white-space: nowrap;
+}
+
+.tech-pill:hover {
+  border-color: rgba(125, 249, 166, 0.4);
+  color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .tech-pill.highlight {

@@ -5,7 +5,7 @@ export interface StackItem {
 
 export interface Project {
   id: string;
-  emoji: string;
+  iconName: string;
   iconBgStyle: string;      // inline style color for icon background
   label: string;            // short label shown in bento preview
   title: string;            // short title for bento card
@@ -16,6 +16,7 @@ export interface Project {
   bullets: string[];
   previewTags: string[];    // small tags on bento card
   stack: StackItem[];       // full stack with highlight flags
+  githubUrls?: { label: string; url: string }[];     // URL to the project's GitHub repository
 }
 
 export interface SkillItem {
