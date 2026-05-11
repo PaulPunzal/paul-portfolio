@@ -49,7 +49,9 @@ export default function RootLayout({
     <html lang="en" className={`${syne.variable} ${dmMono.variable} ${inter.variable}`}>
       <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden">
         <Nav />
-        <main className="pt-16">{children}</main>
+        <main className="pt-24 min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );

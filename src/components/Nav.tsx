@@ -3,89 +3,59 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-];
-
-export default function Nav() {
+export default function Navbar() {
   const pathname = usePathname();
 
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Projects", href: "/projects" },
+  ];
+
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-7"
-      style={{
-        height: "var(--nav-height)",
-        background: "rgba(0,0,0,0.8)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid var(--border)",
-      }}
-    >
-      {/* Logo */}
-      <Link
-        href="/"
-        className="font-syne font-black text-[17px] tracking-[-0.3px] text-[#f0f0f0] no-underline flex items-center gap-2"
-      >
-        PJ<span style={{ color: "var(--accent)" }}>.</span>
-      </Link>
+    // Fixed container that centers the navbar at the top of the screen
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-2xl">
+      
+      {/* The Glassmorphism Pill */}
+      <nav className="flex items-center justify-between px-3 py-2 bg-[#0a0a0a]/50 backdrop-blur-md border border-white/10 rounded-full shadow-2xl shadow-black/50">
+        
+        {/* Left: Logo */}
+        <Link href="/" className="font-syne font-bold text-white text-xl ml-3 tracking-tighter group flex items-center gap-1">
+          PJ<span className="text-accent group-hover:animate-pulse">.</span>
+        </Link>
 
-      {/* Links */}
-      <ul className="flex items-center gap-1 list-none">
-        {navLinks.map(({ href, label }) => {
-          const isActive = pathname === href;
-          return (
-            <li key={href} className="hidden sm:block">
-              <Link
-                href={href}
-                className="text-[13px] font-medium tracking-[0.3px] px-[14px] py-[6px] rounded-[20px] transition-all duration-200 no-underline"
-                style={{
-                  color: isActive ? "#f0f0f0" : "var(--text-secondary)",
-                  background: isActive ? "rgba(255,255,255,0.07)" : "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    (e.currentTarget as HTMLElement).style.color = "#f0f0f0";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.07)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
-                    (e.currentTarget as HTMLElement).style.background = "transparent";
-                  }
-                }}
-              >
-                {label}
-              </Link>
-            </li>
-          );
-        })}
+        {/* Center/Right: Links & CTA */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          {/* Navigation Links (Hidden on tiny mobile, visible on sm+) */}
+          <div className="hidden sm:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5 mr-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`px-4 py-1.5 rounded-full text-[11px] font-mono tracking-[1px] uppercase transition-all duration-300 ${
+                    isActive 
+                      ? "bg-white/10 text-white" 
+                      : "text-white/40 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </div>
 
-        {/* CTA */}
-        <li>
+          {/* Let's Talk CTA */}
           <Link
             href="/contact"
-            className="text-[13px] font-semibold tracking-[0.3px] px-[18px] py-[8px] rounded-[20px] transition-all duration-200 no-underline ml-1 inline-block"
-            style={{
-              background: "var(--accent)",
-              color: "#000",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#9DFFBF";
-              (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px var(--accent-glow)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "var(--accent)";
-              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "none";
-            }}
+            className="font-mono text-[11px] uppercase tracking-[1px] font-bold text-[#000] bg-accent px-5 py-2.5 rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300"
           >
-            Let&apos;s Talk
+            Let's Talk
           </Link>
-        </li>
-      </ul>
-    </nav>
+        </div>
+
+      </nav>
+    </div>
   );
 }

@@ -2,6 +2,17 @@ import Link from "next/link";
 import BentoCard from "@/components/ui/BentoCard";
 import Marquee from "@/components/Marquee";
 import { projects } from "@/lib/data";
+import { 
+  MapPin, 
+  ArrowRight, 
+  Mail, 
+  Phone, 
+  Cpu, 
+  BookOpen, 
+  GraduationCap, 
+  ScanEye 
+} from "lucide-react";
+import Image from "next/image";
 
 export default function HomePage() {
   const [motorpass, littleLion, elearning, grocery] = projects;
@@ -12,152 +23,170 @@ export default function HomePage() {
 
       <div className="w-full max-w-[1200px] mx-auto px-4 pb-12 pt-6">
         
-        {/* ── FLAWLESS 4-COLUMN TETRIS GRID ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[170px] gap-4">
+        {/* ── HIGH-RES TETRIS GRID (75px Rows for half-height precision) ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-4">
 
-          {/* ── ROW 1 & 2 ── */}
-
-          {/* 1. HERO — 2x2 (Takes 2 columns, 2 rows) */}
-          <BentoCard className="md:col-span-2 md:row-span-2 flex flex-col justify-end">
-            <span
-              className="font-mono"
-              style={{ fontSize: "9px", fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "auto" }}
-            >
-              Developer
-            </span>
+          {/* ── 1. DEVELOPER HERO BENTO ── */}
+          <BentoCard className="md:col-span-2 md:row-span-4 p-6 lg:p-8 flex flex-col justify-between relative group">
             <div>
-              <div
-                style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg, #7DF9A6 0%, #00D4AA 100%)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14, fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: 22, color: "#000", flexShrink: 0 }}
-              >
-                PJ
+              {/* Avatar and Name Header */}
+              <div className="flex items-center gap-4 mb-6">
+                {/* Circular Avatar */}
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/10 relative shrink-0 group-hover:border-accent/50 transition-colors duration-500">
+                  <Image 
+                    src="/gradpic/profile.JPG" 
+                    alt="Paul John Punzal" 
+                    fill 
+                    sizes="56px"
+                    className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                
+                {/* Upgraded Name Font */}
+                <div>
+                  <h1 className="font-syne text-2xl lg:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/30 mb-1">
+                    Paul John Punzal
+                  </h1>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                    <span className="font-mono text-[9px] tracking-[2px] uppercase text-white/50">
+                      Full-Stack & Mobile Dev
+                    </span>
+                  </div>
+                </div>
               </div>
-              <h1 className="font-syne" style={{ fontWeight: 800, fontSize: "clamp(22px, 2.8vw, 34px)", lineHeight: 1.05, letterSpacing: "-1px", color: "var(--text-primary)", marginBottom: 6 }}>
-                Paul John<br />Punzal.
-              </h1>
-              <div className="font-mono" style={{ fontSize: 11, color: "var(--accent)", letterSpacing: "0.5px", marginBottom: 14 }}>
-                // Full-Stack &amp; Mobile Developer
-              </div>
-              <p style={{ fontSize: 12.5, color: "var(--text-secondary)", lineHeight: 1.6, fontWeight: 300 }}>
-                IT grad building real systems — from IoT campus gates to SPED school platforms. Comfortable across the stack, passionate about backend architecture and AI.
+
+              {/* Refined Paragraph 1 - Grounded and accurate */}
+              <p className="font-inter text-sm text-white/60 leading-relaxed font-light mb-4">
+                Building real-world applications—from integrating IoT hardware with AI object detection to full-scale educational platforms. I am highly comfortable traversing the entire stack, with a deep focus on clean backend architecture, data optimization, and automation.
               </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 7, marginTop: 14 }}>
-                <div className="status-dot" />
-                <span className="font-mono" style={{ fontSize: 10, color: "var(--accent)", letterSpacing: "0.5px" }}>
-                  Available for opportunities
-                </span>
-              </div>
+            </div>
+            
+            {/* Added Paragraph 2 - Your exact words */}
+            <div className="border-l-2 border-accent/30 pl-4 py-1">
+              <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
+                It isn't just about syntax—it's about automating tedious processes and solving manual problems. Building things that actually work and help people is what makes software application meaningful.
+              </p>
             </div>
           </BentoCard>
 
-          {/* 2. GRADUATING — 1x1 */}
-          <BentoCard className="flex flex-col justify-between">
-            <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)" }}>
-              Education
+          {/* 2. BASED IN — 2x1 */}
+          <BentoCard className="md:col-span-2 md:row-span-1 flex items-center justify-between px-6 py-4">
+            <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50">
+              Base of Operations
             </span>
-            <div>
-              <div className="font-syne" style={{ fontWeight: 800, fontSize: "clamp(28px, 3vw, 40px)", color: "var(--accent)", lineHeight: 1 }}>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-white/80" strokeWidth={2} />
+              <div className="font-syne text-lg font-bold">Marilao, Bulacan</div>
+            </div>
+          </BentoCard>
+
+          {/* 3. EDUCATION — 1x1 (Compact) */}
+          <BentoCard className="md:col-span-1 md:row-span-1 flex flex-col justify-center px-6 py-4">
+            <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-1">
+              Graduated
+            </span>
+            <div className="flex items-baseline gap-2">
+              <span className="font-syne text-xl font-bold text-white">BSIT</span>
+              <span className="font-mono text-[11px] text-accent font-medium tracking-wider">
                 2026
-              </div>
-              <div style={{ fontSize: 11, color: "var(--text-secondary)", marginTop: 4 }}>Graduating May</div>
-            </div>
-            <div className="font-mono" style={{ fontSize: 9.5, color: "var(--text-muted)", letterSpacing: "0.3px", lineHeight: 1.5, marginTop: "auto" }}>
-              BS Information Technology<br />PDM · Marilao, Bulacan
-            </div>
-          </BentoCard>
-
-          {/* 3. LOCATION — 1x1 */}
-          <BentoCard className="flex flex-col justify-between">
-            <div>
-              <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)" }}>
-                Based In
               </span>
-              <div className="font-syne" style={{ fontSize: 14, fontWeight: 700, marginTop: 10, marginBottom: 3 }}>
-                Marilao
-              </div>
-              <div className="font-mono" style={{ fontSize: 11, color: "var(--text-muted)" }}>Bulacan, Philippines</div>
             </div>
-            <span style={{ fontSize: 22, alignSelf: "flex-end" }}>📍</span>
           </BentoCard>
 
-          {/* 4. GITHUB — 1x1 */}
+          {/* 4. CORE FOCUS & SERVICES — 1x3 (Vertical Box) */}
+          <BentoCard className="md:col-span-1 md:row-span-3 flex flex-col p-6">
+            <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-4">
+              Core Focus
+            </span>
+            <div className="flex flex-col gap-3">
+               <div className="text-xs text-white/70 font-mono flex items-center gap-2"><span className="text-accent">✦</span> REST APIs</div>
+               <div className="text-xs text-white/70 font-mono flex items-center gap-2"><span className="text-accent">✦</span> Full-Stack Web</div>
+               <div className="text-xs text-white/70 font-mono flex items-center gap-2"><span className="text-accent">✦</span> Mobile Apps</div>
+               <div className="text-xs text-white/70 font-mono flex items-center gap-2"><span className="text-accent">✦</span> AI & OCR</div>
+               <div className="text-xs text-white/70 font-mono flex items-center gap-2"><span className="text-accent">✦</span> Automation</div>
+            </div>
+          </BentoCard>
+
+          {/* 5. GITHUB / OPEN SOURCE — 1x2 */}
           <BentoCard
-            href="https://github.com/PaulNewbie"
+            href="https://github.com/PaulPunzal"
             external
-            className="flex flex-col justify-between"
+            className="md:col-span-1 md:row-span-2 flex flex-col justify-between group p-6"
             style={{ background: "linear-gradient(135deg, #0c0c0c 0%, #101010 100%)" }}
           >
             <div>
-              <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)" }}>
+              <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50">
                 Open Source
               </span>
-              <div className="font-mono" style={{ fontSize: 13, color: "var(--text-primary)", marginTop: 8 }}>@PaulNewbie</div>
-              <div className="font-mono" style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 3 }}>github.com</div>
+              <div className="font-mono text-xs text-white mt-4">@PaulPunzal</div>
             </div>
-            <span style={{ fontSize: 32, alignSelf: "flex-end" }}>⌥</span>
+            {/* Raw SVG to prevent lucide-react compile errors */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white/20 self-end group-hover:text-white transition-colors">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
           </BentoCard>
 
-          {/* 5. AI EXPLORATION — 1x1 */}
-          <BentoCard
-            className="flex flex-col justify-between"
-            style={{ background: "linear-gradient(160deg, #0c0c0c 0%, #0a0f0c 100%)" }}
-          >
-            <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)" }}>
-              Focus
+          {/* 6. WIDE TECH STACK — 4x3 (Categorized) */}
+          <BentoCard className="md:col-span-2 lg:col-span-4 md:row-span-4 lg:row-span-3 flex flex-col p-6 lg:p-8">
+            <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-6">
+              Tech Stack & Architecture
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: 5, marginTop: 8 }}>
-              {["🦙 LLaMA 3", "👁 YOLO Object Det.", "📄 AI OCR"].map((chip) => (
-                <div key={chip} className="font-mono" style={{ display: "flex", alignItems: "center", gap: 7, padding: "5px 9px", background: "var(--accent-dim)", border: "1px solid rgba(125,249,166,0.12)", borderRadius: 7, fontSize: 10, color: "var(--accent)" }}>
-                  {chip}
-                </div>
-              ))}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 h-full">
+              {/* Frontend */}
+              <div className="flex flex-col gap-4">
+                 <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-2 mb-1">Frontend & Mobile</div>
+                 <div className="flex flex-wrap gap-2">
+                   <span className="tech-pill highlight">Next.js</span>
+                   <span className="tech-pill highlight">React Native</span>
+                   <span className="tech-pill highlight">Flutter</span>
+                   <span className="tech-pill">TypeScript</span>
+                   <span className="tech-pill">Tailwind CSS</span>
+                   <span className="tech-pill">Bootstrap</span>
+                 </div>
+              </div>
+              {/* Backend */}
+              <div className="flex flex-col gap-4">
+                 <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-2 mb-1">Backend Engineering</div>
+                 <div className="flex flex-wrap gap-2">
+                   <span className="tech-pill highlight">Nest.js</span>
+                   <span className="tech-pill highlight">Laravel</span>
+                   <span className="tech-pill">PHP</span>
+                   <span className="tech-pill">REST APIs</span>
+                   <span className="tech-pill">Node.js</span>
+                 </div>
+              </div>
+              {/* Database */}
+              <div className="flex flex-col gap-4">
+                 <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-2 mb-1">Database</div>
+                 <div className="flex flex-wrap gap-2">
+                   <span className="tech-pill highlight">MySQL</span>
+                   <span className="tech-pill">PostgreSQL</span>
+                   <span className="tech-pill">MongoDB</span>
+                   <span className="tech-pill">Firebase</span>
+                   <span className="tech-pill">Prisma</span>
+                   <span className="tech-pill">SQLite</span>
+                 </div>
+              </div>
             </div>
           </BentoCard>
 
-
-          {/* ── ROW 3 ── */}
-
-          {/* 6. TECH STACK — 2x1 (Wide) */}
-          <BentoCard className="md:col-span-2 flex flex-col">
-            <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "auto" }}>
-              Tech Stack
-            </span>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 10 }}>
-              {[
-                { label: "Next.js", highlight: true }, { label: "React Native", highlight: true }, { label: "Flutter", highlight: true },
-                { label: "TypeScript" }, { label: "Laravel" }, { label: "Python" }, { label: "PHP" }, { label: "Firebase" },
-                { label: "MySQL" }, { label: "Prisma" }, { label: "C#" }, { label: "Dart" },
-              ].map((t) => (
-                <span key={t.label} className={`tech-pill font-mono${t.highlight ? " highlight" : ""}`}>
-                  {t.label}
-                </span>
-              ))}
+          {/* ── SECTION DIVIDER: PROJECTS ── */}
+          <div className="md:col-span-2 lg:col-span-4 flex items-center gap-4 py-2">
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/10" />
+            <div className="px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.02] font-mono text-[10px] uppercase tracking-[2px] text-white/50 flex items-center gap-2">
+               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+               Featured Projects
             </div>
-          </BentoCard>
+            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/10" />
+          </div>
 
-          {/* 7. STAT: PROJECTS — 1x1 */}
-          <BentoCard className="flex flex-col items-center justify-center text-center">
-            <div className="font-syne" style={{ fontWeight: 800, fontSize: "clamp(24px, 2.5vw, 32px)", color: "var(--text-primary)", lineHeight: 1 }}>
-              <span style={{ color: "var(--accent)" }}>4</span>
-            </div>
-            <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 5, letterSpacing: "0.5px" }}>PROJECTS</div>
-          </BentoCard>
-
-          {/* 8. STAT: LANGUAGES — 1x1 */}
-          <BentoCard className="flex flex-col items-center justify-center text-center">
-            <div className="font-syne" style={{ fontWeight: 800, fontSize: "clamp(24px, 2.5vw, 32px)", color: "var(--text-primary)", lineHeight: 1 }}>
-              <span style={{ color: "var(--accent)" }}>6</span>
-            </div>
-            <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 5, letterSpacing: "0.5px" }}>LANGUAGES</div>
-          </BentoCard>
-
-
-          {/* ── ROW 4 & 5 ── */}
-
-          {/* 9. MOTORPASS PROJECT — 2x2 (Takes 2 cols, 2 rows) */}
-          <BentoCard href="/projects" accentHover className="md:col-span-2 md:row-span-2 flex flex-col justify-between">
+          {/* 7. MOTORPASS PROJECT — 2x4 */}
+          <BentoCard href="/projects" accentHover className="md:col-span-2 lg:col-span-2 md:row-span-4 flex flex-col justify-between group p-6">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: motorpass.iconBgStyle, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
-                {motorpass.emoji}
+              <div style={{ width: 42, height: 42, borderRadius: 10, background: motorpass.iconBgStyle, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Cpu className="w-6 h-6 text-emerald-300" strokeWidth={1.5} />
               </div>
               <div className="project-arrow">↗</div>
             </div>
@@ -165,7 +194,7 @@ export default function HomePage() {
               <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 10, display: "block" }}>
                 {motorpass.label}
               </span>
-              <div className="font-syne" style={{ fontWeight: 700, fontSize: 16, letterSpacing: "-0.2px", marginTop: 8, marginBottom: 4 }}>
+              <div className="font-syne" style={{ fontWeight: 700, fontSize: 18, letterSpacing: "-0.2px", marginTop: 8, marginBottom: 4 }}>
                 {motorpass.title}
               </div>
               <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.55, fontWeight: 300 }}>
@@ -181,38 +210,43 @@ export default function HomePage() {
             </div>
           </BentoCard>
 
-          {/* 10. LITTLE LION — 1x1 */}
-          <ProjectPreviewCard project={littleLion} />
+          {/* 8. LITTLE LION — 1x2 */}
+          <ProjectPreviewCard project={littleLion} icon={<BookOpen className="w-5 h-5 text-blue-300" strokeWidth={1.5} />} />
 
-          {/* 11. E-LEARNING — 1x1 */}
-          <ProjectPreviewCard project={elearning} />
+          {/* 9. E-LEARNING — 1x2 */}
+          <ProjectPreviewCard project={elearning} icon={<GraduationCap className="w-5 h-5 text-purple-300" strokeWidth={1.5} />} />
 
-          {/* 12. GROCERY — 1x1 */}
-          <ProjectPreviewCard project={grocery} />
+          {/* 10. GROCERY — 1x2 */}
+          <ProjectPreviewCard project={grocery} icon={<ScanEye className="w-5 h-5 text-orange-300" strokeWidth={1.5} />} />
 
-          {/* 13. CONTACT PREVIEW — 1x1 */}
-          <BentoCard className="flex flex-col justify-between">
-            <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "auto" }}>
+          {/* 11. SEE MORE ARCHIVE — 1x2 */}
+          <BentoCard href="/projects" className="md:col-span-1 md:row-span-2 flex flex-col items-center justify-center text-center group p-6">
+            <div className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center mb-3 group-hover:bg-accent/20 group-hover:border-accent/40 transition-colors">
+              <ArrowRight className="w-5 h-5 text-white/40 group-hover:text-accent transition-colors" />
+            </div>
+            <span className="font-syne text-sm font-bold text-white/70 group-hover:text-white transition-colors">View Full<br/>Archive</span>
+          </BentoCard>
+
+          {/* 12. REACH OUT — 1x2 */}
+          <BentoCard className="md:col-span-1 lg:col-span-1 md:row-span-2 flex flex-col justify-center p-6">
+            <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "1rem" }}>
               Reach Out
             </span>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
-              <a className="contact-row flex items-center gap-2" href="mailto:punzalpauljohn@gmail.com">
-                <span style={{ fontSize: 14 }}>✉</span>
-                <span className="font-mono" style={{ fontSize: 9, color: "var(--text-secondary)" }}>Email Me</span>
+            <div className="flex flex-col gap-4">
+              <a className="flex items-center gap-3 hover:text-accent transition-colors" href="mailto:punzalpauljohn@gmail.com">
+                <Mail className="w-4 h-4 text-white/50" />
+                <span className="font-mono text-[10px] text-white/70">Email Me</span>
               </a>
-              <a className="contact-row flex items-center gap-2" href="tel:09683295292">
-                <span style={{ fontSize: 14 }}>📞</span>
-                <span className="font-mono" style={{ fontSize: 9, color: "var(--text-secondary)" }}>0968-329-5292</span>
+              <a className="flex items-center gap-3 hover:text-accent transition-colors" href="tel:09683295292">
+                <Phone className="w-4 h-4 text-white/50" />
+                <span className="font-mono text-[10px] text-white/70">0968-329-5292</span>
               </a>
             </div>
           </BentoCard>
 
-
-          {/* ── ROW 6 ── */}
-
-          {/* 14. CTA — 2x1 (Wide) */}
+          {/* 13. HIRE ME CTA — 3x2 (Wide) */}
           <BentoCard
-            className="md:col-span-4 lg:col-span-4 flex flex-col md:flex-row items-start md:items-end justify-between"
+            className="md:col-span-1 lg:col-span-3 md:row-span-2 flex flex-col md:flex-row items-start md:items-end justify-between p-6 lg:p-8"
             href="/contact"
             style={{ background: "linear-gradient(135deg, rgba(125,249,166,0.08) 0%, rgba(0,212,170,0.04) 100%)", borderColor: "rgba(125,249,166,0.15)" }}
           >
@@ -236,14 +270,14 @@ export default function HomePage() {
 }
 
 /* ── LOCAL HELPER: Project Preview Bento Card ── */
-function ProjectPreviewCard({ project, className = "" }: { project: (typeof projects)[0], className?: string }) {
+function ProjectPreviewCard({ project, icon, className = "" }: { project: (typeof projects)[0], icon: React.ReactNode, className?: string }) {
   return (
-    <BentoCard className={`flex flex-col justify-between ${className}`} href="/projects" accentHover>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <div style={{ width: 38, height: 38, borderRadius: 10, background: project.iconBgStyle, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
-          {project.emoji}
+    <BentoCard className={`md:col-span-1 md:row-span-2 flex flex-col justify-between p-6 ${className}`} href="/projects" accentHover>
+      <div style={{ display: "flex", justifyItems: "space-between", alignItems: "flex-start" }}>
+        <div style={{ width: 38, height: 38, borderRadius: 10, background: project.iconBgStyle, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          {icon}
         </div>
-        <div className="project-arrow">↗</div>
+        <div className="project-arrow ml-auto">↗</div>
       </div>
       <div>
         <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 10, display: "block" }}>
