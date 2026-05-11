@@ -183,27 +183,36 @@ export default function HomePage() {
           </div>
 
           {/* 7. MOTORPASS PROJECT — 2x4 */}
-          <BentoCard href="/projects" accentHover className="md:col-span-2 lg:col-span-2 md:row-span-4 flex flex-col justify-between group p-6">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-              <div style={{ width: 42, height: 42, borderRadius: 10, background: motorpass.iconBgStyle, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <BentoCard href="/projects" accentHover className="md:col-span-2 lg:col-span-2 md:row-span-4 flex flex-col justify-between group p-6 lg:p-8">
+            <div className="flex justify-between items-start">
+              {/* Upgraded Icon Container (w-12 h-12) */}
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-white/5" 
+                style={{ background: motorpass.iconBgStyle }}
+              >
                 <Cpu className="w-6 h-6 text-emerald-300" strokeWidth={1.5} />
               </div>
               <div className="project-arrow">↗</div>
             </div>
-            <div>
-              <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 10, display: "block" }}>
+            
+            <div className="mt-4">
+              <span className="font-mono text-[10px] font-medium tracking-[2px] uppercase text-white/50 block mb-2">
                 {motorpass.label}
               </span>
-              <div className="font-syne" style={{ fontWeight: 700, fontSize: 18, letterSpacing: "-0.2px", marginTop: 8, marginBottom: 4 }}>
+              {/* Upgraded Title Font Size */}
+              <h3 className="font-syne font-bold text-xl lg:text-2xl tracking-tight text-white mb-3">
                 {motorpass.title}
-              </div>
-              <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.55, fontWeight: 300 }}>
+              </h3>
+              {/* Upgraded Description Font Size (Matches your bio text) */}
+              <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
                 {motorpass.shortDesc}
-              </div>
+              </p>
             </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 12 }}>
+            
+            {/* Upgraded Tags Layout */}
+            <div className="flex flex-wrap gap-2 mt-6">
               {motorpass.previewTags.map((tag) => (
-                <span key={tag} className="font-mono" style={{ background: "rgba(255,255,255,0.05)", borderRadius: 4, padding: "2px 7px", fontSize: 9, color: "var(--text-muted)", letterSpacing: "0.3px" }}>
+                <span key={tag} className="font-mono bg-white/5 border border-white/10 rounded-md px-2.5 py-1 text-[10px] text-white/60 tracking-[0.5px]">
                   {tag}
                 </span>
               ))}
@@ -273,19 +282,23 @@ export default function HomePage() {
 function ProjectPreviewCard({ project, icon, className = "" }: { project: (typeof projects)[0], icon: React.ReactNode, className?: string }) {
   return (
     <BentoCard className={`md:col-span-1 md:row-span-2 flex flex-col justify-between p-6 ${className}`} href="/projects" accentHover>
-      <div style={{ display: "flex", justifyItems: "space-between", alignItems: "flex-start" }}>
-        <div style={{ width: 38, height: 38, borderRadius: 10, background: project.iconBgStyle, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+      <div className="flex justify-between items-start">
+        {/* Slightly larger icon container for the smaller cards */}
+        <div 
+          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-white/5" 
+          style={{ background: project.iconBgStyle }}
+        >
           {icon}
         </div>
         <div className="project-arrow ml-auto">↗</div>
       </div>
       <div>
-        <span className="font-mono" style={{ fontSize: 9, fontWeight: 500, letterSpacing: "1.8px", textTransform: "uppercase", color: "var(--text-muted)", marginTop: 10, display: "block" }}>
+        <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 block mt-4 mb-1.5">
           {project.label}
         </span>
-        <div className="font-syne" style={{ fontWeight: 700, fontSize: 14, letterSpacing: "-0.2px", marginTop: 8, marginBottom: 4 }}>
+        <h3 className="font-syne font-bold text-lg tracking-tight text-white/90">
           {project.title}
-        </div>
+        </h3>
       </div>
     </BentoCard>
   );
