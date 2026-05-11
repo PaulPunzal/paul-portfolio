@@ -78,7 +78,7 @@ export const projects: Project[] = [
       "Designed and implemented RESTful APIs managing complex relational data flows between the mobile frontend and MySQL database.",
       "Executed major database schema migrations and role restructuring to support new feature rollouts without downtime, while implementing secure OTP-based authentication.",
     ],
-    previewTags: ["Flutter", "PHP", "MySQL"],
+    previewTags: ["Flutter", "Dart", "PHP", "MySQL", "REST API"],
     stack: [
       { label: "Flutter", highlight: true },
       { label: "Dart", highlight: true },
@@ -92,11 +92,12 @@ export const projects: Project[] = [
     id: "grocery",
     emoji: "🛒",
     iconBgStyle: "rgba(255,100,150,0.1)",
-    label: "Mobile · Offline",
+    label: "Mobile · Offline-First",
     title: "Grocery OCR",
     fullTitle: "Offline Grocery List — Smart Utility App",
     role: "Mobile Developer",
-    shortDesc: "Offline-first grocery app with AI-powered product scanning.",
+    shortDesc:
+      "Offline-first grocery app with AI-powered product scanning via device camera and OCR, zero internet required.",
     fullDesc:
       "An offline-first mobile productivity application built in TypeScript, designed to function entirely without internet connectivity. Uses on-device AI-powered OCR to capture product information directly from packaging — eliminating manual data entry.",
     bullets: [
@@ -104,7 +105,7 @@ export const projects: Project[] = [
       "Integrated device-native camera access with AI-powered OCR to instantly capture and parse product information from packaging, eliminating manual data entry.",
       "Implemented on-device scheduling algorithms and local notification management for list reminders and session persistence.",
     ],
-    previewTags: ["React Native", "OCR"],
+    previewTags: ["React Native", "TypeScript", "Expo", "OCR"],
     stack: [
       { label: "React Native (Expo)", highlight: true },
       { label: "TypeScript", highlight: true },

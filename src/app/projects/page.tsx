@@ -1,74 +1,233 @@
-import BentoCard from "@/components/ui/BentoCard";
-import ProjectArrow from "@/components/ui/ProjectArrow";
+"use client";
+
+import { useState } from "react";
+import { projects } from "@/lib/data";
+
+// ── Number formatter for project index ──────────────────────────────────────
+function padIndex(i: number) {
+  return String(i + 1).padStart(2, "0");
+}
+
+// ── Tag/pill component ───────────────────────────────────────────────────────
+function Tag({ label, highlight = false }: { label: string; highlight?: boolean }) {
+  return (
+    <span
+      className={`inline-block px-2.5 py-1 rounded-md font-mono text-[10px] tracking-[0.4px] border ${
+        highlight
+          ? "bg-accent/10 border-accent/25 text-accent"
+          : "bg-white/[0.04] border-white/[0.08] text-white/50"
+      }`}
+    >
+      {label}
+    </span>
+  );
+}
 
 export default function ProjectsPage() {
+  const [activeId, setActiveId] = useState<string>(projects[0].id);
+
+  const active = projects.find((p) => p.id === activeId) ?? projects[0];
+  const activeIndex = projects.findIndex((p) => p.id === activeId);
+
   return (
-    <div className="animate-in fade-in duration-700">
-      <div className="mb-8">
-        <h1 className="font-syne text-3xl font-bold text-white mb-2 tracking-tight">System Archive</h1>
-        <p className="font-mono text-xs tracking-widest text-white/40 uppercase">Featured Engineering Work</p>
+    <div className="w-full max-w-[1200px] mx-auto px-4 pb-16 pt-6 animate-in fade-in duration-700">
+
+      {/* ── Page Header ───────────────────────────────────────────────────── */}
+      <div className="mb-10 pl-1">
+        <p className="font-mono text-[9px] tracking-[2.5px] uppercase text-accent mb-2">
+          System Archive
+        </p>
+        <h1 className="font-syne text-4xl md:text-5xl font-bold text-white tracking-tight">
+          Featured Work
+        </h1>
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
-        {/* MotorPass */}
-        <BentoCard className="group cursor-pointer">
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-2">Capstone · IoT + AI</div>
-              <h2 className="font-syne font-bold text-2xl text-white">MotorPass</h2>
-            </div>
-            <ProjectArrow />
-          </div>
-          <p className="font-inter text-sm text-white/50 font-light leading-relaxed mb-6">
-            An IoT-based automated campus entry system engineered on a Raspberry Pi 4. Integrated hardware components with AI-powered YOLO object detection to identify motorcycle helmets. Features include OCR for instant license plate scanning and a real-time synchronized Firebase dashboard.
-          </p>
-          <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.07]">
-            {["Python", "Raspberry Pi 4", "YOLO/ONNX", "OCR", "Firebase", "SQLite"].map((tech) => (
-              <span key={tech} className="px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-white/30 font-mono text-[9px] tracking-[0.3px]">{tech}</span>
-            ))}
-          </div>
-        </BentoCard>
+      {/* ── Split Layout ──────────────────────────────────────────────────── */}
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:items-start">
 
-        {/* Felamo E-Learning */}
-        <BentoCard className="group cursor-pointer">
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-2">Mobile & Full-Stack</div>
-              <h2 className="font-syne font-bold text-2xl text-white">Felamo / Segreduino Ecosystem</h2>
-            </div>
-            <ProjectArrow />
-          </div>
-          <p className="font-inter text-sm text-white/50 font-light leading-relaxed mb-4">
-            A self-contained educational platform featuring a Flutter/Dart mobile frontend paired with a custom Vanilla PHP/MySQL backend. Engineered a dynamic quiz engine that utilizes balanced difficulty distribution logic—fetching specific percentages of easy, medium, and hard questions rather than relying on pure randomization.
-          </p>
-          <p className="font-inter text-sm text-white/50 font-light leading-relaxed mb-6">
-            Architected and executed major backend refactoring, standardizing database table nomenclature (e.g., standardizing tables to <span className="text-white/70 bg-white/5 px-1 rounded">student_aralin_progress</span>) and clarifying the role hierarchy to strictly separate super administrator and teacher account capabilities.
-          </p>
-          <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.07]">
-            {["Flutter", "Dart", "PHP (Vanilla)", "MySQL", "REST API"].map((tech) => (
-              <span key={tech} className="px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-white/30 font-mono text-[9px] tracking-[0.3px]">{tech}</span>
-            ))}
-          </div>
-        </BentoCard>
+        {/* ── LEFT: Project List ─────────────────────────────────────────── */}
+        <div className="lg:w-[340px] shrink-0 flex flex-col gap-2 lg:sticky lg:top-28">
+          {projects.map((project, i) => {
+            const isActive = project.id === activeId;
+            return (
+              <button
+                key={project.id}
+                onClick={() => setActiveId(project.id)}
+                className={`group w-full text-left rounded-[14px] border px-5 py-4 transition-all duration-300 cursor-pointer ${
+                  isActive
+                    ? "bg-[#0f0f0f] border-accent/30 shadow-[0_0_24px_rgba(125,249,166,0.06)]"
+                    : "bg-[#0c0c0c] border-white/[0.07] hover:border-white/[0.15] hover:bg-[#111]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  {/* Index + Label */}
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`font-mono text-[10px] font-medium tabular-nums ${
+                        isActive ? "text-accent" : "text-white/25"
+                      }`}
+                    >
+                      {padIndex(i)}
+                    </span>
+                    <span
+                      className={`font-mono text-[9px] tracking-[1.5px] uppercase ${
+                        isActive ? "text-accent/70" : "text-white/30"
+                      }`}
+                    >
+                      {project.label}
+                    </span>
+                  </div>
 
-        {/* Offline Grocery List */}
-        <BentoCard className="group cursor-pointer">
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-2">Mobile Utility</div>
-              <h2 className="font-syne font-bold text-2xl text-white">Offline Grocery OCR</h2>
-            </div>
-            <ProjectArrow />
-          </div>
-          <p className="font-inter text-sm text-white/50 font-light leading-relaxed mb-6">
-            An offline-first productivity application built in TypeScript. Designed to function entirely without internet connectivity leveraging on-device local storage APIs. Integrated device-native camera access with AI-powered OCR to instantly capture and parse product packaging.
+                  {/* Active indicator dot */}
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? "bg-accent scale-100" : "bg-white/10 scale-75 group-hover:scale-100 group-hover:bg-white/20"
+                    }`}
+                  />
+                </div>
+
+                {/* Project Title */}
+                <h3
+                  className={`font-syne font-bold text-lg leading-tight transition-colors duration-200 ${
+                    isActive ? "text-white" : "text-white/60 group-hover:text-white/80"
+                  }`}
+                >
+                  {project.title}
+                </h3>
+
+                {/* Preview tags — only on active */}
+                <div
+                  className={`flex flex-wrap gap-1.5 mt-3 transition-all duration-300 overflow-hidden ${
+                    isActive ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  {project.previewTags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-mono text-[9px] text-white/40 bg-white/[0.03] border border-white/[0.07] rounded px-2 py-0.5"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </button>
+            );
+          })}
+
+          {/* ── Footer note ─────────────────────────────────────────────── */}
+          <p className="font-mono text-[9px] text-white/20 text-center pt-2 tracking-[1px]">
+            {projects.length} projects · click to explore
           </p>
-          <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.07]">
-            {["React Native (Expo)", "TypeScript", "Local Storage API", "OCR"].map((tech) => (
-              <span key={tech} className="px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-white/30 font-mono text-[9px] tracking-[0.3px]">{tech}</span>
-            ))}
+        </div>
+
+        {/* ── RIGHT: Detail Panel ───────────────────────────────────────── */}
+        <div
+          key={active.id}
+          className="flex-1 min-w-0 bg-[#0c0c0c] border border-white/[0.07] rounded-[18px] overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300"
+        >
+          {/* ── Detail Header ───────────────────────────────────────────── */}
+          <div className="border-b border-white/[0.07] p-6 lg:p-8">
+            <div className="flex items-start justify-between gap-4 mb-5">
+              {/* Emoji icon */}
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-white/[0.07]"
+                style={{ background: active.iconBgStyle }}
+              >
+                {active.emoji}
+              </div>
+
+              {/* Index badge */}
+              <span className="font-mono text-[11px] text-white/20 tabular-nums mt-1">
+                {padIndex(activeIndex)} / {padIndex(projects.length - 1)}
+              </span>
+            </div>
+
+            <p className="font-mono text-[9px] tracking-[1.8px] uppercase text-accent mb-2">
+              {active.role}
+            </p>
+            <h2 className="font-syne font-bold text-2xl md:text-3xl text-white leading-tight mb-3">
+              {active.fullTitle}
+            </h2>
+            <p className="font-inter text-sm text-white/55 leading-relaxed font-light">
+              {active.fullDesc}
+            </p>
           </div>
-        </BentoCard>
+
+          {/* ── Bullets ─────────────────────────────────────────────────── */}
+          <div className="p-6 lg:p-8 border-b border-white/[0.07]">
+            <p className="font-mono text-[9px] tracking-[1.8px] uppercase text-white/30 mb-5">
+              Key Contributions
+            </p>
+            <ul className="flex flex-col gap-4">
+              {active.bullets.map((bullet, i) => (
+                <li key={i} className="flex gap-3 items-start">
+                  {/* Bullet number */}
+                  <span className="font-mono text-[10px] text-accent/60 tabular-nums mt-0.5 shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
+                    {bullet}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Tech Stack ──────────────────────────────────────────────── */}
+          <div className="p-6 lg:p-8">
+            <p className="font-mono text-[9px] tracking-[1.8px] uppercase text-white/30 mb-4">
+              Tech Stack
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {active.stack.map((item) => (
+                <Tag key={item.label} label={item.label} highlight={item.highlight} />
+              ))}
+            </div>
+          </div>
+
+          {/* ── Nav arrows ──────────────────────────────────────────────── */}
+          <div className="flex items-center justify-between px-6 lg:px-8 pb-6 lg:pb-8 pt-0">
+            <button
+              onClick={() => {
+                const prev = projects[activeIndex - 1];
+                if (prev) setActiveId(prev.id);
+              }}
+              disabled={activeIndex === 0}
+              className="flex items-center gap-2 font-mono text-[10px] tracking-[1px] text-white/30 hover:text-white/70 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+            >
+              <span>←</span>
+              <span>PREV</span>
+            </button>
+
+            {/* Dot indicators */}
+            <div className="flex gap-2 items-center">
+              {projects.map((p, i) => (
+                <button
+                  key={p.id}
+                  onClick={() => setActiveId(p.id)}
+                  className={`rounded-full transition-all duration-300 ${
+                    p.id === activeId
+                      ? "w-5 h-1.5 bg-accent"
+                      : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"
+                  }`}
+                  aria-label={`Go to project ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => {
+                const next = projects[activeIndex + 1];
+                if (next) setActiveId(next.id);
+              }}
+              disabled={activeIndex === projects.length - 1}
+              className="flex items-center gap-2 font-mono text-[10px] tracking-[1px] text-white/30 hover:text-white/70 disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+            >
+              <span>NEXT</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
