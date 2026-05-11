@@ -32,19 +32,19 @@ export default function HomePage() {
               {/* Avatar and Name Header */}
               <div className="flex items-center gap-4 mb-6">
                 {/* Circular Avatar */}
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/10 relative shrink-0 group-hover:border-accent/50 transition-colors duration-500">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 relative shrink-0 group-hover:border-accent/50 transition-colors duration-500">
                   <Image 
                     src="/gradpic/profile.JPG" 
                     alt="Paul John Punzal" 
                     fill 
-                    sizes="56px"
+                    sizes="64px"
                     className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
                 
                 {/* Upgraded Name Font */}
                 <div>
-                  <h1 className="font-syne text-2xl lg:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/30 mb-1">
+                  <h1 className="font-syne text-2xl lg:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/30 mb-1">
                     Paul John Punzal
                   </h1>
                   <div className="flex items-center gap-2">
@@ -58,14 +58,14 @@ export default function HomePage() {
 
               {/* Refined Paragraph 1 - Grounded and accurate */}
               <p className="font-inter text-sm text-white/60 leading-relaxed font-light mb-4">
-                Building real-world applications—from integrating IoT hardware with AI object detection to full-scale educational platforms. I am highly comfortable traversing the entire stack, with a deep focus on clean backend architecture, data optimization, and automation.
+                Building real-world applications—from integrating IoT hardware with AI object detection to full-scale educational platforms—has pushed me to grow across different areas of development, with a growing focus on backend architecture, data optimization, and automation.
               </p>
             </div>
             
             {/* Added Paragraph 2 - Your exact words */}
             <div className="border-l-2 border-accent/30 pl-4 py-1">
               <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
-                It isn't just about syntax—it's about automating tedious processes and solving manual problems. Building things that actually work and help people is what makes software application meaningful.
+                It isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help people is what gives software its purpose and makes the craft worth pursuing.
               </p>
             </div>
           </BentoCard>

@@ -46,7 +46,7 @@ export default function AboutPage() {
         </BentoCard>
 
         {/* 2A. L-SHAPE BIO (LEFT ARM) — 1x5 */}
-        <div className="md:col-span-1 lg:col-span-1 md:row-span-5 bg-[#0a0a0a] border border-white/10 rounded-3xl lg:rounded-br-none p-6 lg:p-8 flex flex-col justify-center relative z-10">
+        <BentoCard className="md:col-span-1 lg:col-span-1 md:row-span-5 lg:rounded-br-none p-6 lg:p-8 flex flex-col justify-center relative z-10">
           <h2 className="font-syne text-xl lg:text-2xl font-bold text-white mb-4 leading-tight">
             A Bit About Me
           </h2>
@@ -56,7 +56,7 @@ export default function AboutPage() {
           <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
             During my capstone project, integrating a Raspberry Pi with AI object detection and OCR showed me the true purpose of technology.
           </p>
-        </div>
+        </BentoCard>
 
         {/* 3. ACADEMIC BACKGROUND — 2x2 (Sits in the top right cut-out of the L) */}
         <BentoCard className="md:col-span-2 lg:col-span-2 md:row-span-2 flex flex-col justify-center p-6 lg:px-8 relative z-20">
@@ -79,13 +79,13 @@ export default function AboutPage() {
         </BentoCard>
 
         {/* 2B. L-SHAPE BIO (RIGHT ARM) — 1x3 */}
-        <div className="md:col-span-1 lg:col-span-1 md:row-span-3 bg-[#0a0a0a] border border-white/10 rounded-3xl lg:rounded-l-none lg:border-l-0 lg:-ml-[17px] p-6 lg:pl-[41px] flex flex-col justify-center relative z-20">
+        <BentoCard className="md:col-span-1 lg:col-span-1 md:row-span-3 lg:rounded-l-none lg:border-l-0 lg:-ml-[17px] p-6 lg:pl-[41px] flex flex-col justify-center relative z-20">
           <div className="relative z-30">
             <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
               It isn't just about syntax—it's about automating tedious processes and solving manual problems. Building things that actually work and help people is what makes software engineering worth pursuing for me.
             </p>
           </div>
-        </div>
+        </BentoCard>
 
         {/* 4. AI EXPLORATION — 1x3 */}
         <BentoCard className="md:col-span-1 lg:col-span-1 md:row-span-3 flex flex-col justify-center p-6" style={{ background: "linear-gradient(160deg, #0c0c0c 0%, #0a0f0c 100%)" }}>
@@ -153,7 +153,7 @@ export default function AboutPage() {
               In today's landscape, writing raw syntax is no longer the barrier it used to be. With AI writing boilerplate, even non-coders can build apps. I embrace AI heavily as a co-pilot so I stay ahead of the curve, but my core focus has shifted to what AI cannot safely do: <span className="text-white font-medium">System Architecture.</span>
             </p>
             <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
-              My goal is architecting accurate, beautiful, and bulletproof systems. I spend my time engineering the <span className="text-accent/80">optimization, data validation, strict security, role authorization, and scalability</span> of the platform. I focus on designing the perfect blueprint; the AI just helps me lay the bricks faster.
+              My goal is architecting accurate and bulletproof systems. I spend my time engineering the <span className="text-accent/80">optimization, data validation, strict security, role authorization, and scalability</span> of the platform. I focus on designing the perfect blueprint; the AI just helps me lay the bricks faster.
             </p>
           </div>
         </BentoCard>
@@ -185,7 +185,7 @@ export default function AboutPage() {
             </span>
             <h3 className="font-syne text-lg font-bold text-white mb-2">DevOps & CI/CD Pipelines</h3>
             <p className="font-inter text-xs text-white/60 leading-relaxed">
-              A beautifully designed architecture is nothing without a robust deployment strategy. I am actively expanding my expertise into DevOps, focusing on setting up continuous integration, containerized deployments, and highly maintainable infrastructure.
+              A solid designed architecture is nothing without a robust deployment strategy. I am actively expanding my expertise into DevOps, focusing on setting up continuous integration, containerized deployments, and highly maintainable infrastructure.
             </p>
           </div>
         </BentoCard>
