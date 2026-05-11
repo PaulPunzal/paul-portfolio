@@ -478,9 +478,7 @@ export default function HomePage() {
                   together.
                 </em>
               </div>
-              <Link
-                href="/contact"
-                onClick={(e) => e.stopPropagation()}
+              <span
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -494,13 +492,12 @@ export default function HomePage() {
                   letterSpacing: "0.3px",
                   padding: "9px 18px",
                   borderRadius: 50,
-                  textDecoration: "none",
                   alignSelf: "flex-start",
                   transition: "all 0.2s",
                 }}
               >
                 Get in touch ↗
-              </Link>
+              </span>
             </div>
           </BentoCard>
 

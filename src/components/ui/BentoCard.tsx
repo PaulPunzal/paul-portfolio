@@ -3,10 +3,10 @@ import { CSSProperties, ReactNode } from "react";
 
 interface BentoCardProps {
   children: ReactNode;
-  /** CSS grid column span class e.g. "c4" */
-  col: string;
-  /** CSS grid row span class e.g. "r3" */
-  row: string;
+  /** CSS grid column span class e.g. "c4" (Made optional) */
+  col?: string;
+  /** CSS grid row span class e.g. "r3" (Made optional) */
+  row?: string;
   /** If provided, wraps the card in a Next.js Link */
   href?: string;
   /** Adds green glow on hover */
@@ -21,8 +21,8 @@ interface BentoCardProps {
 
 export default function BentoCard({
   children,
-  col,
-  row,
+  col = "",
+  row = "",
   href,
   accentHover = false,
   className = "",
