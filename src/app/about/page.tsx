@@ -60,7 +60,7 @@ export default function AboutPage() {
           {/* MOBILE ONLY 2B TEXT (Visually fuses the two cards together on phones) */}
           <div className="md:hidden">
             <p className="font-inter text-sm text-white/60 leading-relaxed font-light mt-1">
-              It isn't just about syntax—it's about automating tedious processes and solving manual problems. Building things that actually work and help people is what makes software engineering worth pursuing for me.
+              It isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help people is what gives software its purpose and makes the craft worth pursuing.
             </p>
           </div>
         </BentoCard>

@@ -27,46 +27,39 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-3 md:gap-4">
 
           {/* ── 1. DEVELOPER HERO BENTO ── */}
-          <BentoCard className="col-span-2 row-span-6 sm:row-span-5 md:row-span-4 p-6 lg:p-8 flex flex-col justify-center relative group">
-            {/* Avatar and Name Header */}
-            <div className="flex items-center gap-4 mb-6">
-              {/* Circular Avatar */}
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 relative shrink-0 group-hover:border-accent/50 transition-colors duration-500">
+          <BentoCard className="col-span-2 row-span-5 sm:row-span-4 md:row-span-4 p-6 lg:p-8 flex flex-col justify-center relative group">
+            {/* Top Half: Image & Name */}
+            <div className="flex items-center gap-5 lg:gap-6 mb-6">
+              {/* Square Image Box (Larger Sizes) */}
+              <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-2xl overflow-hidden border border-white/10 relative shrink-0 group-hover:border-accent/40 transition-colors duration-500 shadow-lg">
                 <Image 
                   src="/gradpic/profile.JPG" 
                   alt="Paul John Punzal" 
                   fill 
-                  sizes="64px"
-                  className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 128px, 128px"
+                  className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               
-              {/* Upgraded Name Font */}
-              <div>
-                <h1 className="font-syne text-2xl lg:text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/30 mb-1">
+              {/* Name & Title */}
+              <div className="flex flex-col">
+                <h1 className="font-syne text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mb-1.5 lg:mb-2">
                   Paul John Punzal
                 </h1>
                 <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                  <span className="font-mono text-[9px] tracking-[2px] uppercase text-white/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
+                  <span className="font-mono text-[9px] sm:text-[10px] tracking-[1.5px] sm:tracking-[2px] uppercase text-white/50">
                     Full-Stack & Mobile Dev
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
-              {/* Refined Paragraph 1 */}
+            {/* Bottom Half: Paragraph 2 */}
+            <div className="border-l-2 border-accent/30 pl-4 py-1">
               <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
                 Building real-world applications—from integrating IoT hardware with AI object detection to full-scale educational platforms—has pushed me to grow across different areas of development, with a growing focus on backend architecture, data optimization, and automation.
               </p>
-              
-              {/* Added Paragraph 2 */}
-              <div className="border-l-2 border-accent/30 pl-4 py-1">
-                <p className="font-inter text-sm text-white/60 leading-relaxed font-light">
-                  It isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help people is what gives software its purpose and makes the craft worth pursuing.
-                </p>
-              </div>
             </div>
           </BentoCard>
 

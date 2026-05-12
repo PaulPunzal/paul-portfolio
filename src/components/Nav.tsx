@@ -49,7 +49,7 @@ export default function Navbar() {
               href="/contact"
               className="font-mono text-[11px] uppercase tracking-[1px] font-bold text-[#000] bg-accent px-5 py-2.5 rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300"
             >
-              Let's Talk
+              Contact Me
             </Link>
           </div>
         </nav>
