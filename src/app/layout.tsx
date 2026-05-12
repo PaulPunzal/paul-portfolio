@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, DM_Mono, Inter } from "next/font/google";
 import Nav from "@/components/Nav";
 import "./globals.css";
+import FloatingResume from "@/components/ui/FloatingResume";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -26,18 +27,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Paul John Punzal — Full-Stack Developer",
-  description:
-    "IT graduate building real-world systems across web, mobile, and IoT. Full-Stack & Mobile Developer based in Marilao, Bulacan.",
-  keywords: [
-    "Paul John Punzal",
-    "Full-Stack Developer",
-    "Mobile Developer",
-    "React",
-    "Next.js",
-    "Flutter",
-    "Philippines",
-  ],
+  title: "PaulPunzal | Portfolio — Full-Stack Developer",
+  description: "Portfolio of Paul John Punzal - Full-Stack & Mobile Developer",
 };
 
 export default function RootLayout({
@@ -49,7 +40,8 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth" className={`${syne.variable} ${dmMono.variable} ${inter.variable}`}>
       <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden">
         <Nav />
-        <main className="pt-4 sm:pt-24 min-h-screen">
+        <FloatingResume />
+        <main className="pt-4 sm:pt-24 pb-28 lg:pb-0 min-h-screen">
           {children}
         </main>
       </body>
