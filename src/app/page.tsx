@@ -184,7 +184,8 @@ export default function HomePage() {
         transition={{ duration: 0.4, ease: "easeOut" }}
         style={{ pointerEvents: pageVisible ? "auto" : "none" }}
       >
-        <Marquee />
+        {/* Pass the pageVisible state to trigger the animation */}
+        <Marquee isVisible={pageVisible} />
 
         <div className="w-full max-w-[1200px] mx-auto px-4 pb-12 pt-6">
           <motion.div

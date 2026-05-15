@@ -15,11 +15,17 @@ interface SplashScreenProps {
 }
 
 export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps) {
-  const overlayControls = useAnimation();
-  const lineControls    = useAnimation();
-  const boxControls     = useAnimation();
-  const shimmerControls = useAnimation();
+  const overlayControls  = useAnimation();
+  const lineControls     = useAnimation();
+  const boxControls      = useAnimation();
+  const shimmerControls  = useAnimation();
   const skeletonControls = useAnimation();
+  
+  const dotLeftControls  = useAnimation();
+  const dotRightControls = useAnimation();
+  const rippleControls   = useAnimation();
+  const ripple2Controls  = useAnimation();
+  const gridControls     = useAnimation();
 
   const latestRect = useRef(heroRect);
 
@@ -27,22 +33,59 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
     latestRect.current = heroRect;
   }, [heroRect]);
 
-  // ── THE FIX: STRICT MODE SAFE ANIMATION ──
   useEffect(() => {
     let isMounted = true;
 
     async function runSequence() {
       try {
-        // Phase 1: Line draws itself
+        // ── Phase 1: Laser Draw ──
+        dotLeftControls.start({ x: -65, opacity: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } });
+        dotRightControls.start({ x: 65, opacity: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } });
         await lineControls.start({
           width: 130,
           opacity: 1,
           transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
         });
-        if (!isMounted) return; // Exit immediately if user clicked away!
+        if (!isMounted) return;
 
-        // Phase 2: Box expands
+        // ── Phase 2: Box Expands & Nav Bar Awakens ──
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("revealNav"));
+        }
+
         lineControls.start({ opacity: 0, transition: { duration: 0.15 } });
+        dotLeftControls.start({ opacity: 0, transition: { duration: 0.15 } });
+        dotRightControls.start({ opacity: 0, transition: { duration: 0.15 } });
+
+        // ── THE ENVIRONMENT REACTION (Brighter Flash) ──
+        gridControls.start({
+          scale: [1, 1.05, 1],
+          opacity: [0.6, 1, 0.6], // Reaches full brightness
+          transition: { duration: 1.2, ease: "easeOut" }
+        });
+
+        // ── DOUBLE SHOCKWAVE (Added Glow/Box-Shadow) ──
+        rippleControls.start({
+          width: [130, 600],
+          height: [1, 400],
+          opacity: [1, 0],
+          borderRadius: ["4px", "200px"],
+          border: ["3px solid rgba(125,249,166,1)", "1px solid rgba(125,249,166,0)"],
+          boxShadow: ["0 0 40px 10px rgba(125,249,166,0.6)", "0 0 0px 0px rgba(125,249,166,0)"],
+          transition: { duration: 0.8, ease: "easeOut" }
+        });
+
+        ripple2Controls.start({
+          width: [130, 900],
+          height: [1, 700],
+          opacity: [0.7, 0],
+          borderRadius: ["4px", "300px"],
+          border: ["2px solid rgba(125,249,166,0.8)", "1px solid rgba(125,249,166,0)"],
+          boxShadow: ["0 0 60px 15px rgba(125,249,166,0.3)", "0 0 0px 0px rgba(125,249,166,0)"],
+          transition: { duration: 1.1, ease: "easeOut", delay: 0.05 }
+        });
+
+        // Expand the actual box
         await boxControls.start({
           opacity: 1,
           width: 280,
@@ -57,6 +100,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         });
         if (!isMounted) return;
 
+        // Show wireframe
         await skeletonControls.start({
           opacity: 1,
           transition: { duration: 0.3, delay: 0.1 },
@@ -66,12 +110,10 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         await delay(250);
         if (!isMounted) return;
 
-        // Phase 3: Resize 
+        // ── Phase 3: Resize ──
         const rect = latestRect.current;
         const targetW = rect?.width  ?? 560;
         const targetH = rect?.height ?? 400;
-
-        skeletonControls.start({ opacity: 0, transition: { duration: 0.2 } });
 
         await boxControls.start({
           width:  targetW,
@@ -85,7 +127,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         });
         if (!isMounted) return;
 
-        // Phase 4: Positioning
+        // ── Phase 4: Positioning ──
         const vw = document.documentElement.clientWidth;
         const vh = document.documentElement.clientHeight;
 
@@ -102,7 +144,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         });
         if (!isMounted) return;
 
-        // Phase 5: Crossfade
+        // ── Phase 5: Crossfade ──
         onComplete();
 
         boxControls.start({
@@ -114,25 +156,25 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           opacity: 0,
           transition: { duration: 0.4, ease: "easeIn", delay: 0.05 },
         });
-      } catch (error) {
-        // Failsafe: if animation is violently interrupted by routing, ignore it.
-      }
+      } catch (error) {}
     }
 
     runSequence();
 
-    // ── THE CRITICAL CLEANUP FUNCTION ──
     return () => {
       isMounted = false;
-      // Stop all animations dead in their tracks so they don't fight the new mount!
       lineControls.stop();
       boxControls.stop();
       skeletonControls.stop();
       overlayControls.stop();
+      dotLeftControls.stop();
+      dotRightControls.stop();
+      rippleControls.stop();
+      ripple2Controls.stop();
+      gridControls.stop();
     };
-  }, [boxControls, lineControls, onComplete, overlayControls, skeletonControls]);
+  }, [boxControls, lineControls, onComplete, overlayControls, skeletonControls, dotLeftControls, dotRightControls, rippleControls, ripple2Controls, gridControls]);
 
-  // Ambient effects
   useEffect(() => {
     shimmerControls.start({
       backgroundPosition: ["200% 0", "-200% 0"],
@@ -146,126 +188,103 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
       initial={{ opacity: 1 }}
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-black pointer-events-none"
     >
-      <div
+      {/* ── DYNAMIC BACKGROUND GRID (Brighter lines) ── */}
+      <motion.div
+        animate={gridControls}
+        initial={{ scale: 1, opacity: 0.6 }}
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px)," +
-            "linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
+          backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          transformOrigin: "center",
         }}
       />
-
+      
+      {/* Static Glow */}
       <div
         className="absolute pointer-events-none rounded-full"
         style={{
-          width: 600,
-          height: 600,
-          background: "radial-gradient(circle, rgba(125,249,166,0.055) 0%, transparent 70%)",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+          background: "radial-gradient(circle, rgba(125,249,166,0.08) 0%, transparent 70%)",
         }}
       />
 
-      {[
-        { top: "10%",    left:  "10%" },
-        { top: "10%",    right: "10%" },
-        { bottom: "10%", left:  "10%" },
-        { bottom: "10%", right: "10%" },
-      ].map((pos, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full"
-          style={{ ...pos, background: "rgba(125,249,166,0.4)" }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.6 + i * 0.05, duration: 0.3 }}
-        />
-      ))}
+      {/* ── DOUBLE SHOCKWAVE RIPPLES ── */}
+      <motion.div
+        animate={rippleControls}
+        initial={{ opacity: 0, x: "-50%", y: "-50%", width: 130, height: 1 }}
+        style={{ position: "absolute", top: "50%", left: "50%", boxSizing: "border-box", pointerEvents: "none" }}
+      />
+      <motion.div
+        animate={ripple2Controls}
+        initial={{ opacity: 0, x: "-50%", y: "-50%", width: 130, height: 1 }}
+        style={{ position: "absolute", top: "50%", left: "50%", boxSizing: "border-box", pointerEvents: "none" }}
+      />
 
+      {/* ── THE ALIGNED LASER SPARKS (Brighter glow) ── */}
+      <motion.div
+        animate={dotLeftControls}
+        initial={{ width: 4, height: 4, opacity: 0, x: 0, y: "-50%" }}
+        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)" }}
+      />
+      <motion.div
+        animate={dotRightControls}
+        initial={{ width: 4, height: 4, opacity: 0, x: 0, y: "-50%" }}
+        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)" }}
+      />
+
+      {/* The Central Line (Solid White with Glow) */}
       <motion.div
         animate={lineControls}
         initial={{ width: 0, opacity: 0 }}
-        style={{
-          position: "absolute",
-          height: 1,
-          background: "rgba(255,255,255,0.55)",
-          top: "50%",
-          left: "50%",
-          x: "-50%",
-          y: "-50%",
-        }}
+        style={{ position: "absolute", height: 1, background: "rgba(255,255,255,0.9)", boxShadow: "0 0 8px 1px rgba(255,255,255,0.4)", top: "50%", left: "50%", x: "-50%", y: "-50%" }}
       />
 
+      {/* The Morphing Box */}
       <motion.div
         animate={boxControls}
-        initial={{
-          opacity: 0,
-          width: 130,
-          height: 1,
-          x: "-50%",
-          y: "-50%",
-        }}
+        initial={{ opacity: 0, width: 130, height: 1, x: "-50%", y: "-50%" }}
         style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          border: "1px solid rgba(255,255,255,0.05)",
-          background: "radial-gradient(circle at top left, rgba(125, 249, 166, 0.025) 0%, var(--bg-card) 45%)",
-          borderRadius: 18,
-          overflow: "hidden",
-          willChange: "transform, width, height",
+          position: "absolute", top: "50%", left: "50%", border: "1px solid rgba(255,255,255,0.1)",
+          background: "radial-gradient(circle at top left, rgba(125, 249, 166, 0.04) 0%, var(--bg-card) 45%)",
+          borderRadius: 18, overflow: "hidden", willChange: "transform, width, height",
         }}
       >
+        {/* SVG Wireframe (Maximized Edge-to-Edge Width) */}
         <motion.div
           animate={skeletonControls}
           initial={{ opacity: 0 }}
-          className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-center pointer-events-none"
+          className="absolute inset-0 flex items-center justify-center p-6 pointer-events-none"
         >
-          {/* ── WIREFRAME: Picture & Title Area ── */}
-          <div className="flex items-center gap-5 lg:gap-6 mb-6">
-            {/* Picture Skeleton */}
-            <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-2xl bg-white/5 border border-white/10 shrink-0" />
+          <svg viewBox="0 0 560 400" className="w-full h-full opacity-100" preserveAspectRatio="xMidYMid meet">
+            {/* 1. Profile Picture Block (Pushed to the far left) */}
+            <rect x="4" y="36" width="136" height="136" rx="24" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
             
-            {/* Name & Subtitle Skeleton */}
-            <div className="flex flex-col gap-3 w-full">
-              <div className="h-6 sm:h-8 lg:h-10 bg-white/10 rounded-md w-3/4" />
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent/50" />
-                <div className="h-3 sm:h-4 bg-accent/20 rounded-sm w-1/2" />
-              </div>
-            </div>
-          </div>
+            {/* 2. Name Block (Stretched to the far right edge) */}
+            <rect x="164" y="55" width="392" height="48" rx="10" fill="rgba(255,255,255,0.15)" />
+            
+            {/* 3. Subtitle / Dev Role Block */}
+            <circle cx="172" cy="135" r="8" fill="rgba(125,249,166,0.8)" />
+            <rect x="192" y="127" width="310" height="16" rx="6" fill="rgba(125,249,166,0.4)" />
 
-          {/* ── WIREFRAME: Description Paragraph ── */}
-          <div className="border-l-2 border-accent/30 pl-4 py-1 flex flex-col gap-2.5">
-            <div className="h-2.5 sm:h-3 bg-white/10 rounded-sm w-full" />
-            <div className="h-2.5 sm:h-3 bg-white/10 rounded-sm w-11/12" />
-            <div className="h-2.5 sm:h-3 bg-white/10 rounded-sm w-4/5" />
-          </div>
+            {/* 4. Left Accent Line (Pushed to the far left) */}
+            <rect x="4" y="210" width="4" height="140" fill="rgba(125,249,166,0.5)" rx="2" />
+
+            {/* 5. Paragraph Lines (Stretched massively to fill the entire right side) */}
+            <rect x="28" y="216" width="528" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
+            <rect x="28" y="252" width="500" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
+            <rect x="28" y="288" width="510" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
+            <rect x="28" y="324" width="420" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
+          </svg>
         </motion.div>
 
-        <motion.div
-          animate={shimmerControls}
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "linear-gradient(110deg, transparent 30%, rgba(125,249,166,0.04) 50%, transparent 70%)",
-            backgroundSize: "200% 100%",
-          }}
-        />
+        <motion.div animate={shimmerControls} className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(110deg, transparent 30%, rgba(125,249,166,0.06) 50%, transparent 70%)", backgroundSize: "200% 100%" }} />
       </motion.div>
 
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.9, duration: 0.4 }}
-      >
-        <span className="w-1 h-1 rounded-full animate-pulse" style={{ background: "#7df9a6" }} />
-        <span className="font-mono uppercase tracking-[3px]" style={{ fontSize: 9, color: "rgba(125,249,166,0.5)" }}>
-          Booting system
-        </span>
+      {/* Booting Text */}
+      <motion.div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9, duration: 0.4 }}>
+        <span className="w-1 h-1 rounded-full animate-pulse" style={{ background: "#7df9a6", boxShadow: "0 0 8px 2px rgba(125,249,166,0.5)" }} />
+        <span className="font-mono uppercase tracking-[3px]" style={{ fontSize: 9, color: "rgba(125,249,166,0.8)" }}>Paul Punzal</span>
       </motion.div>
     </motion.div>
   );
