@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { projects } from "@/lib/data";
 import { Cpu, BookOpen, GraduationCap, ScanEye } from "lucide-react";
 import Link from "next/link";
@@ -35,6 +35,12 @@ function Tag({ label, highlight = false }: { label: string; highlight?: boolean 
 
 export default function ProjectsPage() {
   const [activeId, setActiveId] = useState<string>(projects[0].id);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "auto";
+    }
+  }, []);
 
   const active = projects.find((p) => p.id === activeId) ?? projects[0];
   const activeIndex = projects.findIndex((p) => p.id === activeId);

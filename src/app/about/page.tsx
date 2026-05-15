@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import BentoCard from "@/components/ui/BentoCard";
 import { 
   User, 
@@ -13,6 +16,13 @@ import {
 import Image from "next/image";
 
 export default function AboutPage() {
+  // ── THE FIX: FORCE NATIVE SCROLL RESTORATION ──
+  useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "auto";
+    }
+  }, []);
+
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 pb-12 pt-6 animate-in fade-in duration-700">
       

@@ -1,8 +1,17 @@
+"use client";
 import BentoCard from "@/components/ui/BentoCard";
 import StatusDot from "@/components/ui/StatusDot";
 import { Mail, MapPin, Briefcase, Phone } from "lucide-react";
+import { useEffect } from "react";
 
 export default function ContactPage() {
+
+  useEffect(() => {
+      if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "auto";
+      }
+  }, []);
+  
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 pb-12 pt-6 animate-in fade-in duration-700">
       
