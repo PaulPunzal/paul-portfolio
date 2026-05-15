@@ -4,31 +4,39 @@ import { useEffect, useState } from "react";
 
 interface SplashScreenProps {
   finishLoading: () => void;
+  heroRect?: DOMRect | null;
 }
 
-export default function SplashScreen({ finishLoading }: SplashScreenProps) {
-  const [phase, setPhase] = useState<"drawing" | "expanding" | "splitting" | "exiting">("drawing");
+export default function SplashScreen({ finishLoading, heroRect }: SplashScreenProps) {
+  const [phase, setPhase] = useState<
+    "drawing" | "expanding" | "splitting" | "resizing" | "positioning" | "exiting"
+  >("drawing");
 
   useEffect(() => {
-    // Phase timeline:
-    // 0ms   → line starts drawing itself
-    // 700ms → box expands from line
-    // 1300ms → bento grid splits appear
-    // 2200ms → exit phase begins, hero card morph starts
-    // 2800ms → finishLoading fires (page content is ready)
+    const t1 = setTimeout(() => setPhase("expanding"),   700);
+    const t2 = setTimeout(() => setPhase("splitting"),   1300);
+    const t3 = setTimeout(() => setPhase("resizing"),    2200); // box grows to hero card size
+    const t4 = setTimeout(() => setPhase("positioning"), 3000); // box flies to hero card position
+    const t5 = setTimeout(() => setPhase("exiting"),     3700); // overlay fades out
+    const t6 = setTimeout(() => finishLoading(),         4000); // page fully takes over
 
-    const t1 = setTimeout(() => setPhase("expanding"), 700);
-    const t2 = setTimeout(() => setPhase("splitting"), 1300);
-    const t3 = setTimeout(() => setPhase("exiting"), 2200);
-    const t4 = setTimeout(() => finishLoading(), 2800);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-    };
+    return () => { [t1, t2, t3, t4, t5, t6].forEach(clearTimeout); };
   }, [finishLoading]);
+
+  // Target size — use measured rect if available, otherwise sensible desktop fallback
+  const targetW = heroRect?.width  ?? 560;
+  const targetH = heroRect?.height ?? 400;
+
+  // Offset from viewport center to hero card center
+  const targetX = heroRect
+    ? heroRect.left + heroRect.width  / 2 - window.innerWidth  / 2
+    : 0;
+  const targetY = heroRect
+    ? heroRect.top  + heroRect.height / 2 - window.innerHeight / 2
+    : 0;
+
+  const isResizing    = phase === "resizing"    || phase === "positioning" || phase === "exiting";
+  const isPositioning = phase === "positioning" || phase === "exiting";
 
   return (
     <AnimatePresence>
@@ -37,7 +45,7 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
           key="splash-overlay"
           className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
           style={{ backgroundColor: "#000000" }}
-          exit={{ opacity: 0, transition: { duration: 0.4, ease: "easeIn", delay: 0.3 } }}
+          exit={{ opacity: 0, transition: { duration: 0.35, ease: "easeIn" } }}
         >
           {/* ── Ambient grid background ── */}
           <div
@@ -61,15 +69,18 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
               x: "-50%",
               y: "-50%",
             }}
-            animate={{ scale: phase === "splitting" ? 1.4 : 1, opacity: phase === "splitting" ? 1 : 0.5 }}
+            animate={{
+              scale:   phase === "splitting" ? 1.4 : 1,
+              opacity: phase === "splitting" ? 1   : 0.5,
+            }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           />
 
           {/* ── Corner accent dots ── */}
           {[
-            { top: "10%", left: "10%" },
-            { top: "10%", right: "10%" },
-            { bottom: "10%", left: "10%" },
+            { top: "10%",    left:  "10%" },
+            { top: "10%",    right: "10%" },
+            { bottom: "10%", left:  "10%" },
             { bottom: "10%", right: "10%" },
           ].map((pos, i) => (
             <motion.div
@@ -77,12 +88,15 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
               className="absolute w-1 h-1 rounded-full"
               style={{ ...pos, background: "rgba(125,249,166,0.4)" }}
               initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: phase !== "drawing" ? 1 : 0, scale: phase !== "drawing" ? 1 : 0 }}
+              animate={{
+                opacity: phase !== "drawing" ? 1 : 0,
+                scale:   phase !== "drawing" ? 1 : 0,
+              }}
               transition={{ delay: 0.3 + i * 0.05, duration: 0.3 }}
             />
           ))}
 
-          {/* ── THE CENTRAL ANIMATION ── */}
+          {/* ── Central animation container ── */}
           <div className="relative flex items-center justify-center" style={{ width: 280, height: 180 }}>
 
             {/* ── PHASE 1: Horizontal line draws itself ── */}
@@ -108,36 +122,50 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
               )}
             </AnimatePresence>
 
-            {/* ── PHASE 2+: The main box that expands from nothing ── */}
+            {/* ── PHASE 2+: The main box that morphs all the way to hero position ── */}
             <AnimatePresence>
-              {(phase === "expanding" || phase === "splitting") && (
+              {(phase === "expanding" || phase === "splitting" || phase === "resizing" || phase === "positioning") && (
                 <motion.div
                   key="main-box"
                   className="absolute"
                   style={{
-                    border: "1px solid rgba(125,249,166,0.5)",
-                    background: "rgba(9,9,11,0.9)",
-                    borderRadius: 14,
-                    overflow: "hidden",
+                    // Exact match to .bento-card styles in globals.css
+                    border:       "1.5px solid rgba(255, 255, 255, 0.05)",
+                    background:   "#09090b",
+                    borderRadius: 18,
+                    overflow:     "hidden",
+                    top:  "50%",
+                    left: "50%",
                   }}
-                  initial={{ width: 0, height: 0, opacity: 0, borderRadius: 4 }}
+                  initial={{ width: 0, height: 0, opacity: 0, x: "-50%", y: "-50%" }}
                   animate={{
-                    width: phase === "splitting" ? 280 : 200,
-                    height: phase === "splitting" ? 180 : 60,
+                    width:  isResizing    ? targetW : (phase === "splitting" ? 280 : 200),
+                    height: isResizing    ? targetH : (phase === "splitting" ? 180 : 60),
+                    x:      isPositioning ? `calc(-50% + ${targetX}px)` : "-50%",
+                    y:      isPositioning ? `calc(-50% + ${targetY}px)` : "-50%",
                     opacity: 1,
-                    borderRadius: 14,
                   }}
-                  exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.2 } }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{
+                    width: {
+                      duration: isResizing ? 0.65 : 0.5,
+                      ease:     isResizing ? [0.4, 0, 0.2, 1] : [0.16, 1, 0.3, 1],
+                    },
+                    height: {
+                      duration: isResizing ? 0.65 : 0.5,
+                      ease:     isResizing ? [0.4, 0, 0.2, 1] : [0.16, 1, 0.3, 1],
+                    },
+                    x: { duration: 0.65, ease: [0.4, 0, 0.2, 1] },
+                    y: { duration: 0.65, ease: [0.4, 0, 0.2, 1] },
+                    opacity: { duration: 0.3 },
+                  }}
+                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
                 >
-                  {/* Inner content that fades in when splitting */}
+                  {/* Inner skeleton content — fades out when resizing starts */}
                   <motion.div
                     className="absolute inset-0 p-4 flex flex-col justify-between"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: phase === "splitting" ? 1 : 0 }}
-                    transition={{ duration: 0.4, delay: 0.15 }}
+                    animate={{ opacity: isResizing ? 0 : (phase === "splitting" ? 1 : 0) }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {/* Simulated name lines */}
                     <div className="flex flex-col gap-1.5">
                       <motion.div
                         className="rounded-sm"
@@ -154,8 +182,6 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
                         transition={{ duration: 0.35, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       />
                     </div>
-
-                    {/* Bento grid divider lines appearing */}
                     <div className="flex flex-col gap-1">
                       <motion.div
                         style={{ height: 1, background: "rgba(255,255,255,0.08)", width: "100%" }}
@@ -168,9 +194,17 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
                           <motion.div
                             key={i}
                             className="rounded-sm"
-                            style={{ height: 20, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)", flex: w }}
+                            style={{
+                              height: 20,
+                              background: "rgba(255,255,255,0.04)",
+                              border: "1px solid rgba(255,255,255,0.06)",
+                              flex: w,
+                            }}
                             initial={{ opacity: 0, y: 4 }}
-                            animate={{ opacity: phase === "splitting" ? 1 : 0, y: phase === "splitting" ? 0 : 4 }}
+                            animate={{
+                              opacity: phase === "splitting" ? 1 : 0,
+                              y:       phase === "splitting" ? 0 : 4,
+                            }}
                             transition={{ duration: 0.3, delay: 0.45 + i * 0.06 }}
                           />
                         ))}
@@ -182,7 +216,8 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
                   <motion.div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "linear-gradient(110deg, transparent 30%, rgba(125,249,166,0.06) 50%, transparent 70%)",
+                      background:
+                        "linear-gradient(110deg, transparent 30%, rgba(125,249,166,0.06) 50%, transparent 70%)",
                       backgroundSize: "200% 100%",
                     }}
                     animate={{ backgroundPosition: ["200% 0", "-200% 0"] }}
@@ -191,7 +226,6 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
                 </motion.div>
               )}
             </AnimatePresence>
-
           </div>
 
           {/* ── Bottom boot text ── */}
@@ -201,7 +235,10 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
             animate={{ opacity: phase === "splitting" ? 1 : 0 }}
             transition={{ duration: 0.4 }}
           >
-            <span className="w-1 h-1 rounded-full bg-accent animate-pulse" style={{ background: "#7df9a6" }} />
+            <span
+              className="w-1 h-1 rounded-full animate-pulse"
+              style={{ background: "#7df9a6" }}
+            />
             <span
               className="font-mono uppercase tracking-[3px]"
               style={{ fontSize: 9, color: "rgba(125,249,166,0.5)" }}
@@ -210,26 +247,6 @@ export default function SplashScreen({ finishLoading }: SplashScreenProps) {
             </span>
           </motion.div>
         </motion.div>
-      )}
-
-      {/* ── layoutId hero card — this is what morphs into the real card ── */}
-      {phase === "exiting" && (
-        <motion.div
-          key="splash-hero-card"
-          layoutId="hero-bento-card"
-          className="fixed inset-0 z-[100]"
-          style={{
-            width: 280,
-            height: 180,
-            border: "1px solid rgba(125,249,166,0.3)",
-            background: "rgba(9,9,11,0.95)",
-            borderRadius: 18,
-            top: "50%",
-            left: "50%",
-            marginTop: -90,
-            marginLeft: -140,
-          }}
-        />
       )}
     </AnimatePresence>
   );

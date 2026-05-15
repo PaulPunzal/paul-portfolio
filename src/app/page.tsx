@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import anime from "animejs";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -20,14 +20,39 @@ import Image from "next/image";
 import SplashScreen from "@/components/ui/SplashScreen";
 
 export default function HomePage() {
-  const [isLoading, setIsLoading] = useState(true);
+  // isLoading = splash is visible
+  // pageVisible = page content is allowed to show (measured + ready)
+  const [isLoading, setIsLoading]   = useState(true);
+  const [pageVisible, setPageVisible] = useState(false);
+  const [heroRect, setHeroRect]     = useState<DOMRect | null>(null);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+
   const [motorpass, littleLion, elearning, grocery] = projects;
+
+  // ── Called by SplashScreen at t=4000ms ─────────────────────────────────
+  // We flip isLoading off first so the page DOM renders (invisible),
+  // then in the next two animation frames we measure the hero card
+  // and pass the rect back to SplashScreen via state so the box can
+  // fly to the correct position BEFORE we show the page.
+  const handleFinishLoading = useCallback(() => {
+    setIsLoading(false);
+    // Double rAF ensures the DOM has painted before we measure
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (heroRef.current) {
+          setHeroRect(heroRef.current.getBoundingClientRect());
+        }
+        setPageVisible(true);
+      });
+    });
+  }, []);
 
   // ── Anime.js text & breathing icon animations ──────────────────────────
   useEffect(() => {
-    if (isLoading) return;
+    if (!pageVisible) return;
 
-    const nameWords = document.querySelectorAll(".name-word");
+    const nameWords     = document.querySelectorAll(".name-word");
     const subtitleWords = document.querySelectorAll(".subtitle-word");
     const breathingIcons = document.querySelectorAll(".breathing-icon");
 
@@ -35,7 +60,7 @@ export default function HomePage() {
     anime.remove(subtitleWords);
     anime.remove(breathingIcons);
 
-    anime.set(nameWords, { translateY: "100%", opacity: 0 });
+    anime.set(nameWords,     { translateY: "100%", opacity: 0 });
     anime.set(subtitleWords, { translateY: "100%", opacity: 0 });
 
     const textSequence = anime.timeline({ loop: true });
@@ -88,11 +113,11 @@ export default function HomePage() {
       anime.remove(subtitleWords);
       anime.remove(breathingIcons);
     };
-  }, [isLoading]);
+  }, [pageVisible]);
 
   // ── Framer Motion stagger variant ──────────────────────────────────────
   const gridVariants = {
-    hidden: { opacity: 0 },
+    hidden:   { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { staggerChildren: 0.08, delayChildren: 0.1 },
@@ -102,18 +127,33 @@ export default function HomePage() {
   return (
     <>
       {/* ── SPLASH SCREEN OVERLAY ── */}
+      {/*
+        We keep SplashScreen mounted even after isLoading=false so it can
+        receive the heroRect measurement and finish its positioning animation
+        before it unmounts. AnimatePresence handles the exit fade.
+      */}
       <AnimatePresence mode="wait">
         {isLoading && (
-          <SplashScreen key="splash" finishLoading={() => setIsLoading(false)} />
+          <SplashScreen
+            key="splash"
+            finishLoading={handleFinishLoading}
+            heroRect={heroRect}
+          />
         )}
       </AnimatePresence>
 
       {/* ── PORTFOLIO PAGE ── */}
+      {/*
+        The page renders as invisible (opacity 0) the moment isLoading flips
+        false. This lets us measure the hero card position. Once heroRect is
+        set and pageVisible=true, it fades in. This means the splash box can
+        fly to the exact measured coordinates before the user sees the page.
+      */}
       {!isLoading && (
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          animate={{ opacity: pageVisible ? 1 : 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
         >
           <Marquee />
 
@@ -121,31 +161,30 @@ export default function HomePage() {
             <motion.div
               variants={gridVariants}
               initial="hidden"
-              animate="visible"
+              animate={pageVisible ? "visible" : "hidden"}
               className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-3 md:gap-4"
             >
+
               {/* ── 1. DEVELOPER HERO BENTO ──────────────────────────────── */}
               {/*
-                The `layoutId="hero-bento-card"` here MUST match the same
-                layoutId on the final shape in SplashScreen.tsx.
-                Framer Motion will automatically detect both share the same
-                layoutId and animate between their real DOM positions.
+                No layoutId here anymore. Instead we attach a ref so we can
+                measure where this card lives on screen. The SplashScreen box
+                flies to those coordinates, then this card fades in on top —
+                zero layout jump, perfectly seamless.
               */}
-              <motion.div
-                layoutId="hero-bento-card"
+              <div
+                ref={heroRef}
                 className="bento-card col-span-2 row-span-5 sm:row-span-4 md:row-span-4 p-6 lg:p-8 flex flex-col justify-center relative group"
                 style={{
                   background:
                     "radial-gradient(circle at top left, rgba(125, 249, 166, 0.025) 0%, var(--bg-card) 45%)",
                 }}
-                // Once layout animation completes, fade in the inner content
-                transition={{ type: "spring", stiffness: 120, damping: 20 }}
               >
-                {/* Inner content fades in AFTER the morph lands */}
+                {/* Content fades in once page is visible */}
                 <motion.div
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.45, duration: 0.5 }}
+                  animate={{ opacity: pageVisible ? 1 : 0 }}
+                  transition={{ delay: 0.2, duration: 0.45, ease: "easeOut" }}
                   className="flex flex-col h-full justify-center"
                 >
                   <div className="flex items-center gap-5 lg:gap-6 mb-6">
@@ -195,7 +234,7 @@ export default function HomePage() {
                     </p>
                   </div>
                 </motion.div>
-              </motion.div>
+              </div>
 
               {/* ── 2. BASED IN — 2x1 ── */}
               <BentoCard className="col-span-2 row-span-1 flex items-center justify-between px-5 md:px-6 py-4">
@@ -432,6 +471,7 @@ export default function HomePage() {
                   Get in touch ↗
                 </span>
               </BentoCard>
+
             </motion.div>
           </div>
         </motion.div>
