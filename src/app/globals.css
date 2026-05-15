@@ -6,17 +6,25 @@
 
 /* ── CSS VARIABLES ── */
 :root {
+  /* 1. Backgrounds: Pure OLED black body, with incredibly deep "Zinc" black cards */
   --black: #000000;
-  --bg-card: #0c0c0c;
-  --bg-card-hover: #111111;
-  --border: rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.18);
-  --text-primary: #f0f0f0;
-  --text-secondary: rgba(255, 255, 255, 0.45);
-  --text-muted: rgba(255, 255, 255, 0.25);
+  --bg-card: #09090b; 
+  --bg-card-hover: #141417; 
+
+  /* 2. Borders: Softer, less distracting lines */
+  --border: rgba(255, 255, 255, 0.05);
+  --border-hover: rgba(255, 255, 255, 0.12);
+
+  /* 3. Text (The Eye-Strain Fix!): Using cool "Zinc" grays instead of glowing white */
+  --text-primary: #e4e4e7;   /* Zinc 200 - Soft off-white, no glare */
+  --text-secondary: #a1a1aa; /* Zinc 400 - Clear but stays in the background */
+  --text-muted: #52525b;     /* Zinc 600 - For very subtle details */
+
+  /* 4. Your Signature Green Accent */
   --accent: #7df9a6;
-  --accent-dim: rgba(125, 249, 166, 0.12);
-  --accent-glow: rgba(125, 249, 166, 0.25);
+  --accent-dim: rgba(125, 249, 166, 0.10);
+  --accent-glow: rgba(125, 249, 166, 0.20);
+  
   --radius: 18px;
   --nav-height: 64px;
 }
@@ -35,7 +43,17 @@ html {
 }
 
 body {
-  background: var(--black);
+  /* Set the base black color */
+  background-color: var(--black);
+  
+  /* Draw the vertical and horizontal grid lines */
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  
+  /* Set the size of the grid boxes */
+  background-size: 24px 24px;
+  
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -86,10 +104,15 @@ body {
 .r4 { grid-row: span 4; }
 .r5 { grid-row: span 5; }
 
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ── BENTO CARD BASE ── */
 .bento-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
   position: relative;
@@ -99,7 +122,26 @@ body {
   cursor: default;
   display: flex;
   flex-direction: column;
-  animation: fade-up 0.4s ease both;
+}
+
+/* The ambient sweeping light */
+.bento-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* A very faint, angled white/green light */
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(125, 249, 166, 0.03) 40%, 
+    rgba(255, 255, 255, 0.04) 50%, 
+    rgba(125, 249, 166, 0.03) 60%, 
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 8s infinite linear;
+  pointer-events: none; /* Ensures you can still click things underneath */
+  z-index: 1;
 }
 
 .bento-card.clickable {
@@ -131,7 +173,7 @@ body {
 }
 
 /* staggered animation delays */
-.bento-grid .bento-card:nth-child(1)  { animation-delay: 0.04s; }
+/* .bento-grid .bento-card:nth-child(1)  { animation-delay: 0.04s; }
 .bento-grid .bento-card:nth-child(2)  { animation-delay: 0.08s; }
 .bento-grid .bento-card:nth-child(3)  { animation-delay: 0.12s; }
 .bento-grid .bento-card:nth-child(4)  { animation-delay: 0.16s; }
@@ -145,7 +187,7 @@ body {
 .bento-grid .bento-card:nth-child(12) { animation-delay: 0.48s; }
 .bento-grid .bento-card:nth-child(13) { animation-delay: 0.52s; }
 .bento-grid .bento-card:nth-child(14) { animation-delay: 0.56s; }
-.bento-grid .bento-card:nth-child(15) { animation-delay: 0.60s; }
+.bento-grid .bento-card:nth-child(15) { animation-delay: 0.60s; } */
 
 /* ── PROJECT ARROW hover (child selector) ── */
 .bento-card.clickable:hover .project-arrow {
@@ -322,7 +364,7 @@ body {
   to { transform: translateX(-50%); }
 }
 
-@keyframes fade-up {
+/* @keyframes fade-up {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
-}
+} */
