@@ -245,7 +245,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         animate={boxControls}
         initial={{ opacity: 0, width: 130, height: 1, x: "-50%", y: "-50%" }}
         style={{
-          position: "absolute", top: "50%", left: "50%", border: "1px solid rgba(255,255,255,0.1)",
+          position: "absolute", top: "50%", left: "50%", border: "1px solid rgba(125,249,166,0.5)",
           background: "radial-gradient(circle at top left, rgba(125, 249, 166, 0.04) 0%, var(--bg-card) 45%)",
           borderRadius: 18, overflow: "hidden", willChange: "transform, width, height",
         }}

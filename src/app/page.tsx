@@ -208,6 +208,16 @@ export default function HomePage() {
                   "radial-gradient(circle at top left, rgba(125, 249, 166, 0.025) 0%, var(--bg-card) 45%)",
               }}
             >
+              
+              {/* ── NEW: THE SEAMLESS BORDER HANDOFF FADE ── */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none z-50"
+                style={{ borderRadius: 18 }} // Perfectly matches the 18px radius from the Splash Screen!
+                initial={{ border: "1px solid rgba(125,249,166,0.5)" }}
+                animate={{ border: pageVisible ? "1px solid rgba(125,249,166,0)" : "1px solid rgba(125,249,166,0.5)" }}
+                transition={{ duration: 5, delay: 0.3, ease: "easeOut" }}
+              />
+
               {/* Inner content fades in when pageVisible — prevents the
                   snapshot of empty content during measurement */}
               <motion.div
