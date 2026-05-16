@@ -36,6 +36,14 @@ export default function HomePage() {
 
   const heroRef = useRef<HTMLDivElement>(null);
   const [motorpass, littleLion, elearning, grocery] = projects;
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // ── THE SIMPLIFIED CHECK ──
   useEffect(() => {
@@ -189,9 +197,9 @@ export default function HomePage() {
 
         <div className="w-full max-w-[1200px] mx-auto px-4 pb-12 pt-6">
           <motion.div
-            variants={gridVariants}
-            initial="hidden"
-            animate={pageVisible ? "visible" : "hidden"}
+            variants={isMobile ? {} : gridVariants} 
+            initial={isMobile ? "visible" : "hidden"} 
+            animate={pageVisible || isMobile ? "visible" : "hidden"}
             className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-3 md:gap-4"
           >
 

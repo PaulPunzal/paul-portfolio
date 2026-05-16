@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState} from "react";
 import BentoCard from "@/components/ui/BentoCard";
 import { 
   User, 
@@ -46,6 +46,16 @@ const itemVariants: Variants = {
 };
 
 export default function AboutPage() {
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    // Check if window is desktop size
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile(); // Check immediately
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Force native scroll restoration
   useEffect(() => {
     if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
@@ -71,7 +81,8 @@ export default function AboutPage() {
       <motion.div 
         className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-3 md:gap-4"
         variants={containerVariants}
-        initial="offscreen"
+        // If mobile, start fully visible ("onscreen"), otherwise do the animation ("offscreen")
+        initial={isMobile ? "onscreen" : "offscreen"}
         whileInView="onscreen"
         viewport={{ once: true, margin: "-20px" }}
       >
