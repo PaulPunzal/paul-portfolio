@@ -15,8 +15,10 @@ export interface Project {
   fullDesc: string;         // projects page paragraph
   bullets: string[];
   previewTags: string[];    // small tags on bento card
-  stack: StackItem[];       // full stack with highlight flags
-  githubUrls?: { label: string; url: string }[];     // URL to the project's GitHub repository
+  stack: StackItem[];
+  githubUrls?: { label: string; url: string }[];
+  images?: string[];       // <-- For screenshots/device photos
+  certificates?: string[]; // <-- For OJT/Capstone certificates
 }
 
 export interface SkillItem {

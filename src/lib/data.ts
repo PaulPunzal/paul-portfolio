@@ -9,8 +9,22 @@ export const projects: Project[] = [
     githubUrls: [
         { label: "IoT System", url: "https://github.com/PaulPunzal/capstone-motorpass" }
     ],
+    images: [
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778915530/x7hgoj9ogpbo6y90iibx.jpg",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778915530/hbnngkopjtxikzxsz7bs.jpg",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778915531/kwixnkhmq2xfxookma7p.png",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778918404/cs6icdii6jt9koitzig4.jpg",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778916460/rc5nri2d3jsaxhavc8az.jpg",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778915532/dywpzlnpaojhfaucd6rr.png"
+
+    ],
+    certificates: [
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778915529/kht1p1eux7xuzuhmnhsm.jpg",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778915505/v1eqgtwrrop2burufquc.jpg"
+
+    ],
     iconBgStyle: "rgba(125,249,166,0.1)",
-    label: "Capstone · IoT + AI",
+    label: "Capstone · Full-Stack",
     title: "MotorPass",
     fullTitle: "MotorPass — Smart Gate Pass System",
     role: "Capstone · Full-Stack Developer",
@@ -19,8 +33,8 @@ export const projects: Project[] = [
     fullDesc:
       "An IoT-based automated campus entry system deployed on a Raspberry Pi 4, replacing manual gate pass workflows with multi-factor AI verification. Integrates computer vision, biometrics, and dual-database resilience into a single cohesive system.",
     bullets: [
-      "Engineered the end-to-end IoT pipeline on Raspberry Pi 4, integrating hardware peripherals and cloud services to fully replace manual gate pass workflows and improve throughput.",
-      "Custom-trained a YOLO/ONNX machine learning model for real-time helmet detection, automatically enforcing campus safety compliance without human intervention.",
+      "Engineered the end-to-end IoT pipeline on Raspberry Pi 4, integrating hardware peripherals and cloud services to replace manual gate pass workflows and improve throughput.",
+      "Custom-trained a YOLO/ONNX machine learning model for real-time helmet detection, automatically enforcing campus safety compliance without much relying human intervention.",
       "Implemented multi-factor authentication combining OCR-powered driver's license scanning with fingerprint biometrics for secure, verified vehicle entry.",
       "Architected a dual-database strategy using SQLite for resilient local event logging and Firebase Realtime Database for live synchronization — zero data loss during connectivity drops — with a live admin monitoring dashboard.",
     ],
@@ -38,15 +52,21 @@ export const projects: Project[] = [
   {
     id: "little-lion",
     iconName: "BookOpen",
+    githubUrls: [
+      { label: "Live Demo", url: "https://little-lion.pages.dev/" }
+    ],
+      images: [
+        "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778916733/ornilcbclhidt9mo417q.png"
+    ],
     iconBgStyle: "rgba(255,200,100,0.1)",
-    label: "OJT · Lead Dev",
+    label: "OJT · Lead Dev & Backend",
     title: "Little Lion SPED",
     fullTitle: "Little Lion — SPED School Management System",
     role: "OJT · Lead Developer & UI/UX",
     shortDesc:
-      "Full SPED school management platform with 5 RBAC portals, real-time parent comms, and deployed during OJT.",
+      "Full SPED school management platform. (Note: Source code is confidential. Demo link is for the landing page only; login is restricted).",
     fullDesc:
-      "A specialized administrative platform for a Special Education school — covering full requirements gathering, architecture, and delivery. Built five tailored portals for distinct stakeholder groups with an emphasis on accessibility and clarity.",
+      "A specialized administrative platform for a Special Education school — covering full requirements gathering, architecture, and delivery. Built five tailored portals for distinct stakeholder groups with an emphasis on accessibility and clarity.\n\n🔒 *Note: The source code is confidential. The attached live link is for testing/demo purposes. For this specific demo, only the landing page is accessible and login functionality is disabled.*",
     bullets: [
       "Led end-to-end development from requirements gathering to production deployment during OJT.",
       "Architected a Role-Based Access Control (RBAC) system with five distinct portals for Admins, Staff, Teachers, Therapists, and Parents — each showing only relevant data.",
@@ -97,6 +117,10 @@ export const projects: Project[] = [
     githubUrls: [
       { label: "Mobile App", url: "https://github.com/PaulPunzal/Offline-GroceryList" }
     ],
+    images: [
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778917303/fctzqhkpycnzxncriixo.jpg",
+      "https://res.cloudinary.com/dlfjnz8xq/image/upload/v1778917305/h2zazdtyyctuqijwvosz.jpg"
+    ],
     iconBgStyle: "rgba(255,100,150,0.1)",
     label: "Mobile · Offline-First",
     title: "Grocery OCR",
@@ -120,6 +144,69 @@ export const projects: Project[] = [
       { label: "Local Notifications", highlight: false },
     ],
   },
+
+  {
+    id: "pcci-valenzuela",
+    iconName: "Network", 
+    githubUrls: [
+      { label: "Live Demo", url: "https://pcci-valenzuela.onrender.com/" }
+    ],
+    iconBgStyle: "rgba(50,200,200,0.1)",
+    label: "OJT · Lead & Middleware",
+    title: "PCCI Membership Portal",
+    fullTitle: "PCCI Valenzuela — Membership Business Portal",
+    role: "OJT · IT Lead Developer & Middleware",
+    shortDesc:
+      "Business membership portal built with a headless Laravel API and Bootstrap. (Note: Source code confidential, testing demo available).",
+    fullDesc:
+      "A comprehensive business membership platform developed for the Philippine Chamber of Commerce and Industry (Valenzuela chapter). Engineered using a headless architecture to completely decouple the frontend from the backend, streamlining data flow and scalability.\n\n🔒 *Note: The source code is confidential. The attached live link is provided strictly as a testing demo of the platform's interface.*",
+    bullets: [
+      "Acted as the IT Lead Developer during OJT, managing the technical direction and integration workflows between the frontend and backend teams.",
+      "Developed and maintained the middleware layer to securely connect the headless Laravel REST API with the Bootstrap-based frontend client.",
+      "Engineered robust API endpoints for managing business profiles, membership applications, and event ticketing.",
+      "Architected specialized role-based access flows supporting distinct, isolated dashboards for Admins, Members, and Treasurers.",
+    ],
+    previewTags: ["Laravel", "Bootstrap", "Headless API", "Middleware"],
+    stack: [
+      { label: "Laravel", highlight: true },
+      { label: "Bootstrap", highlight: true },
+      { label: "PHP", highlight: false },
+      { label: "REST APIs", highlight: false },
+      { label: "Middleware", highlight: false },
+      { label: "RBAC", highlight: false },
+    ],
+  },
+  {
+    id: "8con-academy",
+    iconName: "TrendingUp",
+    githubUrls: [
+      { label: "Live Demo", url: "https://8con-academy-website-batch6.vercel.app/" }
+    ],
+    iconBgStyle: "rgba(255, 170, 0, 0.1)", 
+    label: "OJT · Frontend",
+    title: "8Con Academy",
+    fullTitle: "8Con Academy — Forex Trading Corporate Website",
+    role: "OJT · Frontend Developer",
+    shortDesc:
+      "Modern corporate frontend for a Forex Trading academy. (Note: Source code confidential, live testing demo available).",
+    fullDesc:
+      "A comprehensive corporate frontend developed during OJT for 8Con Academy, a Forex Trading company. Built from the ground up using React and Vite, the platform introduces the company's core brand, showcases internship and career pathways, and streamlines new student registrations.\n\n🔒 *Note: The source code is confidential. The attached live link is provided strictly as a testing demo.*",
+    bullets: [
+      "Developed dynamic, responsive frontend components using React and JavaScript to effectively showcase the academy's trading background and core brand.",
+      "Implemented an interactive Chatbot FAQ and seamless student registration modals to improve user engagement and conversion for prospective enrollees.",
+      "Built a modular, easily maintainable architecture utilizing Vite for optimized, lightning-fast local development and production builds.",
+      "Designed custom CSS animations and layouts to present a professional, high-trust interface suitable for the financial and trading education sector.",
+    ],
+    previewTags: ["React", "Vite", "JavaScript", "Frontend"],
+    stack: [
+      { label: "React", highlight: true },
+      { label: "Vite", highlight: true },
+      { label: "JavaScript", highlight: false },
+      { label: "CSS", highlight: false },
+      { label: "Frontend Architecture", highlight: false },
+    ],
+  }
+
 ];
 
 // ── SKILLS DATA ────────────────────────────────────────────────────────────
