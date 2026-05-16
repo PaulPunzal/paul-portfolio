@@ -136,15 +136,6 @@ export default function HomePage() {
         easing:   "easeInCubic",
       }, "-=400");
 
-    anime({
-      targets:   breathingIcons,
-      translateY: [-3, 3],
-      direction: "alternate",
-      loop:      true,
-      duration:  2000,
-      easing:    "easeInOutSine",
-    });
-
     return () => {
       anime.remove(nameWords);
       anime.remove(subtitleWords);
@@ -385,7 +376,7 @@ export default function HomePage() {
                   className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-white/5"
                   style={{ background: motorpass.iconBgStyle }}
                 >
-                  <Cpu className="w-6 h-6 text-emerald-300 breathing-icon" strokeWidth={1.5} />
+                  <Cpu className="w-6 h-6 text-emerald-300 css-breathing-icon" strokeWidth={1.5} />
                 </div>
                 <div className="project-arrow">↗</div>
               </div>
@@ -510,7 +501,7 @@ function ProjectPreviewCard({
     <BentoCard className={`${className} row-span-2 flex flex-col justify-between p-5 md:p-6`} href="/projects" accentHover>
       <div className="flex justify-between items-start">
         <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-white/5 breathing-icon"
+          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-white/5 css-breathing-icon"
           style={{ background: project.iconBgStyle }}
         >
           {icon}

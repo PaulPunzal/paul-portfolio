@@ -115,6 +115,10 @@ body {
     animation: none !important; 
     background-position: 0 0 !important;
   }
+
+  .bento-card::before {
+    display: none !important;
+  }
 }
 
 /* ── BENTO CARD BASE ── */
@@ -374,7 +378,13 @@ body {
   to { transform: translate3d(-50%, 0, 0); }
 }
 
-/* @keyframes fade-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-} */
+@keyframes float-icon {
+  0% { transform: translate3d(0, -3px, 0); }
+  100% { transform: translate3d(0, 3px, 0); }
+}
+
+.css-breathing-icon {
+  /* translate3d forces the GPU to take over the animation */
+  animation: float-icon 2s ease-in-out infinite alternate;
+  will-change: transform;
+}
