@@ -109,6 +109,14 @@ body {
   100% { background-position: -200% 0; }
 }
 
+/* Disable expensive background repaints on mobile */
+@media (max-width: 768px) {
+  .bento-card::after {
+    animation: none !important; 
+    background-position: 0 0 !important;
+  }
+}
+
 /* ── BENTO CARD BASE ── */
 .bento-card {
   background: var(--bg-card);
@@ -212,6 +220,7 @@ body {
   gap: 0;
   width: max-content;
   animation: marquee 22s linear infinite;
+  will-change: transform; /* Add this to tell the browser to optimize it */
 }
 
 .marquee-item {
@@ -360,8 +369,9 @@ body {
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  /* Use translate3d to force GPU hardware acceleration */
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 
 /* @keyframes fade-up {
