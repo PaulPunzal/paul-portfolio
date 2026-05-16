@@ -119,6 +119,13 @@ export default function AboutPage() {
             <p className="font-inter text-sm lg:text-xs xl:text-sm text-white/60 leading-relaxed font-light mb-3 md:mb-0">
               During my capstone project, integrating a Raspberry Pi with AI object detection and OCR showed me the true purpose of technology.
             </p>
+
+            {/* MOBILE ONLY 2B TEXT (Visually fuses the two cards together on phones) */}
+            <div className="md:hidden">
+              <p className="font-inter text-sm text-white/60 leading-relaxed font-light mt-1">
+                Coding isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help solves problem with solid system design is what gives software its purpose.
+              </p>
+            </div>
             
           </BentoCard>
         </motion.div>
@@ -175,7 +182,7 @@ export default function AboutPage() {
             <div className="relative z-30 h-full flex flex-col justify-center">
 
               <p className="font-inter text-sm lg:text-xs xl:text-sm text-white/70 leading-relaxed font-light">
-                Coding isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help people is what gives software its purpose.
+                Coding isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help solves problem with solid system design is what gives software its purpose.
               </p>
             </div>
           </BentoCard>

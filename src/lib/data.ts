@@ -7,8 +7,7 @@ export const projects: Project[] = [
     id: "motorpass",
     iconName: "Cpu",
     githubUrls: [
-        { label: "IoT System", url: "https://github.com/PaulPunzal/capstone-motorpass" },
-        { label: "Web Portal", url: "https://github.com/PaulPunzal/motorpass-web" }
+        { label: "IoT System", url: "https://github.com/PaulPunzal/capstone-motorpass" }
     ],
     iconBgStyle: "rgba(125,249,166,0.1)",
     label: "Capstone · IoT + AI",
