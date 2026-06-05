@@ -213,12 +213,26 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
       <motion.div
         animate={rippleControls}
         initial={{ opacity: 0, x: "-50%", y: "-50%", width: 130, height: 1 }}
-        style={{ position: "absolute", top: "50%", left: "50%", boxSizing: "border-box", pointerEvents: "none" }}
+        style={{ 
+          position: "absolute", 
+          top: "50%", 
+          left: "50%", 
+          boxSizing: "border-box", 
+          pointerEvents: "none",
+          willChange: "width, height, opacity, box-shadow" /* <-- Add this line */
+        }}
       />
       <motion.div
         animate={ripple2Controls}
         initial={{ opacity: 0, x: "-50%", y: "-50%", width: 130, height: 1 }}
-        style={{ position: "absolute", top: "50%", left: "50%", boxSizing: "border-box", pointerEvents: "none" }}
+        style={{ 
+          position: "absolute", 
+          top: "50%", 
+          left: "50%", 
+          boxSizing: "border-box", 
+          pointerEvents: "none",
+          willChange: "width, height, opacity, box-shadow" /* <-- Add this line */
+        }}
       />
 
       {/* ── THE ALIGNED LASER SPARKS (Brighter glow) ── */}
