@@ -302,7 +302,7 @@ export default function HomePage() {
                 Core Focus
               </span>
               <div className="flex flex-col gap-3">
-                {["REST APIs", "Full-Stack Web", "Mobile Apps", "AI & OCR", "Automation"].map((item) => (
+                {["REST APIs", "Full-Stack Web", "Mobile Apps", "AI & OCR", "Automation", "Machine Learning"].map((item) => (
                   <div key={item} className="text-[10px] md:text-xs text-white/70 font-mono flex items-center gap-2">
                     <span className="text-accent">✦</span> {item}
                   </div>
