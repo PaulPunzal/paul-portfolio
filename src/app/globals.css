@@ -105,19 +105,18 @@ body {
 .r5 { grid-row: span 5; }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0%   { transform: translateX(-100%) skewX(-5deg); }
+  100% { transform: translateX(300%)  skewX(-5deg); }
 }
 
 /* Disable expensive background repaints on mobile */
 @media (max-width: 768px) {
   .bento-card::after {
-    animation: none !important; 
-    background-position: 0 0 !important;
+    animation: none !important;
+    display: none; /* removes the layer entirely on mobile = zero GPU memory */
   }
-
   .bento-card::before {
-    display: none !important;
+    display: none; /* noise texture — expensive on mobile */
   }
 }
 
@@ -141,19 +140,22 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  /* A very faint, angled white/green light */
+  /* Static gradient at left edge — the "slide" happens via transform */
   background: linear-gradient(
     110deg,
-    transparent 20%,
-    rgba(125, 249, 166, 0.03) 40%, 
-    rgba(255, 255, 255, 0.04) 50%, 
-    rgba(125, 249, 166, 0.03) 60%, 
-    transparent 80%
+    transparent 0%,
+    rgba(125, 249, 166, 0.03) 40%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(125, 249, 166, 0.03) 60%,
+    transparent 100%
   );
-  background-size: 200% 100%;
+  /* Start fully off-screen left */
+  transform: translateX(-100%) skewX(-5deg);
   animation: shimmer 8s infinite linear;
-  pointer-events: none; /* Ensures you can still click things underneath */
+  pointer-events: none;
   z-index: 1;
+  /* Only tell GPU about transform — nothing else */
+  will-change: transform;
 }
 
 .bento-card.clickable {

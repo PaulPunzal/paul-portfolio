@@ -38,6 +38,9 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
 
     async function runSequence() {
       try {
+        // Detect mobile screen for performance routing
+        const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
         // ── Phase 1: Laser Draw ──
         dotLeftControls.start({ x: -65, opacity: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } });
         dotRightControls.start({ x: 65, opacity: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } });
@@ -57,31 +60,43 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         dotLeftControls.start({ opacity: 0, transition: { duration: 0.15 } });
         dotRightControls.start({ opacity: 0, transition: { duration: 0.15 } });
 
-        // ── THE ENVIRONMENT REACTION (Brighter Flash) ──
+        // ── THE ENVIRONMENT REACTION (Restored Energy) ──
+        // PERFORMANCE: Brought the scale back for mobile and widened the opacity 
+        // contrast to give it a dramatic "flash" without causing lag.
         gridControls.start({
-          scale: [1, 1.05, 1],
-          opacity: [0.6, 1, 0.6], // Reaches full brightness
+          scale: isMobile ? [1, 1.04, 1] : [1, 1.05, 1],
+          opacity: isMobile ? [0.3, 1, 0.4] : [0.6, 1, 0.6], 
           transition: { duration: 1.2, ease: "easeOut" }
         });
 
-        // ── DOUBLE SHOCKWAVE (Added Glow/Box-Shadow) ──
+        // ── DOUBLE SHOCKWAVE (Lag-Free Borders) ──
+        // PERFORMANCE: We still keep box-shadow OFF for mobile, but we morph the 
+        // border thickness more aggressively to fake the feeling of a heavy shockwave.
         rippleControls.start({
-          width: [130, 600],
-          height: [1, 400],
+          width: [130, isMobile ? 400 : 600],
+          height: [1, isMobile ? 250 : 400],
           opacity: [1, 0],
           borderRadius: ["4px", "200px"],
-          border: ["3px solid rgba(125,249,166,1)", "1px solid rgba(125,249,166,0)"],
-          boxShadow: ["0 0 40px 10px rgba(125,249,166,0.6)", "0 0 0px 0px rgba(125,249,166,0)"],
+          border: isMobile 
+            ? ["4px solid rgba(125,249,166,0.8)", "1px solid rgba(125,249,166,0)"] 
+            : ["3px solid rgba(125,249,166,1)", "1px solid rgba(125,249,166,0)"],
+          boxShadow: isMobile 
+            ? "none" 
+            : ["0 0 40px 10px rgba(125,249,166,0.6)", "0 0 0px 0px rgba(125,249,166,0)"],
           transition: { duration: 0.8, ease: "easeOut" }
         });
 
         ripple2Controls.start({
-          width: [130, 900],
-          height: [1, 700],
+          width: [130, isMobile ? 550 : 900],
+          height: [1, isMobile ? 400 : 700],
           opacity: [0.7, 0],
           borderRadius: ["4px", "300px"],
-          border: ["2px solid rgba(125,249,166,0.8)", "1px solid rgba(125,249,166,0)"],
-          boxShadow: ["0 0 60px 15px rgba(125,249,166,0.3)", "0 0 0px 0px rgba(125,249,166,0)"],
+          border: isMobile 
+            ? ["2px solid rgba(125,249,166,0.6)", "1px solid rgba(125,249,166,0)"] 
+            : ["2px solid rgba(125,249,166,0.8)", "1px solid rgba(125,249,166,0)"],
+          boxShadow: isMobile 
+            ? "none" 
+            : ["0 0 60px 15px rgba(125,249,166,0.3)", "0 0 0px 0px rgba(125,249,166,0)"],
           transition: { duration: 1.1, ease: "easeOut", delay: 0.05 }
         });
 
@@ -188,7 +203,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
       initial={{ opacity: 1 }}
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-black pointer-events-none"
     >
-      {/* ── DYNAMIC BACKGROUND GRID (Brighter lines) ── */}
+      {/* ── DYNAMIC BACKGROUND GRID ── */}
       <motion.div
         animate={gridControls}
         initial={{ scale: 1, opacity: 0.6 }}
@@ -197,6 +212,8 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           transformOrigin: "center",
+          transform: "translateZ(0)", // Force GPU
+          willChange: "transform, opacity" 
         }}
       />
       
@@ -204,7 +221,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
       <div
         className="absolute pointer-events-none rounded-full"
         style={{
-          width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+          width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%, -50%) translateZ(0)",
           background: "radial-gradient(circle, rgba(125,249,166,0.08) 0%, transparent 70%)",
         }}
       />
@@ -219,7 +236,8 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           left: "50%", 
           boxSizing: "border-box", 
           pointerEvents: "none",
-          willChange: "width, height, opacity, box-shadow" /* <-- Add this line */
+          transform: "translateZ(0)", 
+          willChange: "width, height, opacity" 
         }}
       />
       <motion.div
@@ -231,27 +249,28 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           left: "50%", 
           boxSizing: "border-box", 
           pointerEvents: "none",
-          willChange: "width, height, opacity, box-shadow" /* <-- Add this line */
+          transform: "translateZ(0)", 
+          willChange: "width, height, opacity" 
         }}
       />
 
-      {/* ── THE ALIGNED LASER SPARKS (Brighter glow) ── */}
+      {/* ── THE ALIGNED LASER SPARKS ── */}
       <motion.div
         animate={dotLeftControls}
         initial={{ width: 4, height: 4, opacity: 0, x: 0, y: "-50%" }}
-        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)" }}
+        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)", transform: "translateZ(0)" }}
       />
       <motion.div
         animate={dotRightControls}
         initial={{ width: 4, height: 4, opacity: 0, x: 0, y: "-50%" }}
-        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)" }}
+        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)", transform: "translateZ(0)" }}
       />
 
-      {/* The Central Line (Solid White with Glow) */}
+      {/* The Central Line */}
       <motion.div
         animate={lineControls}
         initial={{ width: 0, opacity: 0 }}
-        style={{ position: "absolute", height: 1, background: "rgba(255,255,255,0.9)", boxShadow: "0 0 8px 1px rgba(255,255,255,0.4)", top: "50%", left: "50%", x: "-50%", y: "-50%" }}
+        style={{ position: "absolute", height: 1, background: "rgba(255,255,255,0.9)", boxShadow: "0 0 8px 1px rgba(255,255,255,0.4)", top: "50%", left: "50%", x: "-50%", y: "-50%", transform: "translateZ(0)" }}
       />
 
       {/* The Morphing Box */}
@@ -264,27 +283,18 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           borderRadius: 18, overflow: "hidden", willChange: "transform, width, height",
         }}
       >
-        {/* SVG Wireframe (Maximized Edge-to-Edge Width) */}
+        {/* SVG Wireframe */}
         <motion.div
           animate={skeletonControls}
           initial={{ opacity: 0 }}
           className="absolute inset-0 flex items-center justify-center p-6 pointer-events-none"
         >
           <svg viewBox="0 0 560 400" className="w-full h-full opacity-100" preserveAspectRatio="xMidYMid meet">
-            {/* 1. Profile Picture Block (Pushed to the far left) */}
             <rect x="4" y="36" width="136" height="136" rx="24" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
-            
-            {/* 2. Name Block (Stretched to the far right edge) */}
             <rect x="164" y="55" width="392" height="48" rx="10" fill="rgba(255,255,255,0.15)" />
-            
-            {/* 3. Subtitle / Dev Role Block */}
             <circle cx="172" cy="135" r="8" fill="rgba(125,249,166,0.8)" />
             <rect x="192" y="127" width="310" height="16" rx="6" fill="rgba(125,249,166,0.4)" />
-
-            {/* 4. Left Accent Line (Pushed to the far left) */}
             <rect x="4" y="210" width="4" height="140" fill="rgba(125,249,166,0.5)" rx="2" />
-
-            {/* 5. Paragraph Lines (Stretched massively to fill the entire right side) */}
             <rect x="28" y="216" width="528" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
             <rect x="28" y="252" width="500" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
             <rect x="28" y="288" width="510" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
