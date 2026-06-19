@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, DM_Mono, Inter } from "next/font/google";
 import Nav from "@/components/Nav";
+import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import FloatingResume from "@/components/ui/FloatingResume";
@@ -42,10 +43,12 @@ export default function RootLayout({
       <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden flex flex-col">
         <Nav />
         <FloatingResume />
-        <main className="pt-4 sm:pt-24 pb-28 lg:pb-0 flex-grow">
+        <main className="pt-4 sm:pt-24 flex-grow">
           {children}
         </main>
-        <Footer /> 
+        <MobileNav />
+        <Footer />
+        <div id="page-end-sentinel" className="h-px w-full" aria-hidden="true" />
       </body>
     </html>
   );

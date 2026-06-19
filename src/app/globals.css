@@ -61,9 +61,10 @@ body {
 
 @media (max-width: 639px) {
   body {
-    padding-bottom: 90px; /* Ensures space so you can scroll past the bottom mobile nav */
+    padding-bottom: 90px;
   }
 }
+
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar {

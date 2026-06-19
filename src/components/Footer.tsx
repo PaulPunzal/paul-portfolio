@@ -19,15 +19,46 @@ export default function Footer() {
         }} 
       />
 
-      {/* ── 2. MOVING LASER BORDER ── */}
-      <motion.div
-        className="absolute top-0 h-[1px] w-[200px] md:w-[400px] pointer-events-none"
+      {/* ── 2. MULTI-LASER SCAN ARRAY ── */}
+        {/* Primary line — brightest, slowest, sets the pace */}
+        <motion.div
+        className="absolute top-0 h-[1px] w-[200px] md:w-[420px] pointer-events-none"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(125, 249, 166, 0.8), transparent)"
+            background: "linear-gradient(90deg, transparent, rgba(125, 249, 166, 0.9), transparent)"
         }}
         animate={{ left: ["-50%", "150%"] }}
         transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
-      />
+        />
+
+        {/* Secondary line — faster, dimmer, offset start */}
+        <motion.div
+        className="absolute top-0 h-[1px] w-[120px] md:w-[240px] pointer-events-none"
+        style={{
+            background: "linear-gradient(90deg, transparent, rgba(125, 249, 166, 0.45), transparent)"
+        }}
+        animate={{ left: ["-50%", "150%"] }}
+        transition={{ repeat: Infinity, duration: 4, ease: "linear", delay: 1.4 }}
+        />
+
+        {/* Tertiary line — thin, fast, sparse — feels like a stray signal */}
+        <motion.div
+        className="absolute top-0 h-[1px] w-[70px] md:w-[140px] pointer-events-none"
+        style={{
+            background: "linear-gradient(90deg, transparent, rgba(125, 249, 166, 0.6), transparent)"
+        }}
+        animate={{ left: ["-50%", "150%"] }}
+        transition={{ repeat: Infinity, duration: 2.6, ease: "linear", delay: 3.2 }}
+        />
+
+        {/* Ambient glow that breathes in sync with the primary line's pass */}
+        <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+            background: "radial-gradient(ellipse at 50% 0%, rgba(125, 249, 166, 0.08) 0%, transparent 65%)"
+        }}
+        animate={{ opacity: [0, 0.6, 0] }}
+        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+        />
 
       {/* ── FOOTER CONTENT (z-10 to stay above background) ── */}
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -85,6 +116,7 @@ export default function Footer() {
         </div>
 
       </div>
+    <div className="h-4 sm:hidden" aria-hidden="true" />
     </footer>
   );
 }
