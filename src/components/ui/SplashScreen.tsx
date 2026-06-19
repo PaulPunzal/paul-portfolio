@@ -38,8 +38,10 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
 
     async function runSequence() {
       try {
-        // Detect mobile screen for performance routing
-        const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+        // Detect screen metrics dynamically for shockwave scaling
+        const screenWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
+        const screenHeight = typeof window !== "undefined" ? window.innerHeight : 800;
+        const isMobile = screenWidth < 768;
 
         // ── Phase 1: Laser Draw ──
         dotLeftControls.start({ x: -65, opacity: 1, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } });
@@ -61,8 +63,6 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         dotRightControls.start({ opacity: 0, transition: { duration: 0.15 } });
 
         // ── THE ENVIRONMENT REACTION (Restored Energy) ──
-        // PERFORMANCE: Brought the scale back for mobile and widened the opacity 
-        // contrast to give it a dramatic "flash" without causing lag.
         gridControls.start({
           scale: isMobile ? [1, 1.04, 1] : [1, 1.05, 1],
           opacity: isMobile ? [0.3, 1, 0.4] : [0.6, 1, 0.6], 
@@ -70,11 +70,16 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         });
 
         // ── DOUBLE SHOCKWAVE (Lag-Free Borders) ──
-        // PERFORMANCE: We still keep box-shadow OFF for mobile, but we morph the 
-        // border thickness more aggressively to fake the feeling of a heavy shockwave.
+        // Dynamic sizes for shockwaves (scales with large monitors)
+        const ripple1Width = isMobile ? 400 : Math.max(600, screenWidth * 0.5);
+        const ripple1Height = isMobile ? 250 : Math.max(400, screenHeight * 0.5);
+        
+        const ripple2Width = isMobile ? 550 : Math.max(900, screenWidth * 0.8);
+        const ripple2Height = isMobile ? 400 : Math.max(700, screenHeight * 0.8);
+
         rippleControls.start({
-          width: [130, isMobile ? 400 : 600],
-          height: [1, isMobile ? 250 : 400],
+          width: [130, ripple1Width],
+          height: [1, ripple1Height],
           opacity: [1, 0],
           borderRadius: ["4px", "200px"],
           border: isMobile 
@@ -87,8 +92,8 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         });
 
         ripple2Controls.start({
-          width: [130, isMobile ? 550 : 900],
-          height: [1, isMobile ? 400 : 700],
+          width: [130, ripple2Width],
+          height: [1, ripple2Height],
           opacity: [0.7, 0],
           borderRadius: ["4px", "300px"],
           border: isMobile 
@@ -209,7 +214,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         initial={{ scale: 1, opacity: 0.6 }}
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           transformOrigin: "center",
           transform: "translateZ(0)", // Force GPU

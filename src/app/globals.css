@@ -46,10 +46,10 @@ body {
   /* Set the base black color */
   background-color: var(--black);
   
-  /* Draw the vertical and horizontal grid lines */
+  /* UPDATE: Changed opacity from 0.03 to 0.06 for better visibility */
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   
   /* Set the size of the grid boxes */
   background-size: 28px 28px;

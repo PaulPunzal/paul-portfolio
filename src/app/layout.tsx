@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, DM_Mono, Inter } from "next/font/google";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import "./globals.css";
 import FloatingResume from "@/components/ui/FloatingResume";
 
@@ -38,12 +39,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${syne.variable} ${dmMono.variable} ${inter.variable}`}>
-      <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden">
+      <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden flex flex-col">
         <Nav />
         <FloatingResume />
-        <main className="pt-4 sm:pt-24 pb-28 lg:pb-0 min-h-screen">
+        <main className="pt-4 sm:pt-24 pb-28 lg:pb-0 flex-grow">
           {children}
         </main>
+        <Footer /> 
       </body>
     </html>
   );
