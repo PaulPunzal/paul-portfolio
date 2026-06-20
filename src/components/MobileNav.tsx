@@ -22,8 +22,6 @@ export default function MobileNav() {
     const handleReveal = () => setIsReady(true);
     window.addEventListener("revealNav", handleReveal);
     
-    // We completely removed the `setTimeout` timer here so it never appears early!
-    
     // 3. Cleanup listener
     return () => {
       window.removeEventListener("revealNav", handleReveal);
@@ -37,12 +35,10 @@ export default function MobileNav() {
   ];
 
   return (
-    /* PURE CSS DOCKING: 
-       - "sticky bottom-6" keeps it glued to the bottom of the screen.
-       - Because it's inside the wrapper, it naturally STOPS gluing when the wrapper ends (right above the footer).
-       - "pointer-events-none" ensures you can still tap the page behind the empty space.
+    /* CHANGED: z-[100] is now z-50 so that it correctly hides behind 
+       the z-[100] black overlay of the Splash Screen until it fades out!
     */
-    <div className="sm:hidden sticky bottom-6 w-full flex justify-center z-[100] mt-8 mb-2 pointer-events-none">
+    <div className="sm:hidden sticky bottom-6 w-full flex justify-center z-50 mt-8 mb-2 pointer-events-none">
       <motion.div
         className="w-[90%] max-w-[400px] pointer-events-auto"
         initial={{ scaleX: 0, opacity: 0 }}
