@@ -43,7 +43,7 @@ export default function RootLayout({
       <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden flex flex-col">
         <Nav />
         <FloatingResume />
-        <main className="pt-4 sm:pt-24 flex-grow">
+        <main className="pt-4 sm:pt-24">
           {children}
         </main>
         <MobileNav />

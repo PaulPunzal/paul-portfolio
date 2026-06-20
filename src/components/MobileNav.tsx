@@ -25,7 +25,6 @@ export default function MobileNav() {
     };
   }, [pathname]);
 
-  // ── Watch the sentinel placed right after the Footer ──
   useEffect(() => {
     const sentinel = document.getElementById("page-end-sentinel");
     if (!sentinel) return;
@@ -44,13 +43,11 @@ export default function MobileNav() {
     { name: "Projects", href: "/projects", icon: FolderArchive },
   ];
 
-  const NAV_HEIGHT = 76; // approx height incl. py-2 padding, used for the spacer
+  const NAV_HEIGHT = 76;
 
   return (
     <>
-      {/* Spacer — reserves space in the flow while nav floats fixed,
-          so the footer doesn't render underneath it. Disappears once docked
-          because the nav itself now occupies that space in the flow. */}
+      {/* Spacer — only needed while nav floats fixed, to reserve its place */}
       {!isDocked && (
         <div
           className="sm:hidden"
@@ -59,18 +56,19 @@ export default function MobileNav() {
         />
       )}
 
+      {/* Single motion.div — only ever animates scaleX/opacity once on mount.
+          Positioning is handled purely by Tailwind classes, no manual transform,
+          so toggling isDocked never replays the entrance animation. */}
       <motion.div
-        className={
+        className={`sm:hidden w-[90%] max-w-[400px] z-50 ${
           isDocked
-            ? "sm:hidden relative mx-auto mb-6 w-[90%] max-w-[400px] z-10"
-            : "sm:hidden fixed bottom-6 left-1/2 z-50 w-[90%] max-w-[400px]"
-        }
-        style={isDocked ? undefined : { transform: "translateX(-50%)" }}
+            ? "relative mx-auto mb-6"
+            : "fixed bottom-6 left-1/2 -translate-x-1/2"
+        }`}
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: isReady ? 1 : 0, opacity: isReady ? 1 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        // transformOrigin matters for the intro scale-in animation
-        {...(isDocked ? {} : { initial: { x: "-50%", scaleX: 0, opacity: 0 }, animate: { x: "-50%", scaleX: isReady ? 1 : 0, opacity: isReady ? 1 : 0 } })}
+        style={{ transformOrigin: "center" }}
       >
         <nav className="flex items-center justify-between px-2 py-2 bg-[#0c0c0c]/80 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.8)]">
           {navLinks.map((link) => {
