@@ -110,23 +110,17 @@ export default function AboutPage() {
         {/* 2A. BIO PART 1 (LEFT SIDE) */}
         <motion.div variants={itemVariants} className="order-3 md:order-2 col-span-2 sm:col-span-1 row-span-7 min-[375px]:row-span-6 sm:row-span-5 md:col-span-1 lg:col-span-1 md:row-span-5">
           <BentoCard className="w-full h-full p-6 lg:p-6 xl:p-8 flex flex-col justify-center relative">
+            <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-accent/70 mb-3 block">
+              Introduction
+            </span>
             <h2 className="font-syne text-xl lg:text-lg xl:text-2xl font-bold text-white mb-3 lg:mb-4 leading-tight">
               A Bit About Me
             </h2>
-            <p className="font-inter text-sm lg:text-xs xl:text-sm text-white/60 leading-relaxed font-light mb-3 lg:mb-4">
-              I'm a Full-Stack and Mobile Developer who loves turning ideas into working systems. My coding journey started out of pure curiosity, but everything clicked when I began connecting digital code with physical hardware.
-            </p>
-            <p className="font-inter text-sm lg:text-xs xl:text-sm text-white/60 leading-relaxed font-light mb-3 md:mb-0">
-              During my capstone project, integrating a Raspberry Pi with AI object detection and OCR showed me the true purpose of technology.
-            </p>
-
-            {/* MOBILE ONLY 2B TEXT (Visually fuses the two cards together on phones) */}
-            <div className="md:hidden">
-              <p className="font-inter text-sm text-white/60 leading-relaxed font-light mt-1">
-                Coding isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help solves problem with solid system design is what gives software its purpose.
+            <div className="border-l-2 border-accent/30 pl-4">
+              <p className="font-inter text-sm lg:text-xs xl:text-sm text-white/60 leading-relaxed font-light mb-3 md:mb-0">
+                I'm a Full-Stack and Mobile Developer who loves turning ideas into working systems. My coding journey started out of pure curiosity, but everything really clicked once I started connecting digital code with physical hardware — building an <span className="text-accent/80">AI-powered Raspberry Pi</span> system for my capstone showed me what technology is actually for.
               </p>
             </div>
-            
           </BentoCard>
         </motion.div>
 
@@ -251,10 +245,10 @@ export default function AboutPage() {
               </div>
               <h2 className="font-syne text-2xl lg:text-2xl xl:text-3xl font-bold text-white mb-4 lg:mb-5">Developing in the AI Era</h2>
               <p className="font-inter text-sm lg:text-sm xl:text-base text-white/60 leading-relaxed font-light mb-4 lg:mb-5">
-                In today's landscape, writing raw syntax is no longer the barrier it used to be. With AI writing boilerplate, even non-coders can build apps. I embrace AI heavily as a co-pilot so I stay ahead of the curve, but my core focus has shifted to what AI cannot safely do: <span className="text-white font-medium">System Architecture.</span>
+                Writing raw syntax isn't the barrier it used to be — with AI writing boilerplate, even non-coders can build apps. I embrace AI heavily as a co-pilot, but my focus has shifted to what AI can't safely do on its own: <span className="text-white font-medium">System Architecture.</span>
               </p>
               <p className="font-inter text-sm lg:text-sm xl:text-base text-white/60 leading-relaxed font-light">
-                My goal is architecting accurate and bulletproof systems. I spend my time engineering the <span className="text-accent/80">optimization, data validation, strict security, role authorization, and scalability</span> of the platform. I focus on designing the perfect blueprint; the AI just helps me lay the bricks faster.
+                My goal is architecting accurate, bulletproof systems — engineering the <span className="text-accent/80">optimization, data validation, security, and scalability</span> that hold a platform together. I design the blueprint; AI just helps me lay the bricks faster.
               </p>
             </div>
           </BentoCard>
@@ -272,7 +266,7 @@ export default function AboutPage() {
               </span>
               <h3 className="font-syne text-base xl:text-lg font-bold text-white mb-2">Database & API Structuring</h3>
               <p className="font-inter text-xs text-white/60 leading-relaxed">
-                While I love crafting clean UIs, my true passion lies in the backend. I specialize in designing scalable RESTful APIs, strict database schemas, and ensuring clean data contracts between mobile frontends and SQL databases.
+                I love crafting clean UIs, but my true passion is the backend. I specialize in scalable RESTful APIs, strict database schemas, and clean data contracts between mobile frontends and SQL databases.
               </p>
             </div>
           </BentoCard>
@@ -290,7 +284,7 @@ export default function AboutPage() {
               </span>
               <h3 className="font-syne text-base xl:text-lg font-bold text-white mb-2">DevOps & CI/CD Pipelines</h3>
               <p className="font-inter text-xs text-white/60 leading-relaxed">
-                A solid designed architecture is nothing without a robust deployment strategy. I am actively expanding my expertise into DevOps, focusing on setting up continuous integration, containerized deployments, and highly maintainable infrastructure.
+                A solidly designed architecture is nothing without a strong deployment strategy. I'm actively expanding into DevOps — setting up continuous integration, containerized deployments, and infrastructure that's actually maintainable.
               </p>
             </div>
           </BentoCard>

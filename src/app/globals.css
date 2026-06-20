@@ -8,22 +8,26 @@
 :root {
   /* 1. Backgrounds: Pure OLED black body, with incredibly deep "Zinc" black cards */
   --black: #000000;
-  --bg-card: #09090b; 
-  --bg-card-hover: #141417; 
+  --bg-card: #131316;
+  --bg-card-hover: #1c1c20;
 
   /* 2. Borders: Softer, less distracting lines */
-  --border: rgba(255, 255, 255, 0.05);
-  --border-hover: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-hover: rgba(255, 255, 255, 0.18);
+
 
   /* 3. Text (The Eye-Strain Fix!): Using cool "Zinc" grays instead of glowing white */
-  --text-primary: #e4e4e7;   /* Zinc 200 - Soft off-white, no glare */
-  --text-secondary: #a1a1aa; /* Zinc 400 - Clear but stays in the background */
-  --text-muted: #52525b;     /* Zinc 600 - For very subtle details */
+   --text-primary: #e4e4e7;   /* Zinc 200 - Soft off-white, no glare */
+   --text-secondary: #a1a1aa; /* Zinc 400 - Clear but stays in the background */
+   --text-muted: #52525b;     /* Zinc 600 - For very subtle details */
 
   /* 4. Your Signature Green Accent */
   --accent: #7df9a6;
   --accent-dim: rgba(125, 249, 166, 0.10);
   --accent-glow: rgba(125, 249, 166, 0.20);
+
+   /* 5. NEW: Card elevation shadow (gives depth without raising brightness) */
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 4px 24px rgba(0, 0, 0, 0.5);
   
   --radius: 18px;
   --nav-height: 64px;
@@ -48,8 +52,8 @@ body {
   
   /* UPDATE: Changed opacity from 0.03 to 0.06 for better visibility */
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   
   /* Set the size of the grid boxes */
   background-size: 28px 28px;
@@ -134,6 +138,7 @@ body {
   cursor: default;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--card-shadow);
 }
 
 /* The ambient sweeping light */
@@ -167,7 +172,7 @@ body {
   background: var(--bg-card-hover);
   border-color: var(--border-hover);
   transform: translateY(-2px) scale(1.005);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 8px 40px rgba(0, 0, 0, 0.55);
 }
 
 .bento-card.accent-border:hover {
