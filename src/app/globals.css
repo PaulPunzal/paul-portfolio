@@ -59,11 +59,11 @@ body {
   overflow-x: hidden;
 }
 
-@media (max-width: 639px) {
+/* @media (max-width: 639px) {
   body {
     padding-bottom: 90px;
   }
-}
+} */
 
 
 /* ── SCROLLBAR ── */

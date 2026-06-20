@@ -1,3 +1,4 @@
+// src/components/MobileNav.tsx
 "use client";
 
 import Link from "next/link";
@@ -9,33 +10,25 @@ import { useEffect, useState } from "react";
 export default function MobileNav() {
   const pathname = usePathname();
   const [isReady, setIsReady] = useState(false);
-  const [isDocked, setIsDocked] = useState(false);
 
   useEffect(() => {
+    // 1. If not on the home page, show immediately
     if (pathname !== "/") {
       setIsReady(true);
       return;
     }
+    
+    // 2. Listen strictly for the Splash Screen to announce it's finished
     const handleReveal = () => setIsReady(true);
     window.addEventListener("revealNav", handleReveal);
-    const timer = setTimeout(() => setIsReady(true), 1500);
+    
+    // We completely removed the `setTimeout` timer here so it never appears early!
+    
+    // 3. Cleanup listener
     return () => {
       window.removeEventListener("revealNav", handleReveal);
-      clearTimeout(timer);
     };
   }, [pathname]);
-
-  useEffect(() => {
-    const sentinel = document.getElementById("page-end-sentinel");
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsDocked(entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, []);
 
   const navLinks = [
     { name: "Home", href: "/", icon: Home },
@@ -43,28 +36,15 @@ export default function MobileNav() {
     { name: "Projects", href: "/projects", icon: FolderArchive },
   ];
 
-  const NAV_HEIGHT = 76;
-
   return (
-    <>
-      {/* Spacer — only needed while nav floats fixed, to reserve its place */}
-      {!isDocked && (
-        <div
-          className="sm:hidden"
-          style={{ height: `calc(${NAV_HEIGHT}px + env(safe-area-inset-bottom))` }}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Single motion.div — only ever animates scaleX/opacity once on mount.
-          Positioning is handled purely by Tailwind classes, no manual transform,
-          so toggling isDocked never replays the entrance animation. */}
+    /* PURE CSS DOCKING: 
+       - "sticky bottom-6" keeps it glued to the bottom of the screen.
+       - Because it's inside the wrapper, it naturally STOPS gluing when the wrapper ends (right above the footer).
+       - "pointer-events-none" ensures you can still tap the page behind the empty space.
+    */
+    <div className="sm:hidden sticky bottom-6 w-full flex justify-center z-[100] mt-8 mb-2 pointer-events-none">
       <motion.div
-        className={`sm:hidden w-[90%] max-w-[400px] z-50 ${
-          isDocked
-            ? "relative mx-auto mb-6"
-            : "fixed bottom-6 left-1/2 -translate-x-1/2"
-        }`}
+        className="w-[90%] max-w-[400px] pointer-events-auto"
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: isReady ? 1 : 0, opacity: isReady ? 1 : 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -98,6 +78,6 @@ export default function MobileNav() {
           </Link>
         </nav>
       </motion.div>
-    </>
+    </div>
   );
 }

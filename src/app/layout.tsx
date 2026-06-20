@@ -43,10 +43,17 @@ export default function RootLayout({
       <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden flex flex-col">
         <Nav />
         <FloatingResume />
-        <main className="pt-4 sm:pt-24">
-          {children}
-        </main>
-        <MobileNav />
+        
+        {/* NEW: Wrapper container acts as a 'track' for the sticky navbar */}
+        <div className="flex-1 flex flex-col relative w-full">
+          <main className="pt-4 sm:pt-24 flex-1">
+            {children}
+          </main>
+          
+          {/* MobileNav placed at the very end of the track */}
+          <MobileNav />
+        </div>
+
         <Footer />
         <div id="page-end-sentinel" className="h-px w-full" aria-hidden="true" />
       </body>
