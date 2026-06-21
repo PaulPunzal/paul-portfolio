@@ -217,52 +217,72 @@ body {
   animation: bento-frame-travel 9s linear infinite;
 }
 
-/* ── BENTO LASER FRAME — Multi-beam, footer-style ── */
-@keyframes bento-frame-travel-l1 {
-  to { stroke-dashoffset: -100; }
-}
-@keyframes bento-frame-travel-l2 {
-  to { stroke-dashoffset: -100; }
-}
-@keyframes bento-frame-travel-l3 {
-  to { stroke-dashoffset: -100; }
+/* ── BENTO LASER FRAME — single tapered beam + smooth halo, footer-tuned ── */
+
+/*
+  @property registers --travel and --step-offset as animatable/calc-able
+  <number> values (custom properties aren't usable inside calc() reliably
+  for animation purposes unless registered like this).
+
+  Every laser rect computes its own stroke-dashoffset as:
+      calc(var(--travel) + var(--step-offset))
+  ...where --travel is the ONE shared value driving motion (identical for
+  every rect, animated by the single @keyframes below), and --step-offset
+  is a fixed per-rect value set inline in the TSX (each step/halo's static
+  position within the rigid beam shape). Because every rect's dashoffset is
+  derived from the same --travel, the whole beam can never drift apart, and
+  because no dasharray here starts with a 0-length dash, there's no phantom
+  round-cap dot artifact.
+*/
+@property --travel {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
 }
 
-/* Primary — brightest, widest dash, slowest (sets the pace like the footer's 6s beam) */
-.bento-laser-frame .laser-l1 {
-  stroke: var(--accent);
-  stroke-width: 2px;
-  stroke-opacity: 0.95;
-  stroke-dasharray: 5 95;          /* wider dash = more visible beam */
-  animation: bento-frame-travel-l1 9s linear infinite;
+@property --step-offset {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
 }
 
-/* Secondary — faster, dimmer, shorter dash — offset start like footer's 4s beam */
-.bento-laser-frame .laser-l2 {
+@keyframes bento-frame-travel {
+  from { --travel: 0; }
+  to   { --travel: -100; }
+}
+
+.bento-laser-frame .laser-beam-anim {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  animation: bento-frame-travel 7s linear infinite;
+  stroke-dashoffset: calc(var(--travel) + var(--step-offset));
+}
+
+/* Single halo dash — tight blur radius (set in TSX) keeps glow spread smaller than card gaps */
+.bento-laser-frame .laser-beam-halo {
   stroke: var(--accent);
+  stroke-width: 4.5px;
+  stroke-opacity: 0.35;
+}
+
+/* Core segments — thin, pure white, the crisp visible beam itself */
+.bento-laser-frame .laser-beam-core {
+  stroke: #ffffff;
   stroke-width: 1.4px;
-  stroke-opacity: 0.45;
-  stroke-dasharray: 3 97;
-  animation: bento-frame-travel-l2 6s linear infinite;
-  animation-delay: 1.4s;
-}
-
-/* Tertiary — fastest, faintest, feels like a stray signal (footer's 2.6s beam) */
-.bento-laser-frame .laser-l3 {
-  stroke: var(--accent);
-  stroke-width: 1px;
-  stroke-opacity: 0.22;
-  stroke-dasharray: 2 98;
-  animation: bento-frame-travel-l3 3.8s linear infinite;
-  animation-delay: 3.2s;
 }
 
 @media (max-width: 768px) {
-  .bento-laser-frame .laser-l3 { display: none; }
+  .bento-laser-frame .laser-beam-halo {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bento-laser-frame rect { animation: none; opacity: 0; }
+  .bento-laser-frame .laser-beam-anim {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 /* ── MARQUEE ── */
