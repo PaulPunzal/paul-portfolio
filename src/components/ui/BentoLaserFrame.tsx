@@ -43,7 +43,7 @@ const PATH_TOTAL = 100; // pathLength is normalized to 0-100 on every rect
 const BEAM_LENGTH = 14; // total length (in pathLength units) the tapered core occupies
 const STEP_OPACITIES = [0.08, 0.2, 0.4, 0.65, 0.9, 1, 0.9, 0.65, 0.4, 0.2, 0.08];
 const STEP_SIZE = BEAM_LENGTH / STEP_OPACITIES.length;
-const HALO_LENGTH = 8; // shorter + tighter than the core taper so glow concentrates near the hot center
+// const HALO_LENGTH = 8; // shorter + tighter than the core taper so glow concentrates near the hot center
 const GAP_SIZE = PATH_TOTAL - STEP_SIZE; // dash + gap always sums to exactly one full lap
 
 export default function BentoLaserFrame({ containerRef, cardRefs, ready }: BentoLaserFrameProps) {
@@ -122,7 +122,7 @@ export default function BentoLaserFrame({ containerRef, cardRefs, ready }: Bento
   // beam's leading edge). The shared animation then shifts ALL of these by
   // the same amount every frame via stroke-dashoffset, so they travel as
   // one rigid unit with no phantom dots and no possibility of drift.
-  const haloRelativeOffset = BEAM_LENGTH / 2 - HALO_LENGTH / 2;
+  // const haloRelativeOffset = BEAM_LENGTH / 2 - HALO_LENGTH / 2;
 
   return (
     <div
@@ -164,18 +164,7 @@ export default function BentoLaserFrame({ containerRef, cardRefs, ready }: Bento
         </defs>
 
         <g clipPath={`url(#${clipId})`} shapeRendering="geometricPrecision">
-          {/* ONE halo dash — smooth blurred wash sitting behind the core */}
-          <rect
-            className="laser-beam-halo laser-beam-anim"
-            x={0} y={0} width={W} height={H} rx={R} ry={R}
-            pathLength={100}
-            filter="url(#bento-glow-soft)"
-            style={{
-              strokeDasharray: `${HALO_LENGTH} ${PATH_TOTAL - HALO_LENGTH}`,
-              // @ts-expect-error custom property used by the keyframe below
-              "--step-offset": haloRelativeOffset,
-            }}
-          />
+
 
           {/* CRISP CORE PASS — thin, bright, unblurred, tapered along its length */}
           {STEP_OPACITIES.map((op, i) => {
