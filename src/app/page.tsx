@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import BentoCard from "@/components/ui/BentoCard";
 import Marquee from "@/components/Marquee";
+import BentoLaserFrame from "@/components/ui/BentoLaserFrame";
 import { projects } from "@/lib/data";
 import {
   MapPin,
@@ -26,7 +27,6 @@ interface HeroRect {
   height: number;
 }
 
-// Persists across client-side tab navigation
 let hasPlayedSplash = false;
 
 export default function HomePage() {
@@ -35,6 +35,12 @@ export default function HomePage() {
   const [heroRect,      setHeroRect]      = useState<HeroRect | null>(null);
 
   const heroRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const basedInRef = useRef<HTMLDivElement>(null);
+  const graduatedRef = useRef<HTMLDivElement>(null);
+  const coreFocusRef = useRef<HTMLDivElement>(null);
+  const githubRef = useRef<HTMLDivElement>(null);
+  const techStackRef = useRef<HTMLDivElement>(null);
   const [motorpass, littleLion, elearning, grocery] = projects;
   const [isMobile, setIsMobile] = useState(true);
 
@@ -45,25 +51,18 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // ── THE SIMPLIFIED CHECK ──
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // 1. Tell the browser to forget where the user was scrolled
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
-
-      // 2. Force the page to start at the absolute top
       window.scrollTo(0, 0);
-
-      // 3. Mark the splash as played for client-side routing (tab changes)
       hasPlayedSplash = true; 
     }
   }, []);
 
-  // Measure the Hero Card
   useEffect(() => {
-    if (!splashVisible) return; // Don't bother measuring if we aborted
+    if (!splashVisible) return;
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -85,7 +84,6 @@ export default function HomePage() {
     setTimeout(() => setSplashVisible(false), 500);
   }, []);
 
-  // ── Anime.js text & breathing icon animations ──────────────────────────
   useEffect(() => {
     if (!pageVisible) return;
 
@@ -143,7 +141,6 @@ export default function HomePage() {
     };
   }, [pageVisible]);
 
-  // Framer Motion stagger variant for the bento grid
   const gridVariants = {
     hidden:   { opacity: 0 },
     visible:  {
@@ -154,14 +151,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── SPLASH SCREEN ─────────────────────────────────────────────────
-          Stays mounted until handleSplashComplete fires + 500ms buffer.
-          heroRect is null on the first render tick; SplashScreen will
-          receive it once the double-rAF measurement completes (usually
-          within the same frame as the first useEffect). The sequence
-          doesn't reach Phase 3 (resize) until ~1400ms in, so the rect
-          is always ready in time.
-      ──────────────────────────────────────────────────────────────────── */}
       {splashVisible && (
         <SplashScreen
           heroRect={heroRect}
@@ -169,36 +158,24 @@ export default function HomePage() {
         />
       )}
 
-      {/* ── PORTFOLIO GRID ────────────────────────────────────────────────
-          Rendered immediately at opacity:0 so the browser establishes
-          the layout and we can measure it. Transitions to opacity:1
-          when pageVisible becomes true (triggered by handleSplashComplete).
-
-          `pointer-events-none` while invisible so the user can't
-          accidentally click invisible links during the splash.
-      ──────────────────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: pageVisible ? 1 : 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
         style={{ pointerEvents: pageVisible ? "auto" : "none" }}
       >
-        {/* Pass the pageVisible state to trigger the animation */}
         <Marquee isVisible={pageVisible} />
 
         <div className="w-full max-w-[1200px] mx-auto px-4 pb-12 pt-6">
           <motion.div
+            ref={gridRef}
             variants={isMobile ? {} : gridVariants} 
             initial={isMobile ? "visible" : "hidden"} 
             animate={pageVisible || isMobile ? "visible" : "hidden"}
-            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-3 md:gap-4"
+            className="relative grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[75px] gap-3 md:gap-4"
           >
 
-            {/* ── 1. DEVELOPER HERO BENTO ────────────────────────────────
-                This div has NO BentoCard wrapper on purpose — we need a
-                plain ref to measure it. It uses the .bento-card class
-                directly so it looks identical.
-            ────────────────────────────────────────────────────────────── */}
+            {/* ── 1. DEVELOPER HERO BENTO ── */}
             <div
               ref={heroRef}
               className="bento-card col-span-2 row-span-5 sm:row-span-4 md:row-span-4 p-6 lg:p-8 flex flex-col justify-center relative group"
@@ -207,18 +184,14 @@ export default function HomePage() {
                   "radial-gradient(circle at top left, rgba(125, 249, 166, 0.025) 0%, var(--bg-card) 45%)",
               }}
             >
-              
-              {/* ── NEW: THE SEAMLESS BORDER HANDOFF FADE ── */}
               <motion.div
                 className="absolute inset-0 pointer-events-none z-50"
-                style={{ borderRadius: 18 }} // Perfectly matches the 18px radius from the Splash Screen!
+                style={{ borderRadius: 18 }}
                 initial={{ border: "1px solid rgba(125,249,166,0.5)" }}
                 animate={{ border: pageVisible ? "1px solid rgba(125,249,166,0)" : "1px solid rgba(125,249,166,0.5)" }}
                 transition={{ duration: 5, delay: 0.3, ease: "easeOut" }}
               />
 
-              {/* Inner content fades in when pageVisible — prevents the
-                  snapshot of empty content during measurement */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: pageVisible ? 1 : 0 }}
@@ -275,7 +248,7 @@ export default function HomePage() {
             </div>
 
             {/* ── 2. BASED IN — 2x1 ── */}
-            <BentoCard className="col-span-2 row-span-1 flex items-center justify-between px-5 md:px-6 py-4">
+            <BentoCard ref={basedInRef} className="col-span-2 row-span-1 flex items-center justify-between px-5 md:px-6 py-4">
               <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50">
                 Base of Operations
               </span>
@@ -286,7 +259,7 @@ export default function HomePage() {
             </BentoCard>
 
             {/* ── 3. EDUCATION — 1x1 ── */}
-            <BentoCard className="col-span-1 row-span-1 flex flex-col justify-center px-4 md:px-6 py-4">
+            <BentoCard ref={graduatedRef} className="col-span-1 row-span-1 flex flex-col justify-center px-4 md:px-6 py-4">
               <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-1">
                 Graduated
               </span>
@@ -297,7 +270,7 @@ export default function HomePage() {
             </BentoCard>
 
             {/* ── 4. CORE FOCUS & SERVICES — 1x3 ── */}
-            <BentoCard className="col-span-1 row-span-3 flex flex-col p-5 md:p-6">
+            <BentoCard ref={coreFocusRef} className="col-span-1 row-span-3 flex flex-col p-5 md:p-6">
               <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-4">
                 Core Focus
               </span>
@@ -311,7 +284,7 @@ export default function HomePage() {
             </BentoCard>
 
             {/* ── 5. GITHUB — 1x2 ── */}
-            <BentoCard href="https://github.com/PaulPunzal" external className="col-span-1 row-span-2 flex flex-col justify-between group p-5 md:p-6">
+            <BentoCard ref={githubRef} href="https://github.com/PaulPunzal" external className="col-span-1 row-span-2 flex flex-col justify-between group p-5 md:p-6">
               <div>
                 <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 group-hover:text-accent/70 transition-colors">
                   Open Source
@@ -327,7 +300,7 @@ export default function HomePage() {
             </BentoCard>
 
             {/* ── 6. WIDE TECH STACK — 4x2 ── */}
-            <BentoCard className="col-span-2 lg:col-span-4 row-span-6 sm:row-span-5 md:row-span-4 lg:row-span-2 flex flex-col p-6">
+            <BentoCard ref={techStackRef} className="col-span-2 lg:col-span-4 row-span-6 sm:row-span-5 md:row-span-4 lg:row-span-2 flex flex-col p-6">
               <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-3 md:mb-4">
                 Tech Stack & Architecture
               </span>
@@ -358,6 +331,13 @@ export default function HomePage() {
                 </div>
               </div>
             </BentoCard>
+
+            {/* ── LASER FRAME OVERLAY — traces hero + Based In + Graduated + Core Focus + GitHub + Tech Stack as one shape ── */}
+            <BentoLaserFrame
+              containerRef={gridRef}
+              cardRefs={[heroRef, basedInRef, graduatedRef, coreFocusRef, githubRef, techStackRef]}
+              ready={pageVisible}
+            />
 
             {/* ── SECTION DIVIDER ── */}
             <div className="col-span-2 lg:col-span-4 flex items-center gap-2 md:gap-4 py-2">
@@ -487,7 +467,6 @@ export default function HomePage() {
   );
 }
 
-/* ── LOCAL HELPER: Project Preview Bento Card ── */
 function ProjectPreviewCard({
   project,
   icon,

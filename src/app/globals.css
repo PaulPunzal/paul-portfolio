@@ -192,28 +192,67 @@ body {
   pointer-events: none;
 }
 
-/* staggered animation delays */
-/* .bento-grid .bento-card:nth-child(1)  { animation-delay: 0.04s; }
-.bento-grid .bento-card:nth-child(2)  { animation-delay: 0.08s; }
-.bento-grid .bento-card:nth-child(3)  { animation-delay: 0.12s; }
-.bento-grid .bento-card:nth-child(4)  { animation-delay: 0.16s; }
-.bento-grid .bento-card:nth-child(5)  { animation-delay: 0.20s; }
-.bento-grid .bento-card:nth-child(6)  { animation-delay: 0.24s; }
-.bento-grid .bento-card:nth-child(7)  { animation-delay: 0.28s; }
-.bento-grid .bento-card:nth-child(8)  { animation-delay: 0.32s; }
-.bento-grid .bento-card:nth-child(9)  { animation-delay: 0.36s; }
-.bento-grid .bento-card:nth-child(10) { animation-delay: 0.40s; }
-.bento-grid .bento-card:nth-child(11) { animation-delay: 0.44s; }
-.bento-grid .bento-card:nth-child(12) { animation-delay: 0.48s; }
-.bento-grid .bento-card:nth-child(13) { animation-delay: 0.52s; }
-.bento-grid .bento-card:nth-child(14) { animation-delay: 0.56s; }
-.bento-grid .bento-card:nth-child(15) { animation-delay: 0.60s; } */
-
 /* ── PROJECT ARROW hover (child selector) ── */
 .bento-card.clickable:hover .project-arrow {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-dim);
+}
+
+/* ── SINGLE LASER FRAME (traces the outer cluster as one shape) ── */
+.bento-laser-frame-cell {
+  position: absolute;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.bento-laser-frame {
+  overflow: visible;
+}
+
+.bento-laser-frame rect {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  animation: bento-frame-travel 9s linear infinite;
+}
+
+/* Matches the footer's primary/secondary/tertiary layering:
+   brightest+widest first, then progressively dimmer, thinner,
+   shorter trailing copies — no blur, no drop-shadow, same as footer. */
+.bento-laser-frame .laser-l1 {
+  stroke: var(--accent);
+  stroke-width: 2px;
+  stroke-opacity: 0.95;
+  stroke-dasharray: 3 97;
+}
+
+.bento-laser-frame .laser-l2 {
+  stroke: var(--accent);
+  stroke-width: 1.6px;
+  stroke-opacity: 0.45;
+  stroke-dasharray: 7 93;
+  animation-delay: 0.08s;
+}
+
+.bento-laser-frame .laser-l3 {
+  stroke: var(--accent);
+  stroke-width: 1.2px;
+  stroke-opacity: 0.2;
+  stroke-dasharray: 13 87;
+  animation-delay: 0.18s;
+}
+
+@keyframes bento-frame-travel {
+  to { stroke-dashoffset: -100; }
+}
+
+@media (max-width: 768px) {
+  .bento-laser-frame .laser-l3 { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-laser-frame rect { animation: none; opacity: 0; }
 }
 
 /* ── MARQUEE ── */
