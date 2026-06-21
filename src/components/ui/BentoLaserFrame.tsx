@@ -21,9 +21,6 @@ interface CardBox {
   height: number;
 }
 
-// How far into the card the fade covers (px). Tune this to taste.
-const FADE_SIZE = 28;
-
 export default function BentoLaserFrame({ containerRef, cardRefs, ready }: BentoLaserFrameProps) {
   const [outerBox, setOuterBox] = useState<Box | null>(null);
   const [cardBoxes, setCardBoxes] = useState<CardBox[]>([]);
@@ -94,40 +91,10 @@ export default function BentoLaserFrame({ containerRef, cardRefs, ready }: Bento
   const H = outerBox.height;
   const R = 18; // must match --radius in globals.css
 
-  // For each card, figure out which horizontal edges are "interior" (touching a gap
-  // between cards) vs "exterior" (on the true outer boundary of the bento grid).
-  // We need to fade at interior edges so the laser dims into the gap naturally.
-  //
-  // Strategy: a card edge is "interior" if there is another card whose opposite edge
-  // is close to it (within a gap threshold). We compare left/right edges in absolute
-  // container coordinates.
-  const GAP_THRESHOLD = 32; // px — any gap smaller than this is treated as interior
-
-  // Collect absolute left/right edges of all cards (in container space)
-  const allLeftEdges = cardBoxes.map((b) => b.left);
-  const allRightEdges = cardBoxes.map((b) => b.left + b.width);
-
-  interface CardFade {
-    fadeLeft: boolean;
-    fadeRight: boolean;
-  }
-
-  const cardFades: CardFade[] = cardBoxes.map((box) => {
-    const absLeft = box.left;
-    const absRight = box.left + box.width;
-
-    // This card's left edge is interior if another card's right edge is close to it
-    const fadeLeft = allRightEdges.some(
-      (re, i) => cardBoxes[i] !== box && Math.abs(re - absLeft) < GAP_THRESHOLD
-    );
-
-    // This card's right edge is interior if another card's left edge is close to it
-    const fadeRight = allLeftEdges.some(
-      (le, i) => cardBoxes[i] !== box && Math.abs(le - absRight) < GAP_THRESHOLD
-    );
-
-    return { fadeLeft, fadeRight };
-  });
+  // Build a clipPath from actual card shapes so the laser line is hidden
+  // in the gaps between cards but still travels as ONE continuous path
+  // around the outer bounding rectangle.
+  const clipId = "laser-clip-outer";
 
   return (
     <div
@@ -135,6 +102,11 @@ export default function BentoLaserFrame({ containerRef, cardRefs, ready }: Bento
       style={{ top: outerBox.top, left: outerBox.left, width: W, height: H }}
       aria-hidden="true"
     >
+      {/*
+        Key fix: use width/height as the viewBox so SVG user units === CSS px.
+        This means rx/ry=18 in SVG == exactly 18px border-radius, no distortion.
+        DO NOT use preserveAspectRatio="none" — that's what was warping the corners.
+      */}
       <svg
         className="bento-laser-frame"
         width={W}
@@ -145,81 +117,35 @@ export default function BentoLaserFrame({ containerRef, cardRefs, ready }: Bento
       >
         <defs>
           {/*
-            Per-card mask: white (fully visible) across the card surface, with
-            smooth linear fades to black (fully transparent) at interior edges.
-            This gives the "laser dims into the gap" effect instead of a hard cut.
+            ClipPath: union of all card rectangles (inset by 1px so we don't
+            bleed into the gap). The laser travels the OUTER rect but is only
+            painted where a card surface exists beneath it.
           */}
-          {cardBoxes.map((box, i) => {
-            const x = box.left - outerBox.left;
-            const y = box.top - outerBox.top;
-            const w = box.width;
-            const h = box.height;
-            const { fadeLeft, fadeRight } = cardFades[i];
-            const maskId = `laser-fade-mask-${i}`;
-
-            // Build gradient stop pairs for left/right fades.
-            // The mask gradient goes: [black?] → white → white → [black?]
-            // expressed as x-percentages across the card width.
-            const leftFadeStop = fadeLeft ? (FADE_SIZE / w) * 100 : 0;
-            const rightFadeStart = fadeRight ? ((w - FADE_SIZE) / w) * 100 : 100;
-
-            return (
-              <mask key={maskId} id={maskId} maskUnits="userSpaceOnUse">
-                {/* Base: fully transparent everywhere */}
-                <rect x={x} y={y} width={w} height={h} fill="black" />
-                {/*
-                  Horizontal fade gradient across this card.
-                  Left fade: black→white over FADE_SIZE px from card left edge.
-                  Right fade: white→black over FADE_SIZE px approaching card right edge.
-                  No fade on an exterior edge (card touches the outer boundary).
-                */}
-                <defs>
-                  <linearGradient
-                    id={`${maskId}-grad`}
-                    x1={x}
-                    y1="0"
-                    x2={x + w}
-                    y2="0"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="0%" stopColor={fadeLeft ? "black" : "white"} />
-                    {fadeLeft && (
-                      <stop offset={`${leftFadeStop.toFixed(2)}%`} stopColor="white" />
-                    )}
-                    {fadeRight && (
-                      <stop offset={`${rightFadeStart.toFixed(2)}%`} stopColor="white" />
-                    )}
-                    <stop offset="100%" stopColor={fadeRight ? "black" : "white"} />
-                  </linearGradient>
-                </defs>
-                {/* Card surface: shows laser where the gradient is white */}
+          <clipPath id={clipId}>
+            {cardBoxes.map((box, i) => {
+              const x = box.left - outerBox.left;
+              const y = box.top - outerBox.top;
+              return (
                 <rect
+                  key={i}
                   x={x}
                   y={y}
-                  width={w}
-                  height={h}
+                  width={box.width}
+                  height={box.height}
                   rx={R}
                   ry={R}
-                  fill={`url(#${maskId}-grad)`}
                 />
-              </mask>
-            );
-          })}
+              );
+            })}
+          </clipPath>
         </defs>
 
-        {/*
-          Render three laser rects per card (l3/l2/l1 glow layers), each
-          masked to that card's surface with soft edge fades.
-          All three share the same outer-rect path so the animation is one
-          continuous sweep around the bento boundary.
-        */}
-        {cardBoxes.map((_, i) => (
-          <g key={i} mask={`url(#laser-fade-mask-${i})`}>
-            <rect className="laser-l3" x={0} y={0} width={W} height={H} rx={R} ry={R} pathLength={100} />
-            <rect className="laser-l2" x={0} y={0} width={W} height={H} rx={R} ry={R} pathLength={100} />
-            <rect className="laser-l1" x={0} y={0} width={W} height={H} rx={R} ry={R} pathLength={100} />
-          </g>
-        ))}
+        {/* The single outer laser rectangle, clipped to card surfaces only */}
+        <g clipPath={`url(#${clipId})`}>
+          <rect className="laser-l3" x={0} y={0} width={W} height={H} rx={R} ry={R} pathLength={100} />
+          <rect className="laser-l2" x={0} y={0} width={W} height={H} rx={R} ry={R} pathLength={100} />
+          <rect className="laser-l1" x={0} y={0} width={W} height={H} rx={R} ry={R} pathLength={100} />
+        </g>
       </svg>
     </div>
   );

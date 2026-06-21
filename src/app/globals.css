@@ -217,34 +217,44 @@ body {
   animation: bento-frame-travel 9s linear infinite;
 }
 
-/* Matches the footer's primary/secondary/tertiary layering:
-   brightest+widest first, then progressively dimmer, thinner,
-   shorter trailing copies — no blur, no drop-shadow, same as footer. */
+/* ── BENTO LASER FRAME — Multi-beam, footer-style ── */
+@keyframes bento-frame-travel-l1 {
+  to { stroke-dashoffset: -100; }
+}
+@keyframes bento-frame-travel-l2 {
+  to { stroke-dashoffset: -100; }
+}
+@keyframes bento-frame-travel-l3 {
+  to { stroke-dashoffset: -100; }
+}
+
+/* Primary — brightest, widest dash, slowest (sets the pace like the footer's 6s beam) */
 .bento-laser-frame .laser-l1 {
   stroke: var(--accent);
   stroke-width: 2px;
   stroke-opacity: 0.95;
-  stroke-dasharray: 3 97;
+  stroke-dasharray: 5 95;          /* wider dash = more visible beam */
+  animation: bento-frame-travel-l1 9s linear infinite;
 }
 
+/* Secondary — faster, dimmer, shorter dash — offset start like footer's 4s beam */
 .bento-laser-frame .laser-l2 {
   stroke: var(--accent);
-  stroke-width: 1.6px;
+  stroke-width: 1.4px;
   stroke-opacity: 0.45;
-  stroke-dasharray: 7 93;
-  animation-delay: 0.08s;
+  stroke-dasharray: 3 97;
+  animation: bento-frame-travel-l2 6s linear infinite;
+  animation-delay: 1.4s;
 }
 
+/* Tertiary — fastest, faintest, feels like a stray signal (footer's 2.6s beam) */
 .bento-laser-frame .laser-l3 {
   stroke: var(--accent);
-  stroke-width: 1.2px;
-  stroke-opacity: 0.2;
-  stroke-dasharray: 13 87;
-  animation-delay: 0.18s;
-}
-
-@keyframes bento-frame-travel {
-  to { stroke-dashoffset: -100; }
+  stroke-width: 1px;
+  stroke-opacity: 0.22;
+  stroke-dasharray: 2 98;
+  animation: bento-frame-travel-l3 3.8s linear infinite;
+  animation-delay: 3.2s;
 }
 
 @media (max-width: 768px) {
