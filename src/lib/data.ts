@@ -248,35 +248,7 @@ export const skillGroups: SkillGroup[] = [
       { label: "OAuth" },
       { label: "JWT" },
     ],
-  },
-  {
-    label: "AI / CV",
-    items: [
-      { label: "YOLO/ONNX", highlight: true },
-      { label: "OCR", highlight: true },
-      { label: "LLaMA 3" },
-      { label: "Ollama" },
-    ],
-  },
-  {
-    label: "Tools",
-    items: [
-      { label: "Git / GitHub" },
-      { label: "Figma" },
-      { label: "ADB" },
-      { label: "Ngrok" },
-      { label: "Unity" },
-      { label: "Blender" },
-    ],
-  },
-  {
-    label: "Platforms",
-    items: [
-      { label: "Raspberry Pi 4" },
-      { label: "Expo" },
-      { label: "Firebase" },
-    ],
-  },
+  }
 ];
 
 // ── MARQUEE ITEMS ──────────────────────────────────────────────────────────
