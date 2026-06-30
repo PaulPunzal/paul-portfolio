@@ -197,36 +197,69 @@ export default function AboutPage() {
           </BentoCard>
         </motion.div>
 
-        {/* 5. LANGUAGES & TOOLS */}
-        <motion.div variants={itemVariants} className="order-6 md:order-6 col-span-2 lg:col-span-4 row-span-4 md:row-span-3 lg:row-span-2">
-          <BentoCard className="w-full h-full flex flex-col justify-center p-6 lg:px-8 lg:py-5">
-            <div className="flex items-center gap-3 mb-3 lg:mb-4">
+        {/* 5. LANGUAGES, AI & TOOLS */}
+        {/* Increased row-span so the card is taller and has more breathing room */}
+        <motion.div variants={itemVariants} className="order-6 md:order-6 col-span-2 lg:col-span-4 row-span-5 md:row-span-4 lg:row-span-3">
+          <BentoCard className="w-full h-full flex flex-col justify-center p-6 lg:p-8">
+            <div className="flex items-center gap-3 mb-5 lg:mb-6">
               <Terminal className="w-5 h-5 text-white/50" />
               <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50">
-                Languages & Toolbelt
+                Languages, AI & Toolbelt
               </span>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12">
-              <div className="flex flex-col gap-2">
-                <span className="text-xs font-syne font-bold text-white/80 w-full">Core Languages</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {["TypeScript", "PHP", "Python", "Dart", "C#", "JavaScript", "SQL"].map((lang) => (
-                    <span key={lang} className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
-                      {lang}
-                    </span>
-                  ))}
+            
+            {/* Back to 2 columns for a cleaner, wider layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
+              
+              {/* Column 1: Core Languages & Tools (Stacked Vertically) */}
+              <div className="flex flex-col gap-6">
+                
+                <div className="flex flex-col gap-3">
+                  <span className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1.5">Core Languages</span>
+                  <div className="flex flex-wrap gap-2">
+                    {["TypeScript", "JavaScript", "Python", "PHP", "Dart", "SQL"].map((lang) => (
+                      <span key={lang} className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
+                        {lang}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <span className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1.5">Tools & Platforms</span>
+                  <div className="flex flex-wrap gap-2">
+                    {["Git / GitHub", "Docker", "Postman", "Linux", "Figma","VS Code"].map((tool) => (
+                      <span key={tool} className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Column 2: Machine Learning & AI */}
+              <div className="flex flex-col gap-3">
+                <span className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1.5">Machine Learning & AI</span>
+                <div className="flex flex-wrap gap-2">
+                  {["TensorFlow", "PyTorch", "LangChain", "Transformers", "YOLO/ONNX", "OCR", "LLaMA 3", "Ollama"].map((tool) => {
+                    const isHighlight = ["YOLO/ONNX", "OCR"].includes(tool);
+                    return (
+                      <span 
+                        key={tool} 
+                        className={`px-3 py-1.5 rounded-lg border font-mono text-[10px] tracking-wide transition-colors cursor-default ${
+                          isHighlight 
+                            ? "bg-accent/10 border-accent/30 text-accent shadow-[0_0_10px_rgba(125,249,166,0.1)]" 
+                            : "bg-white/[0.03] border-white/[0.08] text-white/60 hover:bg-white/10"
+                        }`}
+                      >
+                        {tool}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-xs font-syne font-bold text-white/80 w-full">Tools & Platforms</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {["Git / GitHub", "Figma", "Docker", "Postman", "Linux", "Ollama"].map((tool) => (
-                    <span key={tool} className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
+
             </div>
           </BentoCard>
         </motion.div>

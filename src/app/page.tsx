@@ -6,7 +6,7 @@ import Link from "next/link";
 import BentoCard from "@/components/ui/BentoCard";
 import Marquee from "@/components/Marquee";
 import BentoLaserFrame from "@/components/ui/BentoLaserFrame";
-import { projects } from "@/lib/data";
+import { projects, skillGroups } from "@/lib/data";
 import {
   MapPin,
   ArrowRight,
@@ -304,31 +304,26 @@ export default function HomePage() {
               <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-3 md:mb-4">
                 Tech Stack & Architecture
               </span>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 h-full items-center">
-                <div className="flex flex-col gap-2.5">
-                  <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1 mb-1">Frontend & Mobile</div>
-                  <div className="flex flex-wrap gap-1.5 md:gap-2">
-                    {["Next.js", "React Native", "Flutter", "TypeScript", "Tailwind CSS", "Bootstrap"].map((t) => (
-                      <span key={t} className={`tech-pill${["Next.js","React Native","Flutter"].includes(t) ? " highlight" : ""}`}>{t}</span>
-                    ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 h-full items-start lg:items-center">
+                
+                {skillGroups.map((group) => (
+                  <div key={group.label} className="flex flex-col gap-2.5">
+                    <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1 mb-1">
+                      {group.label}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
+                      {group.items.map((tech) => (
+                        <span 
+                          key={tech.label} 
+                          className={`tech-pill${tech.highlight ? " highlight" : ""}`}
+                        >
+                          {tech.label}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col gap-2.5">
-                  <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1 mb-1">Backend Engineering</div>
-                  <div className="flex flex-wrap gap-1.5 md:gap-2">
-                    {["Nest.js", "Laravel", "PHP", "REST APIs", "Node.js"].map((t) => (
-                      <span key={t} className={`tech-pill${["Nest.js","Laravel"].includes(t) ? " highlight" : ""}`}>{t}</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2.5">
-                  <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1 mb-1">Database</div>
-                  <div className="flex flex-wrap gap-1.5 md:gap-2">
-                    {["MySQL", "PostgreSQL", "MongoDB", "Firebase", "Prisma", "SQLite"].map((t) => (
-                      <span key={t} className={`tech-pill${["MySQL","PostgreSQL","MongoDB"].includes(t) ? " highlight" : ""}`}>{t}</span>
-                    ))}
-                  </div>
-                </div>
+                ))}
+
               </div>
             </BentoCard>
 
