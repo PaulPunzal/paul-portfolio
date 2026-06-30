@@ -192,7 +192,7 @@ export default function AboutPage() {
 
         {/* 5. LANGUAGES, AI & TOOLS */}
         {/* Increased row-span so the card is taller and has more breathing room */}
-        <motion.div variants={itemVariants} className="order-6 md:order-6 col-span-2 lg:col-span-4 row-span-5 md:row-span-4 lg:row-span-3">
+        <motion.div variants={itemVariants} className="order-6 md:order-6 col-span-2 lg:col-span-4 row-span-8 sm:row-span-7 md:row-span-4 lg:row-span-3">
           <BentoCard className="w-full h-full flex flex-col justify-center p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-5 lg:mb-6">
               <Terminal className="w-5 h-5 text-white/50" />
@@ -205,13 +205,13 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
               
               {/* Column 1: Core Languages & Tools (Stacked Vertically) */}
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-8 md:gap-8">
                 
                 <div className="flex flex-col gap-3">
                   <span className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1.5">Core Languages</span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {["TypeScript", "JavaScript", "Python", "PHP", "Dart", "SQL"].map((lang) => (
-                      <span key={lang} className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
+                      <span key={lang} className="px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
                         {lang}
                       </span>
                     ))}
@@ -220,7 +220,7 @@ export default function AboutPage() {
 
                 <div className="flex flex-col gap-3">
                   <span className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1.5">Tools & Platforms</span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {["Git / GitHub", "Docker", "Postman", "Linux", "Figma","VS Code"].map((tool) => (
                       <span key={tool} className="px-3 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-white/60 font-mono text-[10px] tracking-wide hover:bg-white/10 transition-colors cursor-default">
                         {tool}
@@ -234,7 +234,7 @@ export default function AboutPage() {
               {/* Column 2: Machine Learning & AI */}
               <div className="flex flex-col gap-3">
                 <span className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1.5">Machine Learning & AI</span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {["TensorFlow", "PyTorch", "LangChain", "Transformers", "YOLO/ONNX", "OCR", "LLaMA 3", "Ollama"].map((tool) => {
                     const isHighlight = ["YOLO/ONNX", "OCR"].includes(tool);
                     return (
