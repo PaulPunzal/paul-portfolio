@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState} from "react";
+import { useEffect, useState, useRef} from "react";
 import BentoCard from "@/components/ui/BentoCard";
 import { 
   User, 
@@ -11,7 +11,10 @@ import {
   Bot,
   Terminal,
   GitBranch,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen,
+  ArrowRight,
+  ScanEye
 } from "lucide-react";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
@@ -146,38 +149,28 @@ export default function AboutPage() {
           </BentoCard>
         </motion.div>
 
-        {/* 2B. BIO PART 2 (RIGHT SIDE) — THE ACTIVE MODULE */}
+        {/* 2B. BIO PART 2 (RIGHT SIDE) — AI AUTOMATION MODULE */}
         <motion.div variants={itemVariants} className="!hidden md:!flex order-4 md:order-4 col-span-2 sm:col-span-1 row-span-3 md:col-span-1 lg:col-span-1 md:row-span-3 relative group">
           
           {/* ── Outer Breathing Glow ── */}
           <motion.div 
-            animate={{ opacity: [0.1, 0.3, 0.1], scale: [0.98, 1.02, 0.98] }}
+            animate={{ opacity: [0.05, 0.15, 0.05], scale: [0.98, 1.02, 0.98] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="absolute inset-0 bg-accent/20 rounded-[24px] blur-xl z-0 pointer-events-none"
           />
 
-          {/* Added custom border and darker background to make effects pop */}
-          <BentoCard className="w-full h-full p-6 lg:p-6 xl:p-8 flex flex-col justify-center relative z-10 overflow-hidden border border-accent/20" style={{ background: "#050505" }}>
+          <BentoCard 
+            className="w-full h-full p-0 flex flex-col items-center justify-center relative z-10 overflow-hidden border border-accent/20 backdrop-blur-sm" 
+            style={{ background: "rgba(5, 5, 5, 0.35)" }}
+          >
             
-            {/* ── Continuous Sweeping Glass Reflection ── */}
-            <motion.div
-              animate={{ x: ["-200%", "300%"] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 z-0 pointer-events-none"
-            />
+            <div className="relative w-full h-full flex flex-col items-center justify-center">
+              
+              {/* The Cursor-Tracking Eye */}
+              <div className="relative z-20">
+                <CyberEye />
+              </div>
 
-            {/* ── Continuous AI Scanner Line ── */}
-            <motion.div
-              animate={{ y: ["-20%", "400%"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/40 to-transparent z-0 shadow-[0_0_8px_rgba(125,249,166,0.6)] pointer-events-none"
-            />
-
-            <div className="relative z-30 h-full flex flex-col justify-center">
-
-              <p className="font-inter text-sm lg:text-xs xl:text-sm text-white/70 leading-relaxed font-light">
-                Coding isn't just about syntax—it's about eliminating repetitive processes and turning manual problems into automated solutions. Building things that actually work and genuinely help solves problem with solid system design is what gives software its purpose.
-              </p>
             </div>
           </BentoCard>
         </motion.div>
@@ -323,6 +316,111 @@ export default function AboutPage() {
           </BentoCard>
         </motion.div>
 
+      </motion.div>
+    </div>
+  );
+}
+
+// ── CYBERNETIC CURSOR-TRACKING EYE ──
+function CyberEye() {
+  const eyeRef = useRef<HTMLDivElement>(null);
+  const [pupilPos, setPupilPos] = useState({ x: 0, y: 0 });
+  const [eyeTransform, setEyeTransform] = useState({ rotateX: 0, rotateY: 0, rotateZ: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!eyeRef.current) return;
+      
+      const rect = eyeRef.current.getBoundingClientRect();
+      // Calculate the exact center of the eye element
+      const eyeCenterX = rect.left + rect.width / 2;
+      const eyeCenterY = rect.top + rect.height / 2;
+
+      // Calculate distance between mouse and eye center
+      const deltaX = e.clientX - eyeCenterX;
+      const deltaY = e.clientY - eyeCenterY;
+
+      // 1. Calculate Pupil Position
+      const angle = Math.atan2(deltaY, deltaX);
+      const maxDistance = 16; 
+      const distance = Math.min(maxDistance, Math.hypot(deltaX, deltaY) / 15);
+
+      setPupilPos({
+        x: Math.cos(angle) * distance,
+        y: Math.sin(angle) * distance,
+      });
+
+      // 2. Calculate 3D Eye Tilt (Head movement simulation)
+      // We use window dimensions to keep the rotation subtle and smooth
+      const rotY = (deltaX / window.innerWidth) * 50;  // Look left/right (max ~25deg)
+      const rotX = -(deltaY / window.innerHeight) * 50; // Look up/down (max ~25deg)
+      const rotZ = (deltaX / window.innerWidth) * 15;  // Slight head tilt
+
+      setEyeTransform({
+        rotateX: rotX,
+        rotateY: rotY,
+        rotateZ: rotZ,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  return (
+    <div 
+      ref={eyeRef} 
+      className="relative w-32 h-20 sm:w-40 sm:h-24 flex items-center justify-center"
+      style={{ perspective: "1000px" }} // Adds actual 3D depth to the rotation
+    >
+      {/* Container that handles the 3D tilt and the blinking */}
+      <motion.div 
+        animate={{ 
+          rotateX: eyeTransform.rotateX, 
+          rotateY: eyeTransform.rotateY, 
+          rotateZ: eyeTransform.rotateZ,
+          scaleY: [1, 1, 0.05, 1, 1], // The blink effect (squishing the Y axis)
+        }}
+        transition={{
+          // Smooth physics for the mouse tracking
+          rotateX: { type: "spring", stiffness: 300, damping: 30 },
+          rotateY: { type: "spring", stiffness: 300, damping: 30 },
+          rotateZ: { type: "spring", stiffness: 300, damping: 30 },
+          // Keyframe timing for the blink (closes quickly and opens)
+          scaleY: { duration: 5, repeat: Infinity, times: [0, 0.9, 0.92, 0.94, 1], ease: "easeInOut" }
+        }}
+        className="relative w-full h-full flex items-center justify-center"
+      >
+        {/* Eye Shape (Sclera) */}
+        <div 
+          className="absolute inset-0 bg-[#0c0c0c] border border-white/20 shadow-[0_0_30px_rgba(125,249,166,0.15)] overflow-hidden flex items-center justify-center"
+          style={{ borderRadius: "100% 0", transform: "rotate(45deg) translateZ(0)" }}
+        >
+          {/* Un-rotate inner container to keep pupil straight */}
+          <div style={{ transform: "rotate(-45deg)" }} className="relative w-full h-full flex items-center justify-center">
+            
+            {/* Moving Iris & Pupil */}
+            <motion.div 
+              animate={{ x: pupilPos.x, y: pupilPos.y }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="relative w-10 h-10 sm:w-12 sm:h-12 bg-accent/20 rounded-full flex items-center justify-center border border-accent/50 shadow-[0_0_15px_var(--accent)]"
+            >
+              {/* Outer Iris Ring */}
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 border border-accent/40 rounded-full border-dashed"
+              />
+
+              {/* Deep Pupil */}
+              <div className="w-4 h-4 sm:w-5 sm:h-5 bg-black rounded-full z-10 border border-accent/20" />
+              
+              {/* 3D Catchlight Reflection */}
+              <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white rounded-full blur-[1px] z-20" />
+            </motion.div>
+
+          </div>
+        </div>
       </motion.div>
     </div>
   );
