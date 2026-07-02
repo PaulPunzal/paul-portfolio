@@ -300,18 +300,16 @@ export default function HomePage() {
             </BentoCard>
 
             {/* ── 6. WIDE TECH STACK — 4x2 ── */}
-            <BentoCard ref={techStackRef} className="col-span-2 lg:col-span-4 row-span-5 md:row-span-4 lg:row-span-2 flex flex-col p-6 lg:p-8">
-              <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-white/50 mb-3 md:mb-4">
-                Tech Stack & Architecture
-              </span>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 h-full items-start lg:items-center">
+            <BentoCard ref={techStackRef} className="col-span-2 lg:col-span-4 row-span-5 md:row-span-4 lg:row-span-2 flex flex-col justify-center p-5 lg:p-8">
+              {/* Title removed for perfect laptop fit! */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 items-center">
                 
                 {skillGroups.map((group) => (
-                  <div key={group.label} className="flex flex-col gap-4">
+                  <div key={group.label} className="flex flex-col gap-3">
                     <div className="text-sm font-syne font-bold text-white/80 border-b border-white/10 pb-1 mb-1">
                       {group.label}
                     </div>
-                    <div className="flex flex-wrap gap-2 md:gap-3">
+                    <div className="flex flex-wrap gap-2.5">
                       {group.items.map((tech) => (
                         <span 
                           key={tech.label} 
