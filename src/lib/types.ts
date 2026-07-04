@@ -42,3 +42,14 @@ export interface DirectLink {
   href: string;
   external?: boolean;
 }
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;         // e.g. "Jun 2026" — edit freely per post
+  readTime: string;     // e.g. "6 min"
+  iconName: string;     // lucide icon name used on the placeholder cover
+  coverBgStyle: string; // inline gradient for the placeholder cover
+  content: string;      // lightweight markdown: "## " headings, "- " lists, **bold**, *italic*
+}

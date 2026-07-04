@@ -1,8 +1,16 @@
 "use client";
 
 import { Download } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function FloatingResume() {
+  const pathname = usePathname();
+
+  // Reading mode: keep the resume button off individual blog posts,
+  // same pages where MobileNav collapses into the burger.
+  const isBlogPost = pathname.startsWith("/blog/") && pathname !== "/blog";
+  if (isBlogPost) return null;
+
   return (
     <a
       href="/resume/Paul_Punzal_Resume.pdf" 

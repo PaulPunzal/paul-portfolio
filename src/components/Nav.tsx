@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, FolderArchive, Mail } from "lucide-react";
+import { Home, User, FolderArchive, Newspaper, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -44,6 +44,7 @@ export default function Navbar() {
     { name: "Home", href: "/", icon: Home },
     { name: "About", href: "/about", icon: User },
     { name: "Projects", href: "/projects", icon: FolderArchive },
+    { name: "Blog", href: "/blog", icon: Newspaper },
   ];
 
   return (
@@ -63,7 +64,11 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5 mr-2">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                // Exact match for Home so it doesn't light up everywhere;
+                // prefix match for the rest so nested routes like
+                // /blog/some-post still highlight "Blog".
+                const isActive =
+                  link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
                 return (
                   <Link key={link.name} href={link.href} className={`px-4 py-1.5 rounded-full text-[11px] font-mono tracking-[1px] uppercase transition-all duration-300 ${ isActive ? "bg-white/10 text-white" : "text-white/40 hover:text-white hover:bg-white/5" }`}>
                     {link.name}

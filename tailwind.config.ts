@@ -5,6 +5,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -12,6 +13,7 @@ const config: Config = {
         syne: ["var(--font-syne)", "sans-serif"],
         mono: ["var(--font-dm-mono)", "monospace"],
         inter: ["var(--font-inter)", "sans-serif"],
+        serif: ["'Times New Roman'", "Times", "Georgia", "serif"],
       },
       colors: {
         accent: "#7DF9A6",
