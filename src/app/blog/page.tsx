@@ -3,13 +3,14 @@
 import { useEffect } from "react";
 import { blogPosts } from "@/lib/data";
 import BlogCard from "@/components/ui/BlogCard";
-import { Cpu, Sparkles } from "lucide-react";
+import { Cpu, Sparkles, Briefcase } from "lucide-react";
 
 // Map each post's iconName to an actual icon element.
 // Add an entry here whenever a new post introduces a new iconName.
 const iconMap: Record<string, React.ReactNode> = {
   Cpu: <Cpu className="w-6 h-6 text-accent" strokeWidth={1.5} />,
   Sparkles: <Sparkles className="w-6 h-6 text-purple-300" strokeWidth={1.5} />,
+  Briefcase: <Briefcase className="w-6 h-6 text-orange-300" strokeWidth={1.5} />,
 };
 
 export default function BlogPage() {

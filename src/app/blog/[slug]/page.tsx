@@ -6,11 +6,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/data";
 import { MarkdownContent } from "@/lib/markdown";
-import { ArrowLeft, Link2, Cpu, Sparkles } from "lucide-react";
+import { ArrowLeft, Link2, Cpu, Sparkles, Briefcase } from "lucide-react";
 
 const iconMap: Record<string, React.ReactNode> = {
   Cpu: <Cpu className="w-7 h-7 text-accent" strokeWidth={1.5} />,
   Sparkles: <Sparkles className="w-7 h-7 text-purple-300" strokeWidth={1.5} />,
+  Briefcase: <Briefcase className="w-7 h-7 text-orange-300" strokeWidth={1.5} />,
 };
 
 export default function BlogPostPage() {

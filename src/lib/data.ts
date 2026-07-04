@@ -258,19 +258,19 @@ export const skillGroups: SkillGroup[] = [
 export const blogPosts: BlogPost[] = [
   {
     slug: "motorpass-accidental-developer",
-    title: "MotorPass: How I Accidentally Became a \"Main and Only Developer\"",
+    title: "How I Accidentally Became a \"Main and Only Developer\"",
     excerpt:
-      "How missing the memo on capstone groupings turned into building an AI-powered gate pass system solo — helmet detection, OCR, fingerprints, and two corrupted SD cards along the way.",
-    date: "Jun 2026",
+      "My capstone journey — how a school gate pass problem turned into my first real dive into AI, hardware, and helmet detection.",
+    date: "MAY 2026",
     readTime: "8 min",
     iconName: "Cpu",
     coverBgStyle:
       "linear-gradient(135deg, rgba(125,249,166,0.16) 0%, #0c0c0c 70%)",
-    content: `I didn't even know what "capstone project" meant at first. Honestly, I thought it was just some kind of science project you do for a grade. That word started floating around during my second year of college, when classmates were already scouting for "advanced groupings" for third year — basically, the strongest and smartest students quietly forming alliances ahead of time. Meanwhile, I wasn't paying much attention to any of it. I was too busy living in my own leisure time.
+    content: `I didn't even know what "capstone project" meant at first. Honestly, I thought it was just some kind of science project you do for a grade. That word started floating around during my second year of college, when classmates were already scouting for "advanced groupings" for third year Capstone 1 — basically, the smartest students quietly forming alliances ahead of time. Meanwhile, I wasn't paying much attention to any of it. I was too busy living in my own leisure time.
 
 By the time I actually looked up and realized, "oh wait, it's time to form a capstone group," most of the strategic pairing had already happened. I ended up grouping with three girls, all of them specializing in documentation. The moment that settled in, I knew I was screwed — because that meant the technical, hands-on development would mostly fall on me. They weren't developers by specialization, but the project was still very much a team effort — we brainstormed together, made decisions together, and they carried the documentation, leadership, and UI design work that kept the whole thing organized.
 
-Weirdly enough, that scared feeling came with a flicker of motivation too. I had a feeling this was going to force me to actually learn and study hard, because I didn't have a choice anymore. If we wanted to graduate, I had to make this work.
+Weirdly enough, that scared feeling came with a flicker of motivation too. I had a feeling this was going to force me to actually learn and study hard, because I didn't have a choice anymore. If we wanted to graduate, We had to make this work.
 
 ## Picking a Title (and Getting Rejected)
 
@@ -351,7 +351,7 @@ MotorPass was my first real taste of combining AI, hardware, and a full system p
     title: "Inspiration or Jealousy, and Getting Humbled Along the Way",
     excerpt:
       "What I think about when someone else's app is the one going viral — and why AI making it easier to ship doesn't change what's actually worth learning.",
-    date: "Jul 2026",
+    date: "Dec 2025",
     readTime: "5 min",
     iconName: "Sparkles",
     coverBgStyle:
@@ -388,6 +388,41 @@ None of this means the jealousy goes away. I still open someone's project, poke 
 
 Getting humbled by someone else's work isn't the end of the story. It's usually just the part right before I go learn the thing that made me feel that way.`,
   },
+{
+  slug: "freshmen-need-experience",
+  title: "Freshmen Need Experience — But Where Do You Even Get It?",
+  excerpt:
+    "On choosing IT right as it got saturated, why junior roles feel like they're disappearing under AI, and figuring out where experience is even supposed to come from.",
+  date: "JUN 2025",
+  readTime: "5 min",
+  iconName: "Briefcase",
+  coverBgStyle:
+    "linear-gradient(135deg, rgba(255,170,80,0.16) 0%, #0c0c0c 70%)",
+  content: `One of the reasons I chose IT was something I heard back in senior high, right after the pandemic — it was known as one of the most in-demand courses out there. Looking back, I think that was right around when AI and automation started actually taking off, not just being talked about.
+
+Even before AI, tech was in-demand for a different reason. There just weren't that many developers who could actually go through the process of becoming a web developer, armed with nothing but Stack Overflow, Reddit, and whatever community forums existed at the time.
+
+## The number of people changed the value
+
+Now it feels saturated. More people are choosing the tech path, and it became easier than before because of AI. I can't really argue with the fact that junior and entry-level work is genuinely at risk of being replaced — you can build a fairly functional full-stack app now just by putting together a team of AI agents.
+
+I keep coming back to a simple idea I always say: the value of something changes based on the data. The more people who can do it, the less its value becomes, and the more competitive it gets.
+
+Honestly, I can't really complain about it either. That's just the way it works for tech to move forward. Building isn't enough anymore, because anyone can build now. What actually matters is who fully understands how it's built, how to design the build, and whether it's maintainable in the long run.
+
+## Does the industry still need juniors?
+
+I've read blogs saying juniors are still needed because they're the future seniors. But that argument has a hole in it — how can juniors be the future if the entry point that's supposed to create them has already been replaced by AI?
+
+But then again, I don't think it can really be fully replaced either. I think the only people who believe that are the ones who are scared to move forward. Every generation has been tested, not just this one. We need to adapt and advance instead of just complaining.
+
+## So, where does experience actually come from?
+
+Yeah, it's genuinely hard to find a tech job right now, especially the one you actually want — it got too saturated. But the ones who think ahead are the ones who move forward. You can't just complain, you have to accept that this is how it is now, because we have more powerful tools like AI.
+
+So to answer my own question, "Freshmen need experience, but where?" — you only really get experience if you're lucky enough to land a job, or if you study more and think outside the box. And if you're not lucky enough to have a backer or a connection, you just have to be more competitive and adaptable than everyone else trying to get in.`,
+},
+
 ];
 
 // ── MARQUEE ITEMS ──────────────────────────────────────────────────────────
