@@ -258,7 +258,7 @@ export const skillGroups: SkillGroup[] = [
 export const blogPosts: BlogPost[] = [
   {
     slug: "motorpass-accidental-developer",
-    title: "How I Accidentally Became a \"Main and Only Developer\"",
+    title: "MotorPass: A Capstone Journey I Didn't Plan For",
     excerpt:
       "My capstone journey — how a school gate pass problem turned into my first real dive into AI, hardware, and helmet detection.",
     date: "MAY 2026",

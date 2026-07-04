@@ -66,7 +66,7 @@ export function MarkdownContent({ content }: { content: string }) {
           {items.map((item, idx) => (
             <li
               key={idx}
-              className="flex gap-2.5 items-start text-[17px] sm:text-[18px] text-white/80 leading-relaxed"
+              className="flex gap-2.5 items-start text-[15px] sm:text-[18px] text-white/80 leading-relaxed"
               style={{ fontFamily: "'Times New Roman', Times, Georgia, serif" }}
             >
               <span className="text-accent mt-1.5 shrink-0 text-[10px]">✦</span>
@@ -92,7 +92,7 @@ export function MarkdownContent({ content }: { content: string }) {
     blocks.push(
       <p
         key={key++}
-        className="text-[18px] sm:text-[19px] text-white/85 leading-[1.75] mb-5"
+        className="text-[16px] sm:text-[19px] text-white/85 leading-[1.75] mb-5"
         style={{ fontFamily: "'Times New Roman', Times, Georgia, serif" }}
       >
         {parseInline(paraLines.join(" "), `p-${key}`)}
