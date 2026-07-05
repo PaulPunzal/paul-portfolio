@@ -23,7 +23,7 @@ export default function BlogCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col rounded-bento border border-white/[0.07] bg-[#0c0c0c] overflow-hidden hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
+      className="group flex flex-col rounded-bento border border-[rgb(var(--ink)/7%)] bg-[var(--surface-1)] overflow-hidden hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
     >
       {/* ── Placeholder cover — swap for a real <Image> once you have one ── */}
       <div
@@ -43,18 +43,18 @@ export default function BlogCard({
       </div>
 
       <div className="flex flex-col flex-1 p-5 sm:p-6">
-        <span className="font-mono text-[9px] tracking-[1.8px] uppercase text-white/40 mb-2.5">
+        <span className="font-mono text-[9px] tracking-[1.8px] uppercase text-[rgb(var(--ink)/40%)] mb-2.5">
           {date}
         </span>
-        <h3 className="font-syne font-bold text-lg text-white mb-2 leading-snug group-hover:text-accent transition-colors">
+        <h3 className="font-syne font-bold text-lg text-[var(--text-primary)] mb-2 leading-snug group-hover:text-accent transition-colors">
           {title}
         </h3>
-        <p className="font-inter text-[13px] text-white/50 leading-relaxed font-light line-clamp-2 mb-4">
+        <p className="font-inter text-[13px] text-[rgb(var(--ink)/50%)] leading-relaxed font-light line-clamp-2 mb-4">
           {excerpt}
         </p>
-        <div className="mt-auto flex items-center gap-2 font-mono text-[10px] uppercase tracking-[1px] text-white/30">
+        <div className="mt-auto flex items-center gap-2 font-mono text-[10px] uppercase tracking-[1px] text-[rgb(var(--ink)/30%)]">
           <span>Read</span>
-          <span className="w-1 h-1 rounded-full bg-white/20" />
+          <span className="w-1 h-1 rounded-full bg-[rgb(var(--ink)/20%)]" />
           <span>{readTime}</span>
         </div>
       </div>

@@ -27,10 +27,10 @@ export default function BlogPage() {
         <p className="font-mono text-[9px] tracking-[2.5px] uppercase text-accent mb-1.5">
           Notes & Writing
         </p>
-        <h1 className="font-syne text-4xl md:text-5xl font-bold text-white tracking-tight mb-2">
+        <h1 className="font-syne text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tight mb-2">
           Blog.
         </h1>
-        <p className="font-inter text-sm text-white/50 font-light max-w-lg">
+        <p className="font-inter text-sm text-[rgb(var(--ink)/50%)] font-light max-w-lg">
           Behind-the-scenes notes on the things I&apos;ve built, and what building them actually taught me.
         </p>
       </div>
@@ -51,14 +51,14 @@ export default function BlogPage() {
       </div>
 
       {/* ── Design credit — small and out of the way ── */}
-      <div className="mt-14 pt-6 border-t border-white/[0.06] text-center">
-        <p className="font-mono text-[9px] tracking-[1px] text-white/20">
+      <div className="mt-14 pt-6 border-t border-[rgb(var(--ink)/6%)] text-center">
+        <p className="font-mono text-[9px] tracking-[1px] text-[rgb(var(--ink)/20%)]">
           Blog layout inspired by{" "}
           <a
             href="https://bryllim.com/blog"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/30 hover:text-accent transition-colors underline underline-offset-2"
+            className="text-[rgb(var(--ink)/30%)] hover:text-accent transition-colors underline underline-offset-2"
           >
             bryllim.com/blog
           </a>

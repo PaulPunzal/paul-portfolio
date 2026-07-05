@@ -10,14 +10,14 @@ function parseInline(text: string, keyPrefix: string): ReactNode[] {
   return parts.filter(Boolean).map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={`${keyPrefix}-${i}`} className="text-white font-semibold">
+        <strong key={`${keyPrefix}-${i}`} className="text-[var(--text-primary)] font-semibold">
           {part.slice(2, -2)}
         </strong>
       );
     }
     if (part.startsWith("*") && part.endsWith("*")) {
       return (
-        <em key={`${keyPrefix}-${i}`} className="italic text-white/85">
+        <em key={`${keyPrefix}-${i}`} className="italic text-[rgb(var(--ink)/85%)]">
           {part.slice(1, -1)}
         </em>
       );
@@ -45,7 +45,7 @@ export function MarkdownContent({ content }: { content: string }) {
       blocks.push(
         <h2
           key={key++}
-          className="font-syne text-lg sm:text-xl md:text-2xl font-bold text-white mt-9 sm:mt-10 mb-4 first:mt-0"
+          className="font-syne text-lg sm:text-xl md:text-2xl font-bold text-[var(--text-primary)] mt-9 sm:mt-10 mb-4 first:mt-0"
         >
           {line.replace("## ", "")}
         </h2>
@@ -66,7 +66,7 @@ export function MarkdownContent({ content }: { content: string }) {
           {items.map((item, idx) => (
             <li
               key={idx}
-              className="flex gap-2.5 items-start text-[15px] sm:text-[18px] text-white/80 leading-relaxed"
+              className="flex gap-2.5 items-start text-[15px] sm:text-[18px] text-[rgb(var(--ink)/80%)] leading-relaxed"
               style={{ fontFamily: "'Times New Roman', Times, Georgia, serif" }}
             >
               <span className="text-accent mt-1.5 shrink-0 text-[10px]">✦</span>
@@ -92,7 +92,7 @@ export function MarkdownContent({ content }: { content: string }) {
     blocks.push(
       <p
         key={key++}
-        className="text-[16px] sm:text-[19px] text-white/85 leading-[1.75] mb-5"
+        className="text-[16px] sm:text-[19px] text-[rgb(var(--ink)/85%)] leading-[1.75] mb-5"
         style={{ fontFamily: "'Times New Roman', Times, Georgia, serif" }}
       >
         {parseInline(paraLines.join(" "), `p-${key}`)}

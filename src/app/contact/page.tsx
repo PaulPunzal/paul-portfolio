@@ -17,8 +17,8 @@ export default function ContactPage() {
       
       {/* Page Header (Aligned with About/Home style) */}
       <div className="mb-8 pl-2">
-        <h1 className="font-syne text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">Connect.</h1>
-        <p className="font-mono text-xs tracking-widest text-white/40 uppercase">Initiate Contact</p>
+        <h1 className="font-syne text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-2 tracking-tight">Connect.</h1>
+        <p className="font-mono text-xs tracking-widest text-[rgb(var(--ink)/40%)] uppercase">Initiate Contact</p>
       </div>
 
       {/* ── BENTO GRID ── */}
@@ -30,9 +30,9 @@ export default function ContactPage() {
             <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-2">Current Status</div>
             <div className="flex items-center gap-3 mb-1">
               <StatusDot />
-              <span className="font-syne font-bold text-lg sm:text-xl text-white">Available for Work</span>
+              <span className="font-syne font-bold text-lg sm:text-xl text-[var(--text-primary)]">Available for Work</span>
             </div>
-            <p className="font-inter text-[11px] sm:text-xs text-white/60 font-light max-w-xl">
+            <p className="font-inter text-[11px] sm:text-xs text-[rgb(var(--ink)/60%)] font-light max-w-xl">
               Graduating May 2026 · Open to entry-level and mid-level positions in web, mobile, or full-stack engineering.
             </p>
           </div>
@@ -44,92 +44,92 @@ export default function ContactPage() {
         {/* 2. EMAIL / PRIMARY CTA */}
         <BentoCard href="mailto:punzalpauljohn@gmail.com" className="col-span-2 md:col-span-2 row-span-2 flex flex-col justify-center p-5 sm:p-6 group">
           <div className="flex items-center justify-between mb-3 lg:mb-4">
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 group-hover:border-accent/30 transition-colors">
-              <Mail className="w-4 h-4 text-white/70 group-hover:text-accent transition-colors" />
+            <div className="w-10 h-10 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)] group-hover:bg-[rgb(var(--ink)/10%)] group-hover:border-accent/30 transition-colors">
+              <Mail className="w-4 h-4 text-[rgb(var(--ink)/70%)] group-hover:text-accent transition-colors" />
             </div>
             <div className="project-arrow opacity-50 group-hover:opacity-100 transition-opacity">↗</div>
           </div>
           <div>
             <div className="font-mono text-[9px] tracking-[2px] text-accent uppercase mb-1.5">Direct Line</div>
-            <div className="font-syne font-bold text-base sm:text-lg lg:text-xl text-white mb-1 group-hover:text-accent transition-colors truncate">
+            <div className="font-syne font-bold text-base sm:text-lg lg:text-xl text-[var(--text-primary)] mb-1 group-hover:text-accent transition-colors truncate">
               punzalpauljohn@gmail.com
             </div>
-            <p className="font-inter text-[10px] sm:text-xs text-white/40">Response time: ~24 hours</p>
+            <p className="font-inter text-[10px] sm:text-xs text-[rgb(var(--ink)/40%)]">Response time: ~24 hours</p>
           </div>
         </BentoCard>
 
         {/* 3. PHONE TILE */}
         <BentoCard href="tel:+" className="col-span-2 md:col-span-2 row-span-2 flex flex-col justify-center p-5 sm:p-6 group">
           <div className="flex items-center justify-between mb-3 lg:mb-4">
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 group-hover:border-accent/30 transition-colors">
-              <Phone className="w-4 h-4 text-white/70 group-hover:text-accent transition-colors" />
+            <div className="w-10 h-10 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)] group-hover:bg-[rgb(var(--ink)/10%)] group-hover:border-accent/30 transition-colors">
+              <Phone className="w-4 h-4 text-[rgb(var(--ink)/70%)] group-hover:text-accent transition-colors" />
             </div>
             <div className="project-arrow opacity-50 group-hover:opacity-100 transition-opacity">↗</div>
           </div>
           <div>
             <div className="font-mono text-[9px] tracking-[2px] text-accent uppercase mb-1.5">Mobile Contact</div>
-            <div className="font-syne font-bold text-base sm:text-lg lg:text-xl text-white mb-1 group-hover:text-accent transition-colors truncate">
+            <div className="font-syne font-bold text-base sm:text-lg lg:text-xl text-[var(--text-primary)] mb-1 group-hover:text-accent transition-colors truncate">
               +63 9683295292
             </div>
-            <p className="font-inter text-[10px] sm:text-xs text-white/40">Available 9AM - 6PM</p>
+            <p className="font-inter text-[10px] sm:text-xs text-[rgb(var(--ink)/40%)]">Available 9AM - 6PM</p>
           </div>
         </BentoCard>
 
         {/* 4. LOCATION TILE (Square) */}
         <BentoCard className="col-span-1 md:col-span-1 row-span-2 flex flex-col justify-between p-5 sm:p-6">
-          <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-            <MapPin className="w-4 h-4 text-white/70" />
+          <div className="w-8 h-8 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)]">
+            <MapPin className="w-4 h-4 text-[rgb(var(--ink)/70%)]" />
           </div>
           <div>
             <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-1 block">Base</div>
-            <div className="font-syne font-bold text-sm sm:text-base text-white mb-0.5">Marilao</div>
-            <p className="font-inter text-[10px] text-white/40">Bulacan, PH</p>
+            <div className="font-syne font-bold text-sm sm:text-base text-[var(--text-primary)] mb-0.5">Marilao</div>
+            <p className="font-inter text-[10px] text-[rgb(var(--ink)/40%)]">Bulacan, PH</p>
           </div>
         </BentoCard>
 
         {/* 5. GITHUB TILE (Square) */}
         <BentoCard href="https://github.com/PaulPunzal" className="col-span-1 md:col-span-1 row-span-2 flex flex-col justify-between p-5 sm:p-6 group">
           <div className="flex justify-between items-start">
-            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 group-hover:border-accent/30 transition-colors">
-              <GithubIcon className="w-4 h-4 text-white/70 group-hover:text-accent transition-colors" />
+            <div className="w-8 h-8 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)] group-hover:bg-[rgb(var(--ink)/10%)] group-hover:border-accent/30 transition-colors">
+              <GithubIcon className="w-4 h-4 text-[rgb(var(--ink)/70%)] group-hover:text-accent transition-colors" />
             </div>
             <div className="project-arrow opacity-50 group-hover:opacity-100 transition-opacity">↗</div>
           </div>
           <div>
             <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-1 block">Code</div>
-            <div className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-accent transition-colors">GitHub</div>
-            <p className="font-inter text-[10px] text-white/40 hidden sm:block">View repos</p>
+            <div className="font-syne font-bold text-sm sm:text-base text-[var(--text-primary)] group-hover:text-accent transition-colors">GitHub</div>
+            <p className="font-inter text-[10px] text-[rgb(var(--ink)/40%)] hidden sm:block">View repos</p>
           </div>
         </BentoCard>
 
         {/* 6. SOCIALS COMBINED TILE */}
         <BentoCard className="col-span-2 md:col-span-2 row-span-2 p-0 flex overflow-hidden">
-          <div className="flex w-full h-full divide-x divide-white/10">
+          <div className="flex w-full h-full divide-x divide-[rgb(var(--ink)/10%)]">
             {/* Facebook Half */}
-            <a href="https://www.facebook.com/PaulJohnPunzal1" target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col justify-between p-5 sm:p-6 group hover:bg-white/[0.02] transition-colors relative">
+            <a href="https://www.facebook.com/PaulJohnPunzal1" target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col justify-between p-5 sm:p-6 group hover:bg-[rgb(var(--ink)/2%)] transition-colors relative">
               <div className="flex justify-between items-start">
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#1877F2]/20 group-hover:border-[#1877F2]/50 transition-colors">
-                  <FacebookIcon className="w-4 h-4 text-white/70 group-hover:text-[#1877F2] transition-colors" />
+                <div className="w-8 h-8 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)] group-hover:bg-[#1877F2]/20 group-hover:border-[#1877F2]/50 transition-colors">
+                  <FacebookIcon className="w-4 h-4 text-[rgb(var(--ink)/70%)] group-hover:text-[#1877F2] transition-colors" />
                 </div>
                 <div className="project-arrow opacity-50 group-hover:opacity-100 transition-opacity">↗</div>
               </div>
               <div>
                 <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-1 block">Social</div>
-                <div className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#1877F2] transition-colors">Facebook</div>
+                <div className="font-syne font-bold text-sm sm:text-base text-[var(--text-primary)] group-hover:text-[#1877F2] transition-colors">Facebook</div>
               </div>
             </a>
 
             {/* Instagram Half */}
-            <a href="https://www.instagram.com/pauljohnpunzal" target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col justify-between p-5 sm:p-6 group hover:bg-white/[0.02] transition-colors relative">
+            <a href="https://www.instagram.com/pauljohnpunzal" target="_blank" rel="noopener noreferrer" className="flex-1 flex flex-col justify-between p-5 sm:p-6 group hover:bg-[rgb(var(--ink)/2%)] transition-colors relative">
               <div className="flex justify-between items-start">
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[#E1306C]/20 group-hover:border-[#E1306C]/50 transition-colors">
-                  <InstagramIcon className="w-4 h-4 text-white/70 group-hover:text-[#E1306C] transition-colors" />
+                <div className="w-8 h-8 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)] group-hover:bg-[#E1306C]/20 group-hover:border-[#E1306C]/50 transition-colors">
+                  <InstagramIcon className="w-4 h-4 text-[rgb(var(--ink)/70%)] group-hover:text-[#E1306C] transition-colors" />
                 </div>
                 <div className="project-arrow opacity-50 group-hover:opacity-100 transition-opacity">↗</div>
               </div>
               <div>
                 <div className="font-mono text-[9px] tracking-[1.5px] text-accent uppercase mb-1 block">Visuals</div>
-                <div className="font-syne font-bold text-sm sm:text-base text-white group-hover:text-[#E1306C] transition-colors">Instagram</div>
+                <div className="font-syne font-bold text-sm sm:text-base text-[var(--text-primary)] group-hover:text-[#E1306C] transition-colors">Instagram</div>
               </div>
             </a>
           </div>

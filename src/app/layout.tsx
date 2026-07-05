@@ -33,6 +33,18 @@ export const metadata: Metadata = {
   description: "Portfolio of Paul John Punzal - Full-Stack & Mobile Developer",
 };
 
+// Runs before paint so the saved theme applies immediately —
+// avoids a dark->light (or light->dark) flash on every page load.
+const themeInitScript = `
+(function() {
+  try {
+    var saved = localStorage.getItem('theme');
+    var theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -40,16 +52,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${syne.variable} ${dmMono.variable} ${inter.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden flex flex-col">
         <Nav />
         <FloatingResume />
-        
+
         {/* NEW: Wrapper container acts as a 'track' for the sticky navbar */}
         <div className="flex-1 flex flex-col relative w-full">
           <main className="pt-4 sm:pt-24 flex-1">
             {children}
           </main>
-          
+
           {/* MobileNav placed at the very end of the track */}
           <MobileNav />
         </div>

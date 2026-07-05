@@ -6,31 +6,73 @@
 
 /* ── CSS VARIABLES ── */
 :root {
-  /* 1. Backgrounds: Pure OLED black body, with incredibly deep "Zinc" black cards */
+  /* 1. Backgrounds */
   --black: #000000;
   --bg-card: #131316;
   --bg-card-hover: #1c1c20;
+  --surface-0: #000000;   /* page body */
+  --surface-1: #0c0c0c;   /* panels, footer, blog cards, nav */
+  --surface-1-hover: #111111;
+  --surface-3: #0f0f0f;   /* active/selected state */
 
-  /* 2. Borders: Softer, less distracting lines */
+  /* 2. Borders */
   --border: rgba(255, 255, 255, 0.09);
   --border-hover: rgba(255, 255, 255, 0.18);
 
+  /* 3. Text */
+  --text-primary: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  --text-inverse: #000000; /* text sitting on top of the accent button */
 
-  /* 3. Text (The Eye-Strain Fix!): Using cool "Zinc" grays instead of glowing white */
-   --text-primary: #e4e4e7;   /* Zinc 200 - Soft off-white, no glare */
-   --text-secondary: #a1a1aa; /* Zinc 400 - Clear but stays in the background */
-   --text-muted: #52525b;     /* Zinc 600 - For very subtle details */
-
-  /* 4. Your Signature Green Accent */
+  /* 4. Accent */
   --accent: #7df9a6;
   --accent-dim: rgba(125, 249, 166, 0.10);
   --accent-glow: rgba(125, 249, 166, 0.20);
 
-   /* 5. NEW: Card elevation shadow (gives depth without raising brightness) */
+  /* 5. Effects */
   --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 4px 24px rgba(0, 0, 0, 0.5);
-  
+  --noise-opacity: 0.4;
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+
+  /* 6. Ink — the "white/N" opacity system. Every text-white/N,
+     border-white/N, bg-white/N in the app should become
+     text-[rgb(var(--ink)/N%)] etc, so this single variable flips
+     the whole app's faint-ink layer between white and black. */
+  --ink: 255 255 255;
+
   --radius: 18px;
   --nav-height: 64px;
+}
+
+[data-theme="light"] {
+  --black: #f6f6f4;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafaf9;
+  --surface-0: #f6f6f4;
+  --surface-1: #ffffff;
+  --surface-1-hover: #f4f4f3;
+  --surface-3: #f0f0ee;
+
+  --border: rgba(0, 0, 0, 0.09);
+  --border-hover: rgba(0, 0, 0, 0.16);
+
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --text-inverse: #ffffff;
+
+  --accent: #16a34a;
+  --accent-dim: rgba(22, 163, 74, 0.08);
+  --accent-glow: rgba(22, 163, 74, 0.18);
+
+  --card-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset, 0 4px 20px rgba(0, 0, 0, 0.06);
+  --noise-opacity: 0.15;
+  --grid-line: rgba(0, 0, 0, 0.04);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+
+  --ink: 0 0 0;
 }
 
 /* ── BASE RESET ── */
@@ -47,28 +89,16 @@ html {
 }
 
 body {
-  /* Set the base black color */
   background-color: var(--black);
-  
-  /* UPDATE: Changed opacity from 0.03 to 0.06 for better visibility */
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  
-  /* Set the size of the grid boxes */
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 28px 28px;
-  
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-/* @media (max-width: 639px) {
-  body {
-    padding-bottom: 90px;
-  }
-} */
-
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar {
@@ -78,7 +108,7 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
@@ -90,7 +120,6 @@ body {
   gap: 10px;
 }
 
-/* column spans */
 .c1  { grid-column: span 1; }
 .c2  { grid-column: span 2; }
 .c3  { grid-column: span 3; }
@@ -102,7 +131,6 @@ body {
 .c9  { grid-column: span 9; }
 .c12 { grid-column: span 12; }
 
-/* row spans */
 .r1 { grid-row: span 1; }
 .r2 { grid-row: span 2; }
 .r3 { grid-row: span 3; }
@@ -114,14 +142,13 @@ body {
   100% { transform: translateX(300%)  skewX(-5deg); }
 }
 
-/* Disable expensive background repaints on mobile */
 @media (max-width: 768px) {
   .bento-card::after {
     animation: none !important;
-    display: none; /* removes the layer entirely on mobile = zero GPU memory */
+    display: none;
   }
   .bento-card::before {
-    display: none; /* noise texture — expensive on mobile */
+    display: none;
   }
 }
 
@@ -141,12 +168,10 @@ body {
   box-shadow: var(--card-shadow);
 }
 
-/* The ambient sweeping light */
 .bento-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  /* Static gradient at left edge — the "slide" happens via transform */
   background: linear-gradient(
     110deg,
     transparent 0%,
@@ -155,12 +180,10 @@ body {
     rgba(125, 249, 166, 0.03) 60%,
     transparent 100%
   );
-  /* Start fully off-screen left */
   transform: translateX(-100%) skewX(-5deg);
   animation: shimmer 8s infinite linear;
   pointer-events: none;
   z-index: 1;
-  /* Only tell GPU about transform — nothing else */
   will-change: transform;
 }
 
@@ -180,7 +203,6 @@ body {
   box-shadow: 0 8px 40px rgba(125, 249, 166, 0.08);
 }
 
-/* noise overlay on each card */
 .bento-card::before {
   content: "";
   position: absolute;
@@ -188,18 +210,17 @@ body {
   border-radius: var(--radius);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
   background-size: 128px;
-  opacity: 0.4;
+  opacity: var(--noise-opacity);
   pointer-events: none;
 }
 
-/* ── PROJECT ARROW hover (child selector) ── */
 .bento-card.clickable:hover .project-arrow {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-dim);
 }
 
-/* ── SINGLE LASER FRAME (traces the outer cluster as one shape) ── */
+/* ── SINGLE LASER FRAME ── */
 .bento-laser-frame-cell {
   position: absolute;
   pointer-events: none;
@@ -217,23 +238,6 @@ body {
   animation: bento-frame-travel 9s linear infinite;
 }
 
-/* ── BENTO LASER FRAME — single tapered beam + smooth halo, footer-tuned ── */
-
-/*
-  @property registers --travel and --step-offset as animatable/calc-able
-  <number> values (custom properties aren't usable inside calc() reliably
-  for animation purposes unless registered like this).
-
-  Every laser rect computes its own stroke-dashoffset as:
-      calc(var(--travel) + var(--step-offset))
-  ...where --travel is the ONE shared value driving motion (identical for
-  every rect, animated by the single @keyframes below), and --step-offset
-  is a fixed per-rect value set inline in the TSX (each step/halo's static
-  position within the rigid beam shape). Because every rect's dashoffset is
-  derived from the same --travel, the whole beam can never drift apart, and
-  because no dasharray here starts with a 0-length dash, there's no phantom
-  round-cap dot artifact.
-*/
 @property --travel {
   syntax: "<number>";
   inherits: true;
@@ -259,14 +263,12 @@ body {
   stroke-dashoffset: calc(var(--travel) + var(--step-offset));
 }
 
-/* Single halo dash — tight blur radius (set in TSX) keeps glow spread smaller than card gaps */
 .bento-laser-frame .laser-beam-halo {
   stroke: var(--accent);
   stroke-width: 4.5px;
   stroke-opacity: 0.35;
 }
 
-/* Core segments — thin, pure white, the crisp visible beam itself */
 .bento-laser-frame .laser-beam-core {
   stroke: #ffffff;
   stroke-width: 1.4px;
@@ -301,7 +303,7 @@ body {
   gap: 0;
   width: max-content;
   animation: marquee 22s linear infinite;
-  will-change: transform; /* Add this to tell the browser to optimize it */
+  will-change: transform;
 }
 
 .marquee-item {
@@ -329,11 +331,11 @@ body {
   flex-shrink: 0;
 }
 
-/* ── Tech Pill Hover Upgrades ── */
+/* ── Tech Pill ── */
 .tech-pill {
   transition: all 0.2s;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgb(var(--ink) / 6%);
+  border: 1px solid rgb(var(--ink) / 9%);
   border-radius: 6px;
   padding: 4px 9px;
   font-size: 10px;
@@ -360,7 +362,7 @@ body {
   align-items: center;
   gap: 10px;
   padding: 9px 12px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgb(var(--ink) / 4%);
   border-radius: 10px;
   border: 1px solid var(--border);
   transition: border-color 0.2s, background 0.2s;
@@ -369,7 +371,7 @@ body {
 
 .contact-row:hover {
   border-color: var(--border-hover);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgb(var(--ink) / 6%);
 }
 
 /* ── SUBPAGE SHARED ── */
@@ -399,7 +401,7 @@ body {
 .contact-field input,
 .contact-field textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgb(var(--ink) / 4%);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 11px 14px;
@@ -450,7 +452,6 @@ body {
 }
 
 @keyframes marquee {
-  /* Use translate3d to force GPU hardware acceleration */
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }
 }
@@ -461,7 +462,31 @@ body {
 }
 
 .css-breathing-icon {
-  /* translate3d forces the GPU to take over the animation */
   animation: float-icon 2s ease-in-out infinite alternate;
   will-change: transform;
+}
+
+/* ── THEME TRANSITION (ripple / water-drop reveal) ── */
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-ripple-reveal 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  mix-blend-mode: normal;
+}
+
+@keyframes theme-ripple-reveal {
+  to {
+    clip-path: circle(150% at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+    clip-path: none;
+  }
 }
