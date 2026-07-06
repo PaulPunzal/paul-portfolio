@@ -206,7 +206,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
     <motion.div
       animate={overlayControls}
       initial={{ opacity: 1 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-black pointer-events-none"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[var(--black)] pointer-events-none"
     >
       {/* ── DYNAMIC BACKGROUND GRID ── */}
       <motion.div
@@ -214,7 +214,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         initial={{ scale: 1, opacity: 0.6 }}
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           transformOrigin: "center",
           transform: "translateZ(0)", // Force GPU
@@ -263,19 +263,19 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
       <motion.div
         animate={dotLeftControls}
         initial={{ width: 4, height: 4, opacity: 0, x: 0, y: "-50%" }}
-        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)", transform: "translateZ(0)" }}
+        style={{ position: "absolute", top: "50%", left: "50%", background: "rgb(var(--ink))", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)", transform: "translateZ(0)" }}
       />
       <motion.div
         animate={dotRightControls}
         initial={{ width: 4, height: 4, opacity: 0, x: 0, y: "-50%" }}
-        style={{ position: "absolute", top: "50%", left: "50%", background: "#ffffff", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)", transform: "translateZ(0)" }}
+        style={{ position: "absolute", top: "50%", left: "50%", background: "rgb(var(--ink))", borderRadius: "50%", boxShadow: "0 0 15px 4px rgba(125,249,166,0.9)", transform: "translateZ(0)" }}
       />
 
       {/* The Central Line */}
       <motion.div
         animate={lineControls}
         initial={{ width: 0, opacity: 0 }}
-        style={{ position: "absolute", height: 1, background: "rgba(255,255,255,0.9)", boxShadow: "0 0 8px 1px rgba(255,255,255,0.4)", top: "50%", left: "50%", x: "-50%", y: "-50%", transform: "translateZ(0)" }}
+        style={{ position: "absolute", height: 1, background: "rgb(var(--ink) / 90%)", boxShadow: "0 0 8px 1px rgb(var(--ink) / 40%)", top: "50%", left: "50%", x: "-50%", y: "-50%", transform: "translateZ(0)" }}
       />
 
       {/* The Morphing Box */}
@@ -295,15 +295,15 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           className="absolute inset-0 flex items-center justify-center p-6 pointer-events-none"
         >
           <svg viewBox="0 0 560 400" className="w-full h-full opacity-100" preserveAspectRatio="xMidYMid meet">
-            <rect x="4" y="36" width="136" height="136" rx="24" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
-            <rect x="164" y="55" width="392" height="48" rx="10" fill="rgba(255,255,255,0.15)" />
+            <rect x="4" y="36" width="136" height="136" rx="24" fill="rgb(var(--ink) / 8%)" stroke="rgb(var(--ink) / 20%)" strokeWidth="2" />
+            <rect x="164" y="55" width="392" height="48" rx="10" fill="rgb(var(--ink) / 15%)" />
             <circle cx="172" cy="135" r="8" fill="rgba(125,249,166,0.8)" />
             <rect x="192" y="127" width="310" height="16" rx="6" fill="rgba(125,249,166,0.4)" />
             <rect x="4" y="210" width="4" height="140" fill="rgba(125,249,166,0.5)" rx="2" />
-            <rect x="28" y="216" width="528" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
-            <rect x="28" y="252" width="500" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
-            <rect x="28" y="288" width="510" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
-            <rect x="28" y="324" width="420" height="16" rx="6" fill="rgba(255,255,255,0.12)" />
+            <rect x="28" y="216" width="528" height="16" rx="6" fill="rgb(var(--ink) / 12%)" />
+            <rect x="28" y="252" width="500" height="16" rx="6" fill="rgb(var(--ink) / 12%)" />
+            <rect x="28" y="288" width="510" height="16" rx="6" fill="rgb(var(--ink) / 12%)" />
+            <rect x="28" y="324" width="420" height="16" rx="6" fill="rgb(var(--ink) / 12%)" />
           </svg>
         </motion.div>
 

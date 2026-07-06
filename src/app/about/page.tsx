@@ -120,8 +120,7 @@ export default function AboutPage() {
               A Bit About Me
             </h2>
             <div className="border-l-2 border-accent/30 pl-4">
-              <p className="font-inter text-sm lg:text-xs xl:text-sm text-[rgb(var(--ink)/60%)] leading-relaxed font-light mb-3 md:mb-0">
-                I'm a Full-Stack and Mobile Developer who loves turning ideas into working systems. My coding journey started out of pure curiosity, but everything really clicked once I started connecting digital code with physical hardware — building an <span className="text-accent/80">AI-powered Raspberry Pi</span> system for my capstone showed me what technology is actually for.
+              <p className="font-inter text-sm lg:text-xs xl:text-sm text-[rgb(var(--ink)/60%)] leading-relaxed font-normal mb-3 md:mb-0">                I'm a Full-Stack and Mobile Developer who loves turning ideas into working systems. My coding journey started out of pure curiosity, but everything really clicked once I started connecting digital code with physical hardware — building an <span className="text-accent/80">AI-powered Raspberry Pi</span> system for my capstone showed me what technology is actually for.
               </p>
             </div>
           </BentoCard>
@@ -270,10 +269,10 @@ export default function AboutPage() {
                 </div>
               </div>
               <h2 className="font-syne text-2xl lg:text-2xl xl:text-3xl font-bold text-[var(--text-primary)] mb-4 lg:mb-5">Developing in the AI Era</h2>
-              <p className="font-inter text-sm lg:text-sm xl:text-base text-[rgb(var(--ink)/60%)] leading-relaxed font-light mb-4 lg:mb-5">
+              <p className="font-inter text-sm lg:text-sm xl:text-base text-[rgb(var(--ink)/60%)] leading-relaxed font-normal mb-4 lg:mb-5">
                 Writing raw syntax isn't the barrier it used to be — with AI writing boilerplate, even non-coders can build apps. I embrace AI heavily as a co-pilot, but my focus has shifted to what AI can't safely do on its own: <span className="text-[var(--text-primary)] font-medium">System Architecture.</span>
               </p>
-              <p className="font-inter text-sm lg:text-sm xl:text-base text-[rgb(var(--ink)/60%)] leading-relaxed font-light">
+              <p className="font-inter text-sm lg:text-sm xl:text-base text-[rgb(var(--ink)/60%)] leading-relaxed font-normal">
                 My goal is architecting accurate, bulletproof systems — engineering the <span className="text-accent/80">optimization, data validation, security, and scalability</span> that hold a platform together. I design the blueprint; AI just helps me lay the bricks faster.
               </p>
             </div>

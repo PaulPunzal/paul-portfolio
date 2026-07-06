@@ -16,10 +16,10 @@ const config: Config = {
         serif: ["'Times New Roman'", "Times", "Georgia", "serif"],
       },
       colors: {
-        accent: "#7DF9A6",
-        "accent-dim": "rgba(125,249,166,0.12)",
-        "card-bg": "#0c0c0c",
-        "card-hover": "#111111",
+        accent: "var(--accent)",
+        "accent-dim": "var(--accent-dim)",
+        "card-bg": "var(--bg-card)",
+        "card-hover": "var(--bg-card-hover)",
       },
       borderRadius: {
         bento: "18px",

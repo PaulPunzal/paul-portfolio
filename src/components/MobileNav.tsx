@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { Home, User, FolderArchive, Newspaper, Mail, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function MobileNav() {
   const pathname = usePathname();
@@ -89,14 +88,6 @@ export default function MobileNav() {
           )}
         </AnimatePresence>
 
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: isReady ? 1 : 0, opacity: isReady ? 1 : 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <ThemeToggle className="w-12 h-12 shadow-[0_8px_24px_rgba(0,0,0,0.6)]" />
-        </motion.div>
-
         <motion.button
           onClick={() => setMenuOpen((v) => !v)}
           initial={{ scale: 0, opacity: 0 }}
@@ -152,7 +143,6 @@ export default function MobileNav() {
             <span className="font-mono text-[8px] uppercase tracking-[1px]">Contact</span>
           </Link>
         </nav>
-        <ThemeToggle className="w-11 h-11 shrink-0 shadow-[0_8px_32px_rgba(0,0,0,0.8)]" />
       </motion.div>
     </div>
   );

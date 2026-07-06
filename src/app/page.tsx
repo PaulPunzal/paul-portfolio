@@ -214,7 +214,7 @@ export default function HomePage() {
                       {"Paul John Punzal".split(" ").map((word, i) => (
                         <span key={i} className="relative overflow-hidden inline-flex pb-1">
                           <span className="text-[rgb(var(--ink)/20%)] inline-block relative z-0">{word}</span>
-                          <span className="name-word absolute left-0 top-0 text-[var(--text-primary)] z-10 inline-block">
+                          <span className={`name-word name-word-${i} absolute left-0 top-0 text-[var(--text-primary)] z-10 inline-block`}>
                             {word}
                           </span>
                         </span>
@@ -226,7 +226,7 @@ export default function HomePage() {
                         {"Full-Stack & Mobile Dev".split(" ").map((word, i) => (
                           <span key={i} className="relative overflow-hidden inline-flex pb-0.5">
                             <span className="text-[rgb(var(--ink)/30%)] inline-block relative z-0">{word}</span>
-                            <span className="subtitle-word absolute left-0 top-0 text-accent z-10 inline-block">
+                            <span className={`subtitle-word subtitle-word-${i} absolute left-0 top-0 text-accent z-10 inline-block`}>
                               {word}
                             </span>
                           </span>
@@ -237,7 +237,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="border-l-2 border-accent/30 pl-4 py-1">
-                  <p className="font-inter text-sm text-[rgb(var(--ink)/60%)] leading-relaxed font-light">
+                  <p className="font-inter text-sm text-[rgb(var(--ink)/60%)] leading-relaxed font-normal">
                     Building real-world applications—from integrating IoT hardware with AI object
                     detection to full-scale educational platforms—has pushed me to grow across
                     different areas of development, with a growing focus on backend architecture,
@@ -360,7 +360,7 @@ export default function HomePage() {
                 <h3 className="font-syne font-bold text-xl lg:text-2xl tracking-tight text-[var(--text-primary)] mb-3">
                   {motorpass.title}
                 </h3>
-                <p className="font-inter text-sm text-[rgb(var(--ink)/60%)] leading-relaxed font-light">
+                <p className="font-inter text-sm text-[rgb(var(--ink)/60%)] leading-relaxed font-normal">
                   {motorpass.shortDesc}
                 </p>
               </div>

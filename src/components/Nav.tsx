@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { Home, User, FolderArchive, Newspaper, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -85,7 +84,6 @@ export default function Navbar() {
                 );
               })}
             </div>
-            <ThemeToggle className="mr-1" />
             <Link href="/contact" className="font-mono text-[11px] uppercase tracking-[1px] font-bold text-[var(--text-inverse)] bg-accent px-5 py-2.5 rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300">
               Contact Me
             </Link>

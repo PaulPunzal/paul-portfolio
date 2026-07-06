@@ -20,7 +20,7 @@ export default function FloatingResume() {
       className="fixed bottom-24 right-4 lg:bottom-10 lg:right-10 z-[100] group flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28 scale-90 sm:scale-100"
     >
       {/* ── Rotating SVG Text ── */}
-      <div className="absolute inset-0 animate-[spin_10s_linear_infinite] text-white/40 group-hover:text-accent transition-colors duration-500">
+      <div className="absolute inset-0 animate-[spin_10s_linear_infinite] text-white/40 group-hover:text-accent transition-colors duration-500 resume-rotator">
         <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
           <path
             id="circlePath"
@@ -36,7 +36,7 @@ export default function FloatingResume() {
       </div>
 
       {/* ── Center Glassmorphic Button ── */}
-      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0c0c0c]/80 backdrop-blur-xl border border-white/10 rounded-full flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[var(--surface-1)]/80 backdrop-blur-xl border border-[rgb(var(--ink)/10%)] rounded-full flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
         <Download className="w-5 h-5 sm:w-6 sm:h-6 text-white/70 group-hover:text-accent group-hover:translate-y-0.5 transition-all duration-300" />
       </div>
     </a>

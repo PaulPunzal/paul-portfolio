@@ -30,10 +30,10 @@ export default function Marquee({ isVisible = true }: { isVisible?: boolean }) {
         </div>
       </div>
 
-      <div className="marquee-wrap opacity-60">
+      <div className="marquee-wrap opacity-80">
         <div className="marquee-track font-mono" style={{ animationDirection: "reverse", animationDuration: "45s" }}>
           {programmingLanguages.map((lang, i) => (
-            <span key={`m2-${i}`} className="marquee-item text-[10px] text-accent">{lang}</span>
+            <span key={`m2-${i}`} className="marquee-item text-[10px]">{lang}</span>
           ))}
         </div>
       </div>

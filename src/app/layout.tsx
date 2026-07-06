@@ -5,6 +5,7 @@ import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
 import "./globals.css";
 import FloatingResume from "@/components/ui/FloatingResume";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -55,9 +56,10 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="font-inter antialiased bg-black text-[#f0f0f0] min-h-screen overflow-x-hidden flex flex-col">
+      <body className="font-inter antialiased min-h-screen overflow-x-hidden flex flex-col">
         <Nav />
         <FloatingResume />
+        <ThemeToggle className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[60] w-10 h-10 shadow-[0_4px_20px_rgba(0,0,0,0.35)]" />
 
         {/* NEW: Wrapper container acts as a 'track' for the sticky navbar */}
         <div className="flex-1 flex flex-col relative w-full">
