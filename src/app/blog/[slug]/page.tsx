@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/data";
-import { MarkdownContent } from "@/lib/markdown";
+import { MarkdownContent, extractHeadings } from "@/lib/markdown";
+import { useActiveHeading } from "@/lib/useActiveHeading";
+import TableOfContents from "@/components/ui/TableOfContents";
+import ReadingProgress from "@/components/ui/ReadingProgress";
 import { ArrowLeft, Link2, Cpu, Sparkles, Briefcase } from "lucide-react";
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -17,6 +20,17 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function BlogPostPage() {
   const params = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === params.slug);
+  const articleRef = useRef<HTMLElement>(null);
+
+  const headings = useMemo(() => (post ? extractHeadings(post.content) : []), [post]);
+  const headingIds = useMemo(() => headings.map((h) => h.id), [headings]);
+  const activeId = useActiveHeading(headingIds);
+
+  const totalMinutes = useMemo(() => {
+    if (!post) return 1;
+    const match = post.readTime.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 5;
+  }, [post]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
@@ -42,7 +56,15 @@ export default function BlogPostPage() {
   };
 
   return (
-    <div className="w-full max-w-[820px] mx-auto px-4 pb-16 pt-6 animate-in fade-in duration-700">
+    <div className="w-full max-w-[1180px] mx-auto px-4 pb-16 pt-6 animate-in fade-in duration-700">
+      <ReadingProgress
+        targetRef={articleRef}
+        title={post.title}
+        totalMinutes={totalMinutes}
+        headings={headings}
+        activeId={activeId}
+      />
+
       <Link
         href="/blog"
         className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] hover:text-accent transition-colors mb-6"
@@ -51,77 +73,82 @@ export default function BlogPostPage() {
         All posts
       </Link>
 
-      {/* CARD CONTAINER — content sits on a solid panel instead of the
-          dotted page background directly, matching About/Projects/Contact. */}
-      <article className="bg-[var(--surface-1)] border border-[rgb(var(--ink)/7%)] rounded-bento overflow-hidden">
-        <div className="p-5 sm:p-8 lg:p-10">
-          <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] mb-4">
-            <span>{post.date}</span>
-            <span className="w-1 h-1 rounded-full bg-[rgb(var(--ink)/25%)]" />
-            <span>{post.readTime} read</span>
-          </div>
+      <div className="lg:flex lg:items-start lg:justify-center lg:gap-10">
+        <TableOfContents headings={headings} activeId={activeId} variant="sidebar" />
 
-          <h1 className="font-syne text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] leading-tight mb-4">
-            {post.title}
-          </h1>
-          <p className="font-inter text-[15px] sm:text-base text-[rgb(var(--ink)/70%)] leading-relaxed font-light mb-8">
-            {post.excerpt}
-          </p>
-
-          <div className="flex items-center gap-3 pb-6 mb-8 border-b border-[rgb(var(--ink)/7%)]">
-            <div className="w-9 h-9 rounded-full overflow-hidden border border-[rgb(var(--ink)/10%)] relative shrink-0">
-              <Image
-                src="/gradpic/profile.JPG"
-                alt="Paul John Punzal"
-                fill
-                sizes="36px"
-                className="object-cover object-top"
-              />
+        <article
+          ref={articleRef}
+          className="bg-[var(--surface-1)] border border-[rgb(var(--ink)/7%)] rounded-bento overflow-hidden w-full max-w-[820px]"
+        >
+          <div className="p-5 sm:p-8 lg:p-10">
+            <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] mb-4">
+              <span>{post.date}</span>
+              <span className="w-1 h-1 rounded-full bg-[rgb(var(--ink)/25%)]" />
+              <span>{post.readTime} read</span>
             </div>
-            <span className="font-mono text-xs text-[rgb(var(--ink)/80%)]">Paul John Punzal</span>
-          </div>
 
-          {/* Cover — real illustration if we have one, otherwise the
-              gradient + icon placeholder */}
-          <div
-            className="relative h-48 sm:h-64 md:h-72 rounded-2xl overflow-hidden flex items-center justify-center mb-9 border border-[rgb(var(--ink)/7%)]"
-            style={post.coverImage ? undefined : { background: post.coverBgStyle }}
-          >
-            {post.coverImage ? (
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                fill
-                sizes="(max-width: 820px) 100vw, 820px"
-                className="object-cover object-center"
-                priority
-              />
-            ) : (
-              <div className="w-16 h-16 rounded-2xl bg-[rgb(var(--ink)/10%)] backdrop-blur-sm border border-[rgb(var(--ink)/15%)] flex items-center justify-center">
-                {iconMap[post.iconName]}
+            <h1 className="font-syne text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] leading-tight mb-4">
+              {post.title}
+            </h1>
+            <p className="font-inter text-[15px] sm:text-base text-[rgb(var(--ink)/70%)] leading-relaxed font-light mb-8">
+              {post.excerpt}
+            </p>
+
+            <div className="flex items-center gap-3 pb-6 mb-8 border-b border-[rgb(var(--ink)/7%)]">
+              <div className="w-9 h-9 rounded-full overflow-hidden border border-[rgb(var(--ink)/10%)] relative shrink-0">
+                <Image
+                  src="/gradpic/profile.JPG"
+                  alt="Paul John Punzal"
+                  fill
+                  sizes="36px"
+                  className="object-cover object-top"
+                />
               </div>
-            )}
-          </div>
+              <span className="font-mono text-xs text-[rgb(var(--ink)/80%)]">Paul John Punzal</span>
+            </div>
 
-          <MarkdownContent content={post.content} />
+            <TableOfContents headings={headings} activeId={activeId} variant="mobile" />
 
-          <div className="flex items-center justify-between pt-8 mt-4 border-t border-[rgb(var(--ink)/7%)]">
-            <Link
-              href="/blog"
-              className="font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] hover:text-accent transition-colors"
+            <div
+              className="relative h-48 sm:h-64 md:h-72 rounded-2xl overflow-hidden flex items-center justify-center mb-9 border border-[rgb(var(--ink)/7%)]"
+              style={post.coverImage ? undefined : { background: post.coverBgStyle }}
             >
-              ← All posts
-            </Link>
-            <button
-              onClick={handleCopyLink}
-              className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] hover:text-accent transition-colors cursor-pointer"
-            >
-              <Link2 className="w-3.5 h-3.5" />
-              Copy link
-            </button>
+              {post.coverImage ? (
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 820px) 100vw, 820px"
+                  className="object-cover object-center"
+                  priority
+                />
+              ) : (
+                <div className="w-16 h-16 rounded-2xl bg-[rgb(var(--ink)/10%)] backdrop-blur-sm border border-[rgb(var(--ink)/15%)] flex items-center justify-center">
+                  {iconMap[post.iconName]}
+                </div>
+              )}
+            </div>
+
+            <MarkdownContent content={post.content} />
+
+            <div className="flex items-center justify-between pt-8 mt-4 border-t border-[rgb(var(--ink)/7%)]">
+              <Link
+                href="/blog"
+                className="font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] hover:text-accent transition-colors"
+              >
+                ← All posts
+              </Link>
+              <button
+                onClick={handleCopyLink}
+                className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] hover:text-accent transition-colors cursor-pointer"
+              >
+                <Link2 className="w-3.5 h-3.5" />
+                Copy link
+              </button>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
   );
 }

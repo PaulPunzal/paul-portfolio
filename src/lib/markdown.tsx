@@ -1,9 +1,29 @@
 import { ReactNode } from "react";
 
 // ── Tiny markdown-lite renderer ──────────────────────────────────────────
-// Supports just what the blog posts actually use: "## " headings, "- " list
-// blocks, **bold**, *italic*, and plain paragraphs. Intentionally dependency
-// -free — swap for a real markdown lib later if posts get more complex.
+// Supports: "## " headings, "- " list blocks, "> " pull-quotes, **bold**,
+// *italic*, and plain paragraphs. Dependency-free by design.
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+// Used by the Table of Contents to read a post's headings without
+// re-rendering the whole thing — must stay in sync with the h2 branch below.
+export function extractHeadings(content: string): { id: string; text: string }[] {
+  return content
+    .trim()
+    .split("\n")
+    .filter((line) => line.startsWith("## "))
+    .map((line) => {
+      const text = line.replace("## ", "").trim();
+      return { id: slugify(text), text };
+    });
+}
 
 function parseInline(text: string, keyPrefix: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
@@ -40,14 +60,17 @@ export function MarkdownContent({ content }: { content: string }) {
       continue;
     }
 
-    // ── Heading ──
+    // ── Heading (now carries a stable id for anchor scrolling) ──
     if (line.startsWith("## ")) {
+      const text = line.replace("## ", "").trim();
+      const id = slugify(text);
       blocks.push(
         <h2
+          id={id}
           key={key++}
-          className="font-syne text-lg sm:text-xl md:text-2xl font-bold text-[var(--text-primary)] mt-9 sm:mt-10 mb-4 first:mt-0"
+          className="font-syne text-lg sm:text-xl md:text-2xl font-bold text-[var(--text-primary)] mt-9 sm:mt-10 mb-4 first:mt-0 scroll-mt-28"
         >
-          {line.replace("## ", "")}
+          {text}
         </h2>
       );
       i++;
@@ -78,13 +101,39 @@ export function MarkdownContent({ content }: { content: string }) {
       continue;
     }
 
+    // ── Pull-quote block — new "> " syntax ──
+    if (line.startsWith("> ")) {
+      const quoteLines: string[] = [];
+      while (i < lines.length && lines[i].startsWith("> ")) {
+        quoteLines.push(lines[i].replace(/^> /, ""));
+        i++;
+      }
+      blocks.push(
+        <blockquote key={key++} className="my-8 sm:my-10 pl-6 sm:pl-8 border-l-[3px] border-accent/50 relative">
+          <span
+            aria-hidden="true"
+            className="absolute -left-1 -top-3 font-syne text-5xl sm:text-6xl text-accent/15 select-none"
+          >
+            &ldquo;
+          </span>
+          <p
+            className="font-syne text-[20px] sm:text-[26px] font-semibold text-[var(--text-primary)] leading-snug"
+          >
+            {parseInline(quoteLines.join(" "), `bq-${key}`)}
+          </p>
+        </blockquote>
+      );
+      continue;
+    }
+
     // ── Paragraph ──
     const paraLines: string[] = [];
     while (
       i < lines.length &&
       lines[i].trim() !== "" &&
       !lines[i].startsWith("## ") &&
-      !lines[i].startsWith("- ")
+      !lines[i].startsWith("- ") &&
+      !lines[i].startsWith("> ")
     ) {
       paraLines.push(lines[i]);
       i++;
