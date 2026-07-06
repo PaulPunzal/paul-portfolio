@@ -266,6 +266,7 @@ export const blogPosts: BlogPost[] = [
     iconName: "Cpu",
     coverBgStyle:
       "linear-gradient(135deg, rgba(125,249,166,0.16) 0%, #0c0c0c 70%)",
+    coverImage: "/blog/motorpass-cover.png",
     content: `I didn't even know what "capstone project" meant at first. Honestly, I thought it was just some kind of science project you do for a grade. That word started floating around during my second year of college, when classmates were already scouting for "advanced groupings" for third year Capstone 1 — basically, the smartest students quietly forming alliances ahead of time. Meanwhile, I wasn't paying much attention to any of it. I was too busy living in my own leisure time.
 
 By the time I actually looked up and realized, "oh wait, it's time to form a capstone group," most of the strategic pairing had already happened. I ended up grouping with three girls, all of them specializing in documentation. The moment that settled in, I knew I was screwed — because that meant the technical, hands-on development would mostly fall on me. They weren't developers by specialization, but the project was still very much a team effort — we brainstormed together, made decisions together, and they carried the documentation, leadership, and UI design work that kept the whole thing organized.
@@ -356,6 +357,7 @@ MotorPass was my first real taste of combining AI, hardware, and a full system p
     iconName: "Sparkles",
     coverBgStyle:
       "linear-gradient(135deg, rgba(168,140,255,0.16) 0%, #0c0c0c 70%)",
+    coverImage: "/blog/inspiration-cover.png",
     content: `There is a moment I keep running into on social media. Someone posts an app or a website they built. It's clean, it clearly solves something, and the replies are full of people saying they needed exactly this. I always stop and check it out. Half the time I end up creating an account just to click around.
 
 Somewhere in there is a small hit of "okay, that's actually possible." Someone turned an idea into something real and quite nice.
@@ -398,6 +400,7 @@ Getting humbled by someone else's work isn't the end of the story. It's usually 
   iconName: "Briefcase",
   coverBgStyle:
     "linear-gradient(135deg, rgba(255,170,80,0.16) 0%, #0c0c0c 70%)",
+  coverImage: "/blog/freshmen-cover.png",
   content: `One of the reasons I chose IT was something I heard back in senior high, right after the pandemic — it was known as one of the most in-demand courses out there. Looking back, I think that was right around when AI and automation started actually taking off, not just being talked about.
 
 Even before AI, tech was in-demand for a different reason. There just weren't that many developers who could actually go through the process of becoming a web developer, armed with nothing but Stack Overflow, Reddit, and whatever community forums existed at the time.

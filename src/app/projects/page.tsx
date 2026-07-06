@@ -12,12 +12,12 @@ function padIndex(i: number) {
 
 // ── Icon Mapping for Lucide Icons ───────────────────────────────────────────
 const iconMap: Record<string, React.ReactNode> = {
-  Cpu: <Cpu className="w-6 h-6 text-emerald-300" strokeWidth={1.5} />,
-  BookOpen: <BookOpen className="w-6 h-6 text-blue-300" strokeWidth={1.5} />,
-  GraduationCap: <GraduationCap className="w-6 h-6 text-purple-300" strokeWidth={1.5} />,
-  ScanEye: <ScanEye className="w-6 h-6 text-pink-300" strokeWidth={1.5} />,
-  Network: <Network className="w-6 h-6 text-cyan-300" strokeWidth={1.5} />,
-  TrendingUp: <TrendingUp className="w-6 h-6 text-orange-300" strokeWidth={1.5} />,
+  Cpu: <Cpu className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
+  BookOpen: <BookOpen className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
+  GraduationCap: <GraduationCap className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
+  ScanEye: <ScanEye className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
+  Network: <Network className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
+  TrendingUp: <TrendingUp className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
 };
 
 // ── Tag/pill component ───────────────────────────────────────────────────────

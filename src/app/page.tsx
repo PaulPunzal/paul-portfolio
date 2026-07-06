@@ -84,6 +84,8 @@ export default function HomePage() {
     setTimeout(() => setSplashVisible(false), 500);
   }, []);
 
+  const textSequenceRef = useRef<anime.AnimeTimelineInstance | null>(null);
+
   useEffect(() => {
     if (!pageVisible) return;
 
@@ -99,6 +101,7 @@ export default function HomePage() {
     anime.set(subtitleWords, { translateY: "100%", opacity: 0 });
 
     const textSequence = anime.timeline({ loop: true });
+    textSequenceRef.current = textSequence;
 
     textSequence
       .add({
@@ -141,6 +144,18 @@ export default function HomePage() {
     };
   }, [pageVisible]);
 
+  // ── Pause/resume the name animation during theme transitions ──
+  useEffect(() => {
+    const pause  = () => textSequenceRef.current?.pause();
+    const resume = () => textSequenceRef.current?.play();
+    window.addEventListener("themeTransitionStart", pause);
+    window.addEventListener("themeTransitionEnd", resume);
+    return () => {
+      window.removeEventListener("themeTransitionStart", pause);
+      window.removeEventListener("themeTransitionEnd", resume);
+    };
+  }, []);
+
   const gridVariants = {
     hidden:   { opacity: 0 },
     visible:  {
@@ -181,14 +196,14 @@ export default function HomePage() {
               className="bento-card col-span-2 row-span-5 sm:row-span-4 md:row-span-4 p-6 lg:p-8 flex flex-col justify-center relative group"
               style={{
                 background:
-                  "radial-gradient(circle at top left, rgba(125, 249, 166, 0.025) 0%, var(--bg-card) 45%)",
+                  "radial-gradient(circle at top left, rgb(var(--neon) / 2.5%) 0%, var(--bg-card) 45%)",
               }}
             >
               <motion.div
                 className="absolute inset-0 pointer-events-none z-50"
                 style={{ borderRadius: 18 }}
-                initial={{ border: "1px solid rgba(125,249,166,0.5)" }}
-                animate={{ border: pageVisible ? "1px solid rgba(125,249,166,0)" : "1px solid rgba(125,249,166,0.5)" }}
+                initial={{ border: "1px solid rgb(var(--neon) / 50%)" }}
+                animate={{ border: pageVisible ? "1px solid rgb(var(--neon) / 0%)" : "1px solid rgb(var(--neon) / 50%)" }}
                 transition={{ duration: 5, delay: 0.3, ease: "easeOut" }}
               />
 
@@ -349,7 +364,7 @@ export default function HomePage() {
                   className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border border-[rgb(var(--ink)/5%)]"
                   style={{ background: motorpass.iconBgStyle }}
                 >
-                  <Cpu className="w-6 h-6 text-emerald-300 css-breathing-icon" strokeWidth={1.5} />
+                  <Cpu className="w-6 h-6 text-[rgb(var(--ink)/70%)] css-breathing-icon" strokeWidth={1.5} />
                 </div>
                 <div className="project-arrow">↗</div>
               </div>
@@ -376,19 +391,19 @@ export default function HomePage() {
             {/* ── 8. LITTLE LION ── */}
             <ProjectPreviewCard
               project={littleLion}
-              icon={<BookOpen className="w-5 h-5 text-blue-300" strokeWidth={1.5} />}
+              icon={<BookOpen className="w-5 h-5 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />}
             />
 
             {/* ── 9. E-LEARNING ── */}
             <ProjectPreviewCard
               project={elearning}
-              icon={<GraduationCap className="w-5 h-5 text-purple-300" strokeWidth={1.5} />}
+              icon={<GraduationCap className="w-5 h-5 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />}
             />
 
             {/* ── 10. GROCERY ── */}
             <ProjectPreviewCard
               project={grocery}
-              icon={<ScanEye className="w-5 h-5 text-orange-300" strokeWidth={1.5} />}
+              icon={<ScanEye className="w-5 h-5 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />}
               className="col-span-2 md:col-span-1"
             />
 

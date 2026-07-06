@@ -177,8 +177,8 @@ export default function AboutPage() {
         {/* 4. AI EXPLORATION */}
         <motion.div variants={itemVariants} className="order-5 md:order-5 col-span-2 sm:col-span-1 row-span-3 md:col-span-1 lg:col-span-1 md:row-span-3">
           <BentoCard className="w-full h-full flex flex-col justify-center p-6" >
-            <div className="w-8 h-8 sm:w-14 sm:h-14 rounded-full bg-purple-500/10 flex items-center justify-center border border-purple-500/20 mb-3 sm:mb-5">
-              <BrainCircuit className="w-4 h-4 sm:w-8 sm:h-8 text-purple-400/80" strokeWidth={1.5} />
+            <div className="w-8 h-8 sm:w-14 sm:h-14 rounded-full bg-[rgb(var(--ink)/5%)] flex items-center justify-center border border-[rgb(var(--ink)/10%)] mb-3 sm:mb-5">
+              <BrainCircuit className="w-4 h-4 sm:w-8 sm:h-8 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />
             </div>
             <div>
               <h3 className="font-syne text-base sm:text-sm lg:text-base font-bold text-[var(--text-primary)] mb-2">AI & Automation</h3>
@@ -286,11 +286,11 @@ export default function AboutPage() {
               <Database className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[rgb(var(--ink)/60%)]" />
             </div>
             <div>
-              <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-accent mb-2 block">
+              <span className="font-mono text-[10px] font-medium tracking-[1.8px] uppercase text-accent mb-2 block">
                 The Engine Room
               </span>
               <h3 className="font-syne text-base xl:text-lg font-bold text-[var(--text-primary)] mb-2">Database & API Structuring</h3>
-              <p className="font-inter text-xs text-[rgb(var(--ink)/60%)] leading-relaxed">
+              <p className="font-inter text-sm text-[rgb(var(--ink)/60%)] leading-relaxed">
                 I love crafting clean UIs, but my true passion is the backend. I specialize in scalable RESTful APIs, strict database schemas, and clean data contracts between mobile frontends and SQL databases.
               </p>
             </div>
@@ -304,11 +304,11 @@ export default function AboutPage() {
               <GitBranch className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[rgb(var(--ink)/60%)] group-hover:text-accent transition-colors" />
             </div>
             <div>
-              <span className="font-mono text-[9px] font-medium tracking-[1.8px] uppercase text-[rgb(var(--ink)/50%)] mb-2 block">
+              <span className="font-mono text-[10px] font-medium tracking-[1.8px] uppercase text-[rgb(var(--ink)/50%)] mb-2 block">
                 Current Trajectory
               </span>
               <h3 className="font-syne text-base xl:text-lg font-bold text-[var(--text-primary)] mb-2">DevOps & CI/CD Pipelines</h3>
-              <p className="font-inter text-xs text-[rgb(var(--ink)/60%)] leading-relaxed">
+              <p className="font-inter text-sm text-[rgb(var(--ink)/60%)] leading-relaxed">
                 A solidly designed architecture is nothing without a strong deployment strategy. I'm actively expanding into DevOps — setting up continuous integration, containerized deployments, and infrastructure that's actually maintainable.
               </p>
             </div>

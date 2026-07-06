@@ -29,6 +29,7 @@
   --accent: #7df9a6;
   --accent-dim: rgba(125, 249, 166, 0.10);
   --accent-glow: rgba(125, 249, 166, 0.20);
+  --neon: 125 249 166; /* green, dark mode */
 
   /* 5. Effects */
   --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 4px 24px rgba(0, 0, 0, 0.5);
@@ -66,6 +67,7 @@
   --accent: #15803d;
   --accent-dim: rgba(21, 128, 61, 0.08);
   --accent-glow: rgba(21, 128, 61, 0.18);
+  --neon: 0 0 0; /* black, light mode */
 
   --card-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset, 0 4px 20px rgba(0, 0, 0, 0.06);
   --noise-opacity: 0.15;
@@ -90,17 +92,6 @@
   animation-duration: 0.06s;
   animation-timing-function: ease-out;
 }
-
-.marquee-wrap:nth-of-type(1) { view-transition-name: marquee-row-1; }
-.marquee-wrap:nth-of-type(2) { view-transition-name: marquee-row-2; }
-.resume-rotator { view-transition-name: resume-rotator; }
-.name-word-0 { view-transition-name: hero-name-0; }
-.name-word-1 { view-transition-name: hero-name-1; }
-.name-word-2 { view-transition-name: hero-name-2; }
-.subtitle-word-0 { view-transition-name: hero-sub-0; }
-.subtitle-word-1 { view-transition-name: hero-sub-1; }
-.subtitle-word-2 { view-transition-name: hero-sub-2; }
-.subtitle-word-3 { view-transition-name: hero-sub-3; }
 
 /* ── BASE RESET ── */
 *,
@@ -297,7 +288,7 @@ body {
 }
 
 .bento-laser-frame .laser-beam-core {
-  stroke: #ffffff;
+  stroke: rgb(var(--ink));
   stroke-width: 1.4px;
 }
 
@@ -323,6 +314,7 @@ body {
   padding: 7px 0;
   margin: 0 20px 10px;
   border-radius: 8px;
+  transition: background-color 1.2s ease, border-color 1.2s ease;
 }
 
 .marquee-track {
@@ -340,6 +332,7 @@ body {
   padding: 0 28px;
   white-space: nowrap;
   opacity: 0.8;
+  transition: color 1.2s ease;
 }
 
 .marquee-item::after {
@@ -500,26 +493,17 @@ body {
 }
 
 ::view-transition-new(root) {
-  animation: theme-ripple-reveal 0.95s forwards;
+  animation: theme-ripple-reveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
   mix-blend-mode: normal;
 }
 
 @keyframes theme-ripple-reveal {
-  0% {
+  from {
     clip-path: circle(0% at var(--ripple-x, 50%) var(--ripple-y, 50%));
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  45% {
-    clip-path: circle(45% at var(--ripple-x, 50%) var(--ripple-y, 50%));
-    animation-timing-function: cubic-bezier(0.7, 0, 0.85, 0.35);
-  }
-  75% {
-    clip-path: circle(88% at var(--ripple-x, 50%) var(--ripple-y, 50%));
-    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-  }
-  100% {
-    clip-path: circle(150% at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  to {
+    clip-path: circle(140% at var(--ripple-x, 50%) var(--ripple-y, 50%));
   }
 }
 
@@ -528,4 +512,14 @@ body {
     animation: none;
     clip-path: none;
   }
+}
+
+/* ── PAUSE BUSY ANIMATIONS WHILE THE RIPPLE IS RUNNING ── */
+html.theme-transitioning .marquee-track,
+html.theme-transitioning .bento-card::after,
+html.theme-transitioning .laser-beam-anim,
+html.theme-transitioning .css-breathing-icon,
+html.theme-transitioning .animate-pulse,
+html.theme-transitioning .animate-ping {
+  animation-play-state: paused !important;
 }

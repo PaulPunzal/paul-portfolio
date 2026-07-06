@@ -50,6 +50,7 @@ export interface BlogPost {
   date: string;         // e.g. "Jun 2026" — edit freely per post
   readTime: string;     // e.g. "6 min"
   iconName: string;     // lucide icon name used on the placeholder cover
-  coverBgStyle: string; // inline gradient for the placeholder cover
+  coverBgStyle: string; // inline gradient — used as a fallback if coverImage is missing
+  coverImage?: string;  // path under /public to the real illustration, e.g. "/blog/motorpass.png"
   content: string;      // lightweight markdown: "## " headings, "- " lists, **bold**, *italic*
 }

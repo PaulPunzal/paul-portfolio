@@ -46,6 +46,8 @@ const STEP_SIZE = BEAM_LENGTH / STEP_OPACITIES.length;
 // const HALO_LENGTH = 8; // shorter + tighter than the core taper so glow concentrates near the hot center
 const GAP_SIZE = PATH_TOTAL - STEP_SIZE; // dash + gap always sums to exactly one full lap
 
+const CHASE_OFFSET = 50;
+
 export default function BentoLaserFrame({ containerRef, cardRefs, ready }: BentoLaserFrameProps) {
   const [outerBox, setOuterBox] = useState<Box | null>(null);
   const [cardBoxes, setCardBoxes] = useState<CardBox[]>([]);
@@ -164,14 +166,31 @@ export default function BentoLaserFrame({ containerRef, cardRefs, ready }: Bento
         </defs>
 
         <g clipPath={`url(#${clipId})`} shapeRendering="geometricPrecision">
-
-
-          {/* CRISP CORE PASS — thin, bright, unblurred, tapered along its length */}
+          {/* ── LEAD BEAM ── */}
           {STEP_OPACITIES.map((op, i) => {
             const relativeOffset = i * STEP_SIZE;
             return (
               <rect
                 key={`core-${i}`}
+                className="laser-beam-core laser-beam-anim"
+                x={0} y={0} width={W} height={H} rx={R} ry={R}
+                pathLength={100}
+                style={{
+                  strokeDasharray: `${STEP_SIZE} ${GAP_SIZE}`,
+                  strokeOpacity: op,
+                  // @ts-expect-error custom property used by the keyframe below
+                  "--step-offset": relativeOffset,
+                }}
+              />
+            );
+          })}
+
+          {/* ── CHASING BEAM — same path, same direction, offset further along the loop ── */}
+          {STEP_OPACITIES.map((op, i) => {
+            const relativeOffset = i * STEP_SIZE + CHASE_OFFSET;
+            return (
+              <rect
+                key={`core-chase-${i}`}
                 className="laser-beam-core laser-beam-anim"
                 x={0} y={0} width={W} height={H} rx={R} ry={R}
                 pathLength={100}

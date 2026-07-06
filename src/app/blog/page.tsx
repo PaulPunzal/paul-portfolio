@@ -8,9 +8,9 @@ import { Cpu, Sparkles, Briefcase } from "lucide-react";
 // Map each post's iconName to an actual icon element.
 // Add an entry here whenever a new post introduces a new iconName.
 const iconMap: Record<string, React.ReactNode> = {
-  Cpu: <Cpu className="w-6 h-6 text-accent" strokeWidth={1.5} />,
-  Sparkles: <Sparkles className="w-6 h-6 text-purple-300" strokeWidth={1.5} />,
-  Briefcase: <Briefcase className="w-6 h-6 text-orange-300" strokeWidth={1.5} />,
+  Cpu: <Cpu className="w-6 h-6 text-accent" strokeWidth={1.5} />, // unchanged — keep this one accent
+  Sparkles: <Sparkles className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
+  Briefcase: <Briefcase className="w-6 h-6 text-[rgb(var(--ink)/70%)]" strokeWidth={1.5} />,
 };
 
 export default function BlogPage() {
@@ -41,6 +41,7 @@ export default function BlogPage() {
             key={post.slug}
             href={`/blog/${post.slug}`}
             coverBgStyle={post.coverBgStyle}
+            coverImage={post.coverImage}
             icon={iconMap[post.iconName]}
             date={post.date}
             title={post.title}

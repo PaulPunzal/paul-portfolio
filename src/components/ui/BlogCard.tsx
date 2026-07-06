@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ReactNode } from "react";
 
 interface BlogCardProps {
   href: string;
   coverBgStyle: string;
+  coverImage?: string;
   icon: ReactNode;
   date: string;
   title: string;
@@ -14,6 +16,7 @@ interface BlogCardProps {
 export default function BlogCard({
   href,
   coverBgStyle,
+  coverImage,
   icon,
   date,
   title,
@@ -25,21 +28,34 @@ export default function BlogCard({
       href={href}
       className="group flex flex-col rounded-bento border border-[rgb(var(--ink)/7%)] bg-[var(--surface-1)] overflow-hidden hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
     >
-      {/* ── Placeholder cover — swap for a real <Image> once you have one ── */}
+      {/* ── Cover — real illustration if we have one, otherwise the
+          gradient + icon placeholder ── */}
       <div
         className="relative h-40 sm:h-44 flex items-center justify-center overflow-hidden shrink-0"
-        style={{ background: coverBgStyle }}
+        style={coverImage ? undefined : { background: coverBgStyle }}
       >
-        <div
-          className="absolute inset-0 opacity-50"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 60%)",
-          }}
-        />
-        <div className="relative w-14 h-14 rounded-2xl bg-black/30 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-          {icon}
-        </div>
+        {coverImage ? (
+          <Image
+            src={coverImage}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0 opacity-50"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 60%)",
+              }}
+            />
+            <div className="relative w-14 h-14 rounded-2xl bg-black/30 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+              {icon}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="flex flex-col flex-1 p-5 sm:p-6">

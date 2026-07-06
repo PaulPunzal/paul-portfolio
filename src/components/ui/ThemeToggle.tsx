@@ -19,7 +19,11 @@ export default function ThemeToggle({ className = "" }: ThemeToggleProps) {
     setMounted(true);
   }, []);
 
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (isTransitioning) return; // ignore taps while one is already animating
+
     const next: Theme = theme === "dark" ? "light" : "dark";
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
     const x = left + width / 2;
@@ -38,7 +42,17 @@ export default function ThemeToggle({ className = "" }: ThemeToggleProps) {
       apply();
       return;
     }
-    document.startViewTransition(apply);
+
+    setIsTransitioning(true);
+    document.documentElement.classList.add("theme-transitioning");
+    window.dispatchEvent(new Event("themeTransitionStart"));
+
+    const transition = document.startViewTransition(apply);
+    transition.finished.finally(() => {
+      setIsTransitioning(false);
+      document.documentElement.classList.remove("theme-transitioning");
+      window.dispatchEvent(new Event("themeTransitionEnd"));
+    });
   };
 
   // Avoid a hydration mismatch flash — render nothing until we know the real theme.
@@ -49,6 +63,7 @@ export default function ThemeToggle({ className = "" }: ThemeToggleProps) {
   return (
     <button
       onClick={toggleTheme}
+      disabled={isTransitioning}
       aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
       className={`w-9 h-9 rounded-full border border-[rgb(var(--ink)/10%)] bg-[rgb(var(--ink)/5%)] flex items-center justify-center text-[rgb(var(--ink)/70%)] hover:text-accent hover:border-accent/30 transition-colors ${className}`}
     >

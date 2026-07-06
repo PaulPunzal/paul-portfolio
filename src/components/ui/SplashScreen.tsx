@@ -83,13 +83,13 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           opacity: [1, 0],
           borderRadius: ["4px", "200px"],
           border: isMobile 
-            ? ["4px solid rgba(125,249,166,0.8)", "1px solid rgba(125,249,166,0)"] 
-            : ["3px solid rgba(125,249,166,1)", "1px solid rgba(125,249,166,0)"],
-          boxShadow: isMobile 
-            ? "none" 
-            : ["0 0 40px 10px rgba(125,249,166,0.6)", "0 0 0px 0px rgba(125,249,166,0)"],
-          transition: { duration: 0.8, ease: "easeOut" }
-        });
+              ? ["4px solid rgb(var(--neon) / 80%)", "1px solid rgb(var(--neon) / 0%)"] 
+              : ["3px solid rgb(var(--neon) / 100%)", "1px solid rgb(var(--neon) / 0%)"],
+            boxShadow: isMobile 
+              ? "none" 
+              : ["0 0 40px 10px rgb(var(--neon) / 60%)", "0 0 0px 0px rgb(var(--neon) / 0%)"],
+            transition: { duration: 0.8, ease: "easeOut" }
+          });
 
         ripple2Controls.start({
           width: [130, ripple2Width],
@@ -97,13 +97,13 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           opacity: [0.7, 0],
           borderRadius: ["4px", "300px"],
           border: isMobile 
-            ? ["2px solid rgba(125,249,166,0.6)", "1px solid rgba(125,249,166,0)"] 
-            : ["2px solid rgba(125,249,166,0.8)", "1px solid rgba(125,249,166,0)"],
-          boxShadow: isMobile 
-            ? "none" 
-            : ["0 0 60px 15px rgba(125,249,166,0.3)", "0 0 0px 0px rgba(125,249,166,0)"],
-          transition: { duration: 1.1, ease: "easeOut", delay: 0.05 }
-        });
+              ? ["2px solid rgb(var(--neon) / 60%)", "1px solid rgb(var(--neon) / 0%)"] 
+              : ["2px solid rgb(var(--neon) / 80%)", "1px solid rgb(var(--neon) / 0%)"],
+            boxShadow: isMobile 
+              ? "none" 
+              : ["0 0 60px 15px rgb(var(--neon) / 30%)", "0 0 0px 0px rgb(var(--neon) / 0%)"],
+            transition: { duration: 1.1, ease: "easeOut", delay: 0.05 }
+          });
 
         // Expand the actual box
         await boxControls.start({
@@ -227,7 +227,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         className="absolute pointer-events-none rounded-full"
         style={{
           width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%, -50%) translateZ(0)",
-          background: "radial-gradient(circle, rgba(125,249,166,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgb(var(--neon) / 8%) 0%, transparent 70%)",
         }}
       />
 
@@ -283,8 +283,9 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         animate={boxControls}
         initial={{ opacity: 0, width: 130, height: 1, x: "-50%", y: "-50%" }}
         style={{
-          position: "absolute", top: "50%", left: "50%", border: "1px solid rgba(125,249,166,0.5)",
-          background: "radial-gradient(circle at top left, rgba(125, 249, 166, 0.04) 0%, var(--bg-card) 45%)",
+          position: "absolute", top: "50%", left: "50%",
+          border: "1px solid rgb(var(--neon) / 50%)",
+          background: "radial-gradient(circle at top left, rgb(var(--neon) / 4%) 0%, var(--bg-card) 45%)",
           borderRadius: 18, overflow: "hidden", willChange: "transform, width, height",
         }}
       >
