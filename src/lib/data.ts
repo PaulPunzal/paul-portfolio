@@ -257,6 +257,86 @@ export const skillGroups: SkillGroup[] = [
 
 export const blogPosts: BlogPost[] = [
   {
+  slug: "freshmen-need-experience",
+  title: "Freshmen Need Experience — But Where Do You Even Get It?",
+  excerpt:
+    "On choosing IT right as it got saturated, why junior roles feel like they're disappearing under AI, and figuring out where experience is even supposed to come from.",
+  date: "JUN 2025",
+  readTime: "5 min",
+  iconName: "Briefcase",
+  coverBgStyle:
+    "linear-gradient(135deg, rgba(255,170,80,0.16) 0%, #0c0c0c 70%)",
+  coverImage: "/blog/freshmen-cover.png",
+  content: `One of the reasons I chose IT was something I heard back in senior high, right after the pandemic — it was known as one of the most in-demand courses out there. Looking back, I think that was right around when AI and automation started actually taking off, not just being talked about.
+
+Even before AI, tech was in-demand for a different reason. There just weren't that many developers who could actually go through the process of becoming a web developer, armed with nothing but Stack Overflow, Reddit, and whatever community forums existed at the time.
+
+## The number of people changed the value
+
+Now it feels saturated. More people are choosing the tech path, and it became easier than before because of AI. I can't really argue with the fact that junior and entry-level work is genuinely at risk of being replaced — you can build a fairly functional full-stack app now just by putting together a team of AI agents.
+
+I keep coming back to a simple idea I always say: the value of something changes based on the data. The more people who can do it, the less its value becomes, and the more competitive it gets.
+
+Honestly, I can't really complain about it either. That's just the way it works for tech to move forward. Building isn't enough anymore, because anyone can build now. What actually matters is who fully understands how it's built, how to design the build, and whether it's maintainable in the long run.
+
+## Does the industry still need juniors?
+
+I've read blogs saying juniors are still needed because they're the future seniors. But that argument has a hole in it — how can juniors be the future if the entry point that's supposed to create them has already been replaced by AI?
+
+But then again, I don't think it can really be fully replaced either. I think the only people who believe that are the ones who are scared to move forward. Every generation has been tested, not just this one. We need to adapt and advance instead of just complaining.
+
+## So, where does experience actually come from?
+
+Yeah, it's genuinely hard to find a tech job right now, especially the one you actually want — it got too saturated. But the ones who think ahead are the ones who move forward. You can't just complain, you have to accept that this is how it is now, because we have more powerful tools like AI.
+
+So to answer my own question, "Freshmen need experience, but where?" — you only really get experience if you're lucky enough to land a job, or if you study more and think outside the box. And if you're not lucky enough to have a backer or a connection, you just have to be more competitive and adaptable than everyone else trying to get in.`,
+}
+  ,
+  {
+    slug: "inspiration-or-jealousy",
+    title: "Inspiration or Jealousy, and Getting Humbled Along the Way",
+    excerpt:
+      "What I think about when someone else's app is the one going viral — and why AI making it easier to ship doesn't change what's actually worth learning.",
+    date: "Dec 2025",
+    readTime: "5 min",
+    iconName: "Sparkles",
+    coverBgStyle:
+      "linear-gradient(135deg, rgba(168,140,255,0.16) 0%, #0c0c0c 70%)",
+    coverImage: "/blog/inspiration-cover.png",
+    content: `There is a moment I keep running into on social media. Someone posts an app or a website they built. It's clean, it clearly solves something, and the replies are full of people saying they needed exactly this. I always stop and check it out. Half the time I end up creating an account just to click around.
+
+Somewhere in there is a small hit of "okay, that's actually possible." Someone turned an idea into something real and quite nice.
+
+Right behind "this is cool" is something smaller and more specific: not envy of the person, but of the gap between what they shipped and what I have. It shows up fast, and it doesn't ask permission.
+
+## Inspiration and jealousy are doing the same job
+
+For a long time I treated these as opposite reactions — inspiration is the good one, jealousy is the one you're supposed to hide. I don't think that's quite right.
+
+Both are pointing at the same fact: this was possible, and someone else got there first. Inspiration is what that fact feels like when I'm rested and curious. Jealousy is what it feels like when I'm tired and comparing. Same signal, different mood. Once I noticed that, the jealousy stopped feeling like something to be ashamed of and started feeling like information — a slightly rougher version of the same nudge that makes me want to build something in the first place.
+
+## The tool changed, the standard didn't
+
+Here's the part that actually complicates things: a lot of what I'm reacting to now was built with heavy AI assistance. Vibe coding, non-coders shipping real products, ideas going from sketch to working app in a weekend. I don't say that with any resentment — I use AI in my own work constantly, to move faster and to get unstuck. I'd be a hypocrite to be annoyed at anyone else for doing the same thing.
+
+But it does change the math. If more people can build a working product, then "I built a working product" stops being the differentiator it used to be. Tech hiring was already competitive before AI made building faster. Now the bar for what counts as impressive keeps moving up, because the cost of producing something impressive-looking keeps going down.
+
+That's not a complaint. It's just the environment I'm actually job-hunting in, and pretending otherwise wouldn't help me.
+
+## So what's still mine
+
+If the barrier to "make something that works" keeps dropping, the thing worth investing in is the barrier that doesn't drop as easily: understanding why it works, and what happens when it doesn't.
+
+That's the honest reason I've been spending more time on data structures and algorithms, cybersecurity, networking, and how the internet actually moves data around underneath the frameworks. Not because I think fundamentals are morally superior to shipping fast — I don't — but because they're harder to shortcut, and that makes them a better place to put my effort than trying to out-ship people who can already out-ship me.
+
+## Getting humbled is part of the process
+
+None of this means the jealousy goes away. I still open someone's project, poke around it, and feel that same small sting. I've just stopped treating it as a problem to suppress and started treating it as a pretty reliable signal that I still have somewhere to grow.
+
+Getting humbled by someone else's work isn't the end of the story. It's usually just the part right before I go learn the thing that made me feel that way.`,
+  }
+  ,
+  {
     slug: "motorpass-accidental-developer",
     title: "MotorPass: A Capstone Journey I Didn't Plan For",
     excerpt:
@@ -346,86 +426,7 @@ A few things stuck with me from this whole experience:
 - Weekly check-ins, even informal ones, kept the whole team honest about progress and limitations.
 
 MotorPass was my first real taste of combining AI, hardware, and a full system pipeline into something that actually worked in front of real people. It won't be my last. I'm carrying everything I learned here — the debugging instincts, the patience for trial and error, the comfort with being thrown into something I don't fully understand yet — into whatever comes next.`,
-  },
-  {
-    slug: "inspiration-or-jealousy",
-    title: "Inspiration or Jealousy, and Getting Humbled Along the Way",
-    excerpt:
-      "What I think about when someone else's app is the one going viral — and why AI making it easier to ship doesn't change what's actually worth learning.",
-    date: "Dec 2025",
-    readTime: "5 min",
-    iconName: "Sparkles",
-    coverBgStyle:
-      "linear-gradient(135deg, rgba(168,140,255,0.16) 0%, #0c0c0c 70%)",
-    coverImage: "/blog/inspiration-cover.png",
-    content: `There is a moment I keep running into on social media. Someone posts an app or a website they built. It's clean, it clearly solves something, and the replies are full of people saying they needed exactly this. I always stop and check it out. Half the time I end up creating an account just to click around.
-
-Somewhere in there is a small hit of "okay, that's actually possible." Someone turned an idea into something real and quite nice.
-
-Right behind "this is cool" is something smaller and more specific: not envy of the person, but of the gap between what they shipped and what I have. It shows up fast, and it doesn't ask permission.
-
-## Inspiration and jealousy are doing the same job
-
-For a long time I treated these as opposite reactions — inspiration is the good one, jealousy is the one you're supposed to hide. I don't think that's quite right.
-
-Both are pointing at the same fact: this was possible, and someone else got there first. Inspiration is what that fact feels like when I'm rested and curious. Jealousy is what it feels like when I'm tired and comparing. Same signal, different mood. Once I noticed that, the jealousy stopped feeling like something to be ashamed of and started feeling like information — a slightly rougher version of the same nudge that makes me want to build something in the first place.
-
-## The tool changed, the standard didn't
-
-Here's the part that actually complicates things: a lot of what I'm reacting to now was built with heavy AI assistance. Vibe coding, non-coders shipping real products, ideas going from sketch to working app in a weekend. I don't say that with any resentment — I use AI in my own work constantly, to move faster and to get unstuck. I'd be a hypocrite to be annoyed at anyone else for doing the same thing.
-
-But it does change the math. If more people can build a working product, then "I built a working product" stops being the differentiator it used to be. Tech hiring was already competitive before AI made building faster. Now the bar for what counts as impressive keeps moving up, because the cost of producing something impressive-looking keeps going down.
-
-That's not a complaint. It's just the environment I'm actually job-hunting in, and pretending otherwise wouldn't help me.
-
-## So what's still mine
-
-If the barrier to "make something that works" keeps dropping, the thing worth investing in is the barrier that doesn't drop as easily: understanding why it works, and what happens when it doesn't.
-
-That's the honest reason I've been spending more time on data structures and algorithms, cybersecurity, networking, and how the internet actually moves data around underneath the frameworks. Not because I think fundamentals are morally superior to shipping fast — I don't — but because they're harder to shortcut, and that makes them a better place to put my effort than trying to out-ship people who can already out-ship me.
-
-## Getting humbled is part of the process
-
-None of this means the jealousy goes away. I still open someone's project, poke around it, and feel that same small sting. I've just stopped treating it as a problem to suppress and started treating it as a pretty reliable signal that I still have somewhere to grow.
-
-Getting humbled by someone else's work isn't the end of the story. It's usually just the part right before I go learn the thing that made me feel that way.`,
-  },
-{
-  slug: "freshmen-need-experience",
-  title: "Freshmen Need Experience — But Where Do You Even Get It?",
-  excerpt:
-    "On choosing IT right as it got saturated, why junior roles feel like they're disappearing under AI, and figuring out where experience is even supposed to come from.",
-  date: "JUN 2025",
-  readTime: "5 min",
-  iconName: "Briefcase",
-  coverBgStyle:
-    "linear-gradient(135deg, rgba(255,170,80,0.16) 0%, #0c0c0c 70%)",
-  coverImage: "/blog/freshmen-cover.png",
-  content: `One of the reasons I chose IT was something I heard back in senior high, right after the pandemic — it was known as one of the most in-demand courses out there. Looking back, I think that was right around when AI and automation started actually taking off, not just being talked about.
-
-Even before AI, tech was in-demand for a different reason. There just weren't that many developers who could actually go through the process of becoming a web developer, armed with nothing but Stack Overflow, Reddit, and whatever community forums existed at the time.
-
-## The number of people changed the value
-
-Now it feels saturated. More people are choosing the tech path, and it became easier than before because of AI. I can't really argue with the fact that junior and entry-level work is genuinely at risk of being replaced — you can build a fairly functional full-stack app now just by putting together a team of AI agents.
-
-I keep coming back to a simple idea I always say: the value of something changes based on the data. The more people who can do it, the less its value becomes, and the more competitive it gets.
-
-Honestly, I can't really complain about it either. That's just the way it works for tech to move forward. Building isn't enough anymore, because anyone can build now. What actually matters is who fully understands how it's built, how to design the build, and whether it's maintainable in the long run.
-
-## Does the industry still need juniors?
-
-I've read blogs saying juniors are still needed because they're the future seniors. But that argument has a hole in it — how can juniors be the future if the entry point that's supposed to create them has already been replaced by AI?
-
-But then again, I don't think it can really be fully replaced either. I think the only people who believe that are the ones who are scared to move forward. Every generation has been tested, not just this one. We need to adapt and advance instead of just complaining.
-
-## So, where does experience actually come from?
-
-Yeah, it's genuinely hard to find a tech job right now, especially the one you actually want — it got too saturated. But the ones who think ahead are the ones who move forward. You can't just complain, you have to accept that this is how it is now, because we have more powerful tools like AI.
-
-So to answer my own question, "Freshmen need experience, but where?" — you only really get experience if you're lucky enough to land a job, or if you study more and think outside the box. And if you're not lucky enough to have a backer or a connection, you just have to be more competitive and adaptable than everyone else trying to get in.`,
-},
-
+  }
 ];
 
 // ── MARQUEE ITEMS ──────────────────────────────────────────────────────────

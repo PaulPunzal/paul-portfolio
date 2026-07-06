@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import { MarkdownContent, extractHeadings } from "@/lib/markdown";
 import { useActiveHeading } from "@/lib/useActiveHeading";
 import TableOfContents from "@/components/ui/TableOfContents";
 import ReadingProgress from "@/components/ui/ReadingProgress";
-import { ArrowLeft, Link2, Cpu, Sparkles, Briefcase } from "lucide-react";
+import { ArrowLeft, Link2, Check, Cpu, Sparkles, Briefcase } from "lucide-react";
 
 const iconMap: Record<string, React.ReactNode> = {
   Cpu: <Cpu className="w-7 h-7 text-accent" strokeWidth={1.5} />,
@@ -32,6 +32,8 @@ export default function BlogPostPage() {
     return match ? parseInt(match[0], 10) : 5;
   }, [post]);
 
+  const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
       window.history.scrollRestoration = "auto";
@@ -49,9 +51,29 @@ export default function BlogPostPage() {
     );
   }
 
-  const handleCopyLink = () => {
-    if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(window.location.href);
+  const handleCopyLink = async () => {
+    if (typeof window === "undefined") return;
+
+    const href = window.location.href;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(href);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = href;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch (error) {
+      console.error("Copy link failed", error);
     }
   };
 
@@ -140,10 +162,21 @@ export default function BlogPostPage() {
               </Link>
               <button
                 onClick={handleCopyLink}
-                className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[1.5px] text-[rgb(var(--ink)/50%)] hover:text-accent transition-colors cursor-pointer"
+                className={`flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[1.5px] transition-colors cursor-pointer ${
+                  copied ? "text-accent" : "text-[rgb(var(--ink)/50%)] hover:text-accent"
+                }`}
               >
-                <Link2 className="w-3.5 h-3.5" />
-                Copy link
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Link2 className="w-3.5 h-3.5" />
+                    Copy link
+                  </>
+                )}
               </button>
             </div>
           </div>

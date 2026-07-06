@@ -19,29 +19,29 @@ export default function TableOfContents({ headings, activeId, variant }: TableOf
 
   if (headings.length < 2) return null;
 
-  if (variant === "sidebar") {
+  if (variant === "sidebar") {  
     return (
-      <aside className="hidden lg:block w-[220px] shrink-0">
-        <nav className="sticky top-28 flex flex-col gap-0.5">
-          <span className="font-mono text-[9px] tracking-[2px] uppercase text-[rgb(var(--ink)/35%)] mb-3 pl-3.5">
+      <aside className="hidden lg:block w-[220px] shrink-0 self-start sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto">
+        <nav className="flex flex-col gap-0.5">
+            <span className="font-mono text-[9px] tracking-[2px] uppercase text-[rgb(var(--ink)/35%)] mb-3 pl-3.5">
             On This Page
-          </span>
-          {headings.map((h) => {
+            </span>
+            {headings.map((h) => {
             const isActive = h.id === activeId;
             return (
-              <button
+                <button
                 key={h.id}
                 onClick={() => scrollToHeading(h.id)}
                 className={`text-left font-inter text-[12.5px] leading-snug pl-3.5 py-1.5 border-l-2 transition-colors duration-200 cursor-pointer ${
-                  isActive
+                    isActive
                     ? "border-accent text-[var(--text-primary)] font-medium"
                     : "border-[rgb(var(--ink)/8%)] text-[rgb(var(--ink)/40%)] hover:text-[rgb(var(--ink)/70%)] hover:border-[rgb(var(--ink)/25%)]"
                 }`}
-              >
+                >
                 {h.text}
-              </button>
+                </button>
             );
-          })}
+            })}
         </nav>
       </aside>
     );
@@ -70,8 +70,10 @@ export default function TableOfContents({ headings, activeId, variant }: TableOf
               <button
                 key={h.id}
                 onClick={() => {
-                  scrollToHeading(h.id);
                   setOpen(false);
+                  requestAnimationFrame(() => {
+                    requestAnimationFrame(() => scrollToHeading(h.id));
+                  });
                 }}
                 className={`text-left font-inter text-[13px] py-1.5 transition-colors ${
                   isActive ? "text-accent font-medium" : "text-[rgb(var(--ink)/60%)]"
