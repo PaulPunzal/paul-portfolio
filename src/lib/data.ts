@@ -256,6 +256,34 @@ export const skillGroups: SkillGroup[] = [
 // strings you set by hand — edit freely.
 
 export const blogPosts: BlogPost[] = [
+
+{
+  slug: "rejected-and-weirdly-grateful",
+  title: "Rejected, and Weirdly Grateful For It",
+  excerpt:
+    "Getting rejected from an interview really sad. But it taught me more than the interview itself would have.",
+  date: "JUL 2026",
+  readTime: "2 min",
+  iconName: "Briefcase",
+  coverBgStyle:
+    "linear-gradient(135deg, rgba(255,90,90,0.16) 0%, #0c0c0c 70%)",
+  content: `Got rejected from an interview recently. And yeah, it really sad. You start questioning your own capabilities and realizations hits -- That kind of thing just sits in your head for a while.
+
+## Still Not Enough, But I'll Take It
+
+But thinking about it more, I don't think the rejection itself was the bad part. The bad part would've been not learning anything from it.
+
+Because honestly, it made me realize there's still a lot I don't know. Not in a "you failed" way, more like a "hey, you still got room to grow" way. It humbles you. Tells you to keep learning, keep studying, keep showing up.
+
+Still not enough though. That's the thing — being humbled doesn't mean much if you just feel bad for a day and go back to doing the same thing. It's supposed to push you. Every rejection, every "no," should be the thing that makes you reach a little further next time.
+
+So yeah, it sad. But I'll take it. It's just proof I'm not done yet — and honestly, none of us really are.
+
+## The Small Thing That Actually Got Me
+
+Funny enough, it wasn't even some hard technical question that tripped me up. It was one of the simple ones, near the last question, the kind you'd usually brush off as "oh that's easy." And that's exactly why it gets you — you stop paying attention to the small stuff because you're too busy preparing for the big scary questions, and then the small overlooked thing is what actually gets you rejected. Kind of funny when you think about it, haha.`,
+},
+
   {
   slug: "freshmen-need-experience",
   title: "Freshmen Need Experience — But Where Do You Even Get It?",
