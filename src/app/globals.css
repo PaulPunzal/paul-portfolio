@@ -48,7 +48,7 @@
 }
 
 [data-theme="dark"], :root {
-  --black: #17191d;          /* was #000000 */
+  --black: #14161a;          /* was #000000 */
   --surface-0: #0c0e11;
   --surface-1: #111113;      /* was #0c0c0c */
   --surface-1-hover: #17171a;
