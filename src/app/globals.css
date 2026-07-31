@@ -47,6 +47,18 @@
   --nav-height: 64px;
 }
 
+[data-theme="dark"], :root {
+  --black: #17191d;          /* was #000000 */
+  --surface-0: #0c0e11;
+  --surface-1: #111113;      /* was #0c0c0c */
+  --surface-1-hover: #17171a;
+  --surface-3: #141416;
+  --bg-card: #17171b;        /* was #131316 */
+  --bg-card-hover: #202024;  /* was #1c1c20 */
+  --grid-line: rgba(255, 255, 255, 0.05);  /* was 0.035 */
+  --noise-opacity: 0.55;     /* was 0.4 */
+}
+
 [data-theme="light"] {
   --black: #eeeeec;
   --bg-card: #fcfcfb;

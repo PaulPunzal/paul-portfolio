@@ -88,10 +88,8 @@ export default function ProjectsPage() {
                 <button
                   key={project.id}
                   onClick={() => handleProjectClick(project.id)}
-                  className={`group w-full text-left rounded-[14px] border px-4 py-3.5 transition-all duration-300 cursor-pointer ${
-                    isActive
-                      ? "bg-[var(--surface-3)] border-accent/30 shadow-[0_0_24px_rgba(125,249,166,0.06)]"
-                      : "bg-[var(--surface-1)] border-[rgb(var(--ink)/7%)] hover:border-[rgb(var(--ink)/15%)] hover:bg-[var(--surface-3)]"
+                  className={`group w-full text-left bento-card clickable accent-border !p-4 ${
+                    isActive ? "!bg-[var(--bg-card-hover)] !border-accent/30 shadow-[0_0_24px_rgba(125,249,166,0.06)]" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
@@ -160,7 +158,7 @@ export default function ProjectsPage() {
         <div
           key={active.id}
           ref={detailPanelRef}
-          className="flex-1 min-w-0 bg-[var(--surface-1)] border border-[rgb(var(--ink)/7%)] rounded-[18px] overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300 scroll-mt-24"
+          className="bento-card flex-1 min-w-0 !p-0 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300 scroll-mt-24"
         >
           {/* ── Detail Header ───────────────────────────────────────────── */}
           <div className="border-b border-[rgb(var(--ink)/7%)] p-5 lg:p-7">
