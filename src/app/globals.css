@@ -32,7 +32,7 @@
   --neon: 125 249 166; /* green, dark mode */
 
   /* 5. Effects */
-  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 4px 24px rgba(0, 0, 0, 0.5);
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 6px 28px rgba(0, 0, 0, 0.6);
   --noise-opacity: 0.4;
   --grid-line: rgba(255, 255, 255, 0.035);
   --scrollbar-thumb: rgba(255, 255, 255, 0.1);
@@ -48,28 +48,31 @@
 }
 
 [data-theme="dark"], :root {
-  --black: #14161a;          /* was #000000 */
-  --surface-0: #0c0e11;
-  --surface-1: #111113;      /* was #0c0c0c */
-  --surface-1-hover: #17171a;
-  --surface-3: #141416;
-  --bg-card: #17171b;        /* was #131316 */
-  --bg-card-hover: #202024;  /* was #1c1c20 */
-  --grid-line: rgba(255, 255, 255, 0.05);  /* was 0.035 */
-  --noise-opacity: 0.55;     /* was 0.4 */
+  --black: #15171b;          /* was #14161a — darker page bg */
+  --surface-0: #08090b;      /* was #0c0e11 */
+  --surface-1: #121215;      /* was #111113 */
+  --surface-1-hover: #191a1d;
+  --surface-3: #16171a;
+  --bg-card: #1f2024;        /* was #17171b — noticeably lighter than page bg now */
+  --bg-card-hover: #26272c;  /* was #202024 */
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --noise-opacity: 0.55;
+
+  --border: rgba(255, 255, 255, 0.14);       /* was 0.09 */
+  --border-hover: rgba(255, 255, 255, 0.26); /* was 0.18 */
 }
 
 [data-theme="light"] {
-  --black: #eeeeec;
-  --bg-card: #fcfcfb;
-  --bg-card-hover: #f5f5f3;
-  --surface-0: #eeeeec;
-  --surface-1: #fcfcfb;
-  --surface-1-hover: #f4f4f3;
+  --black: #e6e6e3;          /* was #eeeeec — slightly darker/greyer page bg */
+  --bg-card: #ffffff;        /* was #fcfcfb — pure white cards pop more */
+  --bg-card-hover: #f6f6f4;
+  --surface-0: #e6e6e3;
+  --surface-1: #ffffff;
+  --surface-1-hover: #f6f6f4;
   --surface-3: #f0f0ee;
 
-  --border: rgba(0, 0, 0, 0.10);
-  --border-hover: rgba(0, 0, 0, 0.20);
+  --border: rgba(0, 0, 0, 0.14);       /* was 0.10 */
+  --border-hover: rgba(0, 0, 0, 0.26); /* was 0.20 */
 
   --text-primary: #18181b;
   --text-secondary: #52525b;
@@ -81,7 +84,7 @@
   --accent-glow: rgba(21, 128, 61, 0.18);
   --neon: 0 0 0; /* black, light mode */
 
-  --card-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset, 0 4px 20px rgba(0, 0, 0, 0.06);
+  --card-shadow: 0 1px 0 rgba(0, 0, 0, 0.04) inset, 0 6px 24px rgba(0, 0, 0, 0.09);
   --noise-opacity: 0.15;
   --grid-line: rgba(0, 0, 0, 0.05);
   --scrollbar-thumb: rgba(0, 0, 0, 0.12);
