@@ -71,7 +71,7 @@ export default function ProjectsPage() {
           System Archive
         </p>
         <h1 className="font-syne text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
-          Featured Work
+          Featured Work.
         </h1>
       </div>
 

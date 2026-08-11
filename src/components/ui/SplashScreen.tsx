@@ -127,7 +127,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
         });
         if (!isMounted) return;
 
-        await delay(250);
+        await delay(120);
         if (!isMounted) return;
 
         // ── Phase 3: Resize ──
@@ -141,8 +141,8 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           x: "-50%",
           y: "-50%",
           transition: {
-            width:  { duration: 0.65, ease: [0.4, 0, 0.2, 1] },
-            height: { duration: 0.65, ease: [0.4, 0, 0.2, 1] },
+            width:  { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
+            height: { duration: 0.55, ease: [0.4, 0, 0.2, 1] },
           },
         });
         if (!isMounted) return;
@@ -158,7 +158,7 @@ export default function SplashScreen({ onComplete, heroRect }: SplashScreenProps
           x: `calc(-50% + ${offsetX}px)`,
           y: `calc(-50% + ${offsetY}px)`,
           transition: {
-            duration: 0.7,
+            duration: 0.55,
             ease: [0.4, 0, 0.2, 1],
           },
         });
