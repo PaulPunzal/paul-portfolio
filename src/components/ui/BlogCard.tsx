@@ -26,7 +26,7 @@ export default function BlogCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col rounded-bento border border-[rgb(var(--ink)/7%)] bg-[var(--surface-1)] overflow-hidden hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
+      className="group flex flex-col rounded-bento border border-[rgb(var(--ink)/10%)] bg-[var(--bg-card)] overflow-hidden hover:border-accent/30 hover:-translate-y-1 transition-all duration-300"
     >
       {/* ── Cover — real illustration if we have one, otherwise the
           gradient + icon placeholder ── */}
