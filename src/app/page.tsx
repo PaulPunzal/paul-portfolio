@@ -316,26 +316,40 @@ export default function HomePage() {
 
             {/* ── 6. WIDE TECH STACK — 4x2 ── */}
             <BentoCard ref={techStackRef} className="col-span-2 lg:col-span-4 row-span-5 md:row-span-4 lg:row-span-2 flex flex-col justify-center p-5 lg:p-8">
-              {/* Title removed for perfect laptop fit! */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 items-center">
                 
-                {skillGroups.map((group) => (
-                  <div key={group.label} className="flex flex-col gap-3">
-                    <div className="text-sm font-syne font-bold text-[rgb(var(--ink)/80%)] border-b border-[rgb(var(--ink)/10%)] pb-1 mb-1">
-                      {group.label}
-                    </div>
-                    <div className="flex flex-wrap gap-2.5">
-                      {group.items.map((tech) => (
-                        <span 
-                          key={tech.label} 
-                          className={`tech-pill${tech.highlight ? " highlight" : ""}`}
+                {skillGroups.map((group) => {
+                  // Highlighted items first, then fill up to 9 total so the card
+                  // stays compact — full list lives on the About page.
+                  const capped = [...group.items]
+                    .sort((a, b) => (b.highlight ? 1 : 0) - (a.highlight ? 1 : 0))
+                    .slice(0, 9);
+
+                  return (
+                    <div key={group.label} className="flex flex-col gap-3">
+                      <div className="text-sm font-syne font-bold text-[rgb(var(--ink)/80%)] border-b border-[rgb(var(--ink)/10%)] pb-1 mb-1">
+                        {group.label}
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        {capped.map((tech) => (
+                          <span 
+                            key={tech.label} 
+                            className={`tech-pill${tech.highlight ? " highlight" : ""}`}
+                          >
+                            {tech.label}
+                          </span>
+                        ))}
+                        <Link
+                          href="/about#skills"
+                          className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[1.5px] text-accent hover:text-accent/80 transition-colors px-1"
                         >
-                          {tech.label}
-                        </span>
-                      ))}
+                           ... See all
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
 
               </div>
             </BentoCard>
