@@ -261,13 +261,13 @@ export const blogPosts: BlogPost[] = [
   slug: "rejected-and-weirdly-grateful",
   title: "Rejected, and Weirdly Grateful For It",
   excerpt:
-    "Getting rejected from an interview really sad. But it taught me more than the interview itself would have.",
+    "Getting rejected from an interview is really sad. But it taught me more than the interview itself would have.",
   date: "JUL 2026",
   readTime: "2 min",
   iconName: "Briefcase",
   coverBgStyle:
     "linear-gradient(135deg, rgba(255,90,90,0.16) 0%, #0c0c0c 70%)",
-  content: `Got rejected from an interview recently. And yeah, it really sad. You start questioning your own capabilities and realizations hits -- That kind of thing just sits in your head for a while.
+  content: `Got rejected from an interview recently. It really sad. You start questioning your own capabilities and realizations hits really hard.
 
 ## Still Not Enough, But I'll Take It
 
@@ -295,7 +295,7 @@ Funny enough, it wasn't even some hard technical question that tripped me up. It
   coverBgStyle:
     "linear-gradient(135deg, rgba(255,170,80,0.16) 0%, #0c0c0c 70%)",
   coverImage: "/blog/freshmen-cover.png",
-  content: `One of the reasons I chose IT was something I heard back in senior high, right after the pandemic — it was known as one of the most in-demand courses out there. Looking back, I think that was right around when AI and automation started actually taking off, not just being talked about.
+  content: `One of the reasons I chose IT was something I heard back in senior high, right after the pandemic — it was known as one of the most in-demand courses out there. Looking back, I think that was right around when AI and automation started become a trend.
 
 Even before AI, tech was in-demand for a different reason. There just weren't that many developers who could actually go through the process of becoming a web developer, armed with nothing but Stack Overflow, Reddit, and whatever community forums existed at the time.
 

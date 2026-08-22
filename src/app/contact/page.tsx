@@ -33,7 +33,7 @@ export default function ContactPage() {
               <span className="font-syne font-bold text-lg sm:text-xl text-[var(--text-primary)]">Available for Work</span>
             </div>
             <p className="font-inter text-[11px] sm:text-xs text-[rgb(var(--ink)/60%)] font-light max-w-xl">
-              Graduating May 2026 · Open to entry-level and mid-level positions in web, mobile, or full-stack engineering.
+              Open to entry-level and mid-level positions in web, mobile, or full-stack developer.
             </p>
           </div>
           <div className="hidden sm:flex items-center justify-center w-12 h-12 rounded-full bg-[rgba(125,249,166,0.05)] border border-[rgba(125,249,166,0.2)] text-[rgba(125,249,166,0.8)] group-hover:scale-110 transition-transform duration-500 shrink-0 ml-6">
@@ -54,7 +54,6 @@ export default function ContactPage() {
             <div className="font-syne font-bold text-base sm:text-lg lg:text-xl text-[var(--text-primary)] mb-1 group-hover:text-accent transition-colors truncate">
               punzalpauljohn@gmail.com
             </div>
-            <p className="font-inter text-[10px] sm:text-xs text-[rgb(var(--ink)/40%)]">Response time: ~24 hours</p>
           </div>
         </BentoCard>
 

@@ -50,21 +50,6 @@ export default function BlogPage() {
           />
         ))}
       </div>
-
-      {/* ── Design credit — small and out of the way ── */}
-      <div className="mt-14 pt-6 border-t border-[rgb(var(--ink)/6%)] text-center">
-        <p className="font-mono text-[9px] tracking-[1px] text-[rgb(var(--ink)/20%)]">
-          Blog layout inspired by{" "}
-          <a
-            href="https://bryllim.com/blog"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[rgb(var(--ink)/30%)] hover:text-accent transition-colors underline underline-offset-2"
-          >
-            bryllim.com/blog
-          </a>
-        </p>
-      </div>
     </div>
   );
 }
