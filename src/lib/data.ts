@@ -33,10 +33,11 @@ export const projects: Project[] = [
     fullDesc:
       "An IoT-based automated campus entry system deployed on a Raspberry Pi 4, replacing manual gate pass workflows with multi-factor AI verification. Integrates computer vision, biometrics, and dual-database resilience into a single cohesive system.",
     bullets: [
-      "Engineered the end-to-end IoT pipeline on Raspberry Pi 4, integrating hardware peripherals and cloud services to replace manual gate pass workflows and improve throughput.",
-      "Custom-trained a YOLO/ONNX machine learning model for real-time helmet detection, automatically enforcing campus safety compliance without much relying human intervention.",
-      "Implemented multi-factor authentication combining OCR-powered driver's license scanning with fingerprint biometrics for secure, verified vehicle entry.",
+      "Replaced a manual guard-operated gate process (visual helmet check + physical license-for-numbered-card exchange) with an automated dual-station system (separate entry/exit units) for ~140 daily motorcycle users (more/less 120 students, <20 staff) at PDM school.",
+      "Trained a custom YOLO/ONNX model on a self-collected dataset of 800 images (full-face, half-face, and no-helmet cases) to detect proper helmet use in real time, reaching 86% accuracy; added adaptive LED lighting to reduce the accuracy drop seen in low-light.",
+      "Built an OCR pipeline (Tesseract + filtered-coordinate field extraction + Ratcliff/Obershelp algorithm string-matching via SequenceMatcher) to read and validate name, license number, and expiration from driver's licenses, removing the manual license-for-card exchange and its risk of lost IDs.",
       "Architected a dual-database strategy using SQLite for resilient local event logging and Firebase Realtime Database for live synchronization — zero data loss during connectivity drops — with a live admin monitoring dashboard.",
+      "Validated with 10 IT experts (>=5 years of experience in industry) and 20 end-users (Students & Staff) in acceptance testing, scoring 4.28/5 and 4.37/5 respectively ('Agree' rating on both)."
     ],
     previewTags: ["Python", "YOLO/ONNX", "Raspberry Pi", "Firebase", "OCR", "Biometrics"],
     stack: [
